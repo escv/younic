@@ -8,6 +8,7 @@ bin/
 .project
 .settings
 
+felix-cache/
 cnf/cache/
 # Windows thumbnail db
 Thumbs.db
