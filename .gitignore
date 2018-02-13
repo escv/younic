@@ -8,6 +8,7 @@ bin/
 .project
 .settings
 
+cnf/cache/
 # Windows thumbnail db
 Thumbs.db
 .metadata
