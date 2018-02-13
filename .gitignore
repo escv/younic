@@ -1,0 +1,13 @@
+.DS_Store
+.gradle/
+.gradle-wrapper/
+generated/
+bin/
+# Eclipse project files
+.classpath
+.project
+.settings
+
+# Windows thumbnail db
+Thumbs.db
+.metadata

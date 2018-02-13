@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+	<link href="/resource/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+	<script src="/resource/js/jquery-3.3.1.min.js"></script>
+	<script src="/resource/js/bootstrap.bundle.min.js"></script>
+
+	<title> younic CMS</title>
+</head>
+<body>
+	<ul>
+	<li th:each="bp: ${blogposts}">
+		<p th:text="${bp}">Hello</p>
+	</li>
+	</ul>
+<p>
+Please Choose a Day:
+<br /><br />
+<select name="day">
+<option selected="selected">Monday</option>
+<option>Tuesday</option>
+<option>Wednesday</option>
+</select>
+</p>
+
+<ul>
+<li th:each="res : ${FS.list('content/en')}">
+[[${res.name}]] [[${res.container}]]
+</li>
+</ul>
+
+<p data-text="${TestObj.createWorld('Andre')}">Will be replaced</p>
+
+<p th:text="${english}">Will be replaced</p>
+
+<footer th:utext="${impress}">
+	Hier steht das Impressum
+</footer>
+</body>
+</html>

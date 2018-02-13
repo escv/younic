@@ -1,0 +1,20 @@
+-buildpath: \
+	osgi.annotation;version=6.0.1,\
+	osgi.core;version=6.0,\
+	osgi.cmpn;version=6.0,\
+	org.apache.felix.http.servlet-api;version=1.1,\
+	net.younic.core.api;version=latest,\
+	slf4j.api,\
+	org.apache.felix.http.jetty
+
+-contract: *
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.younic.core.dispatcher
+Require-Capability: osgi.implementation; filter:="(&(osgi.implementation=osgi.http)(version>=1.0)(!(version>=2.0)))"
