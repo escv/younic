@@ -17,19 +17,36 @@
  * 
  * =============================================================================
  */
-package net.younic.tpl.thymeleaf;
+package net.youni.content.internal;
 
-import java.util.Map;
+import java.io.IOException;
 
-import org.thymeleaf.IEngineConfiguration;
-import org.thymeleaf.templateresolver.FileTemplateResolver;
-import org.thymeleaf.templateresource.ITemplateResource;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
-public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
+import net.youni.content.IResourceConverter;
+import net.younic.core.api.IResourceContentProvider;
+import net.younic.core.api.Resource;
 
+@Component(service=IResourceConverter.class)
+public class StringResourceConverter implements IResourceConverter {
+
+	@Reference
+	private IResourceContentProvider contentProvider;
+	
 	@Override
-    protected ITemplateResource computeTemplateResource(
-            final IEngineConfiguration configuration, final String ownerTemplate, final String template, final String resourceName, final String characterEncoding, final Map<String, Object> templateResolutionAttributes) {
-	    	return new MergedTemplateResource(resourceName, characterEncoding, this.getPrefix() + "index"+this.getSuffix());
-    }
+	public Object convert(Resource resource) throws IOException {
+		
+		return contentProvider.readContent(resource);
+	}
+	
+	@Override
+	public boolean handles(Resource resource) {
+		return true;
+	}
+	
+	@Override
+	public int rank() {
+		return 0;
+	}
 }

@@ -34,6 +34,9 @@ import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.util.resource.FileResource;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.util.resource.ResourceFactory;
+import org.osgi.framework.BundleException;
+import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.slf4j.Logger;
@@ -50,6 +53,7 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 
 	private static final int SECOND = 1000;
 
+	private boolean devMode = false;
 
 	private static final long serialVersionUID = 1L;
 
@@ -78,6 +82,11 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 //	private final String name;
 	private final MimeTypes mimeTypes = new MimeTypes();
 
+	
+	@Activate
+	public void activate(ComponentContext context) throws BundleException {
+		this.devMode = "true".equals(context.getBundleContext().getProperty("net.younic.devmode"));
+	}
 
 	/**
 	 * Compute the field _contextHandler.<br/>
@@ -134,6 +143,7 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 		LOG.trace("Requesting resource "+pathInfo);
 		
 		Resource resource = getResource(pathInfo);
+		resource.setAssociate(response);
 
 		try {
 
@@ -188,6 +198,9 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 			if (mimeType != null) {
 				response.setContentType(mimeType);
 			}
+			if (!devMode) {
+				addCacheControl(response);
+			}
 
 			OutputStream out = response.getOutputStream();
 			if (out != null) { // null should be just in unit testing
@@ -200,10 +213,17 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 			}
 			response.setStatus(HttpServletResponse.SC_OK);
 		} finally {
-			resource.release();
+			resource.close();
 		}
 	}
 
+	private void addCacheControl(HttpServletResponse response) {
+		int cacheAge = 5*60; // 5 minutes
+		long expiry = System.currentTimeMillis() + cacheAge *1000;
+		response.setDateHeader("Expires", expiry);
+	    response.setHeader("Cache-Control", "max-age="+ cacheAge);
+		
+	}
 	@Override
 	public Resource getResource(String path) {
 		File resFile = new File (docroot, path);

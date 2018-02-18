@@ -1,14 +1,29 @@
+/*
+ * =============================================================================
+ * 
+ *   Copyright (c) 2011-2016, The younic team (https://github.com/escv/younic)
+ * 
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ * 
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ * 
+ * =============================================================================
+ */
 package net.younic.core.dispatcher;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javax.servlet.Servlet;
@@ -20,7 +35,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import net.youni.content.IAggregatedResourceContentProvider;
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.IResourceRenderer;
 import net.younic.core.api.Resource;
@@ -36,22 +54,28 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 
 	private final String[] homePage = new String[] {"/", "html"};
 	
+	private static final Logger LOG = LoggerFactory.getLogger(DispatcherServlet.class);
+	
 	@Reference
 	private IResourceContentProvider resourceContentProvider;
 	
 	@Reference
-	private IResourceRenderer render;
+	private IAggregatedResourceContentProvider aggregatedResourceContentProvider;
+	
+	@Reference
+	private IResourceRenderer renderer;
 	
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pathInfo = request.getPathInfo();
+		LOG.info("Dispatch "+pathInfo);
 		
 		String[] interpretPath = interpretPath(pathInfo);
 		Resource contentFolder = new Resource();
 		contentFolder.setContainer(true);
 		contentFolder.setPath(interpretPath[0]);
 		
-		Map<String, Serializable> contents = resourceContentProvider.readContents(contentFolder);	
+		Map<String, Object> contents = aggregatedResourceContentProvider.provideContents(contentFolder);
 		
 		// read the template.ref
 		String tmplRef = fetchTemplateRef(interpretPath[0]);
@@ -60,7 +84,8 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		
 		PrintWriter writer = response.getWriter();
 		try {
-			render.render(tmplRef == null ? "index" : tmplRef , prepareContext(contents), writer);
+//			renderer.render(tmplRef == null ? "index" : tmplRef , prepareContext(contents), writer);
+			renderer.render(tmplRef == null ? "index" : tmplRef , contents, writer);
 		} catch (ResourceRenderingFailedException e) {
 			writer.write(e.getMessage());
 		}
@@ -80,44 +105,6 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 			}
 		} while (parts.pollLast() != null);
 		return null;
-	}
-	
-	// This code should be extracted to a TPL bundle as a service
-	@SuppressWarnings("unchecked")
-	private Map<String, Object> prepareContext(Map<String, Serializable> contents){
-		Map<String, Object> result = new HashMap<>();
-		for (Entry<String, Serializable> e : contents.entrySet()) {
-			Object val = e.getValue();
-			int fileExtSepPos = e.getKey().lastIndexOf('.');
-			
-			String entryName = e.getKey();
-			if (fileExtSepPos > 0) {
-				entryName = entryName.substring(0, fileExtSepPos);
-			}
-			int orderSepPos = e.getKey().lastIndexOf('$');
-			if (orderSepPos > 0) {
-				entryName = entryName.substring(0, orderSepPos);
-				try {
-					//int order = Integer.parseInt(entryName.substring(orderSepPos));
-					List<Object> values = null;
-					Object currentVal = result.get(entryName);
-					if (currentVal == null) {
-						values = new LinkedList<>();
-					} else if (currentVal instanceof List<?>) {
-						values = (List) currentVal;
-					} else {
-						values = new LinkedList<>();
-						values.add(currentVal);
-					}
-					values.add(val);
-					val = (Serializable) values;
-				} catch (NumberFormatException ex) {
-					//silent here
-				}
-			}
-			result.put(entryName, val);
-		}
-		return result;
 	}
 	
 	private String[] interpretPath(String pathInfo) {

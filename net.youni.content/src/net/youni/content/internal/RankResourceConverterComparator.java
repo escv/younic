@@ -17,19 +17,18 @@
  * 
  * =============================================================================
  */
-package net.younic.tpl.thymeleaf;
+package net.youni.content.internal;
 
-import java.util.Map;
+import java.util.Comparator;
 
-import org.thymeleaf.IEngineConfiguration;
-import org.thymeleaf.templateresolver.FileTemplateResolver;
-import org.thymeleaf.templateresource.ITemplateResource;
+import net.youni.content.IResourceConverter;
 
-public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
+public class RankResourceConverterComparator implements Comparator<IResourceConverter> {
 
 	@Override
-    protected ITemplateResource computeTemplateResource(
-            final IEngineConfiguration configuration, final String ownerTemplate, final String template, final String resourceName, final String characterEncoding, final Map<String, Object> templateResolutionAttributes) {
-	    	return new MergedTemplateResource(resourceName, characterEncoding, this.getPrefix() + "index"+this.getSuffix());
-    }
+	public int compare(IResourceConverter o1, IResourceConverter o2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

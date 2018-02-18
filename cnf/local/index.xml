@@ -1,479 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<repository increment="1518421159000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<repository increment="1518729713000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="3cd3ef723e05417b27e0ddbfd49ef1509d2408ce3f971cbd8a2030244ca80c7d"/>
-      <attribute name="url" value="thymeleaf-2.1.1_2.jar"/>
-      <attribute name="size" type="Long" value="1676142"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
-    </capability>
-    <capability namespace="osgi.wiring.bundle">
-      <attribute name="osgi.wiring.bundle" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.host">
-      <attribute name="osgi.wiring.host" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.cache"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.context"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.dialect"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.doctype"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.doctype.resolution"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.doctype.translation"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.dom"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.dtd.standard"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.dtd.thymeleaf"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.exceptions"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.expression"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.fragment"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.messageresolver"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.processor"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.processor.attr"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.processor.comment"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.processor.document"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.processor.element"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.processor.text"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.resourceresolver"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard.expression"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard.fragment"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard.inliner"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard.processor.attr"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard.processor.element"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.standard.processor.text"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templatemode"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templateparser"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templateparser.html"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templateparser.xmldom"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templateparser.xmlsax"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templateresolver"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.templatewriter"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.util"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="org.thymeleaf.xml.thymeleaf"/>
-      <attribute name="version" type="Version" value="2.1.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="ognl"/>
-      <attribute name="version" type="Version" value="3.0.6"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="ognl.enhance"/>
-      <attribute name="version" type="Version" value="3.0.6"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="ognl.internal"/>
-      <attribute name="version" type="Version" value="3.0.6"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.bytecode"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.bytecode.analysis"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.bytecode.annotation"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.bytecode.stackmap"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.compiler"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.compiler.ast"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.convert"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.expr"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.runtime"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.scopedpool"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.tools"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.tools.reflect"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.tools.rmi"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.tools.web"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.util"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <capability namespace="osgi.wiring.package">
-      <attribute name="osgi.wiring.package" value="javassist.util.proxy"/>
-      <attribute name="version" type="Version" value="3.16.1"/>
-      <attribute name="bundle-symbolic-name" value="com.enonic.osgi.bundles.thymeleaf"/>
-      <attribute name="bundle-version" type="Version" value="2.1.1.2"/>
-    </capability>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi.connect)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi.event)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi.request)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.servlet)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.servlet.http)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.apache.xerces.parsers)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.apache.xerces.xni.parser)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.cyberneko.html)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.ext)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
-      <directive name="resolution" value="optional"/>
-    </requirement>
-    <requirement namespace="osgi.ee">
-      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.5))"/>
-    </requirement>
-  </resource>
-  <resource>
-    <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="osgi.identity" value="net.younic.thymeleaf-bundle"/>
       <attribute name="type" value="osgi.bundle"/>
       <attribute name="version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="acc153e39e2fd7c39c7e3f6103eba0c0cf6931098fe4a20a8dd4fdc973842b04"/>
-      <attribute name="url" value="thymeleaf-3.0.9.jar"/>
-      <attribute name="size" type="Long" value="1129514"/>
+      <attribute name="osgi.content" value="9317c8136ca491e713efbeff1355f2c2ea20dfc8bc56c672a3b8870e55818441"/>
+      <attribute name="url" value="thymeleaf-bundle-3.0.9.jar"/>
+      <attribute name="size" type="Long" value="863821"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="osgi.wiring.bundle" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="osgi.wiring.bundle" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="osgi.wiring.host" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="osgi.wiring.host" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="org.thymeleaf"/>
       <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="org.thymeleaf.context"/>
       <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="org.thymeleaf.templateresolver"/>
       <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="org.thymeleaf.expression"/>
       <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
       <attribute name="osgi.wiring.package" value="org.thymeleaf.templateresource"/>
       <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.osgi.bundles.thymeleaf"/>
+      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
+      <attribute name="bundle-version" type="Version" value="3.0.9"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="osgi.wiring.package" value="org.thymeleaf.exceptions"/>
+      <attribute name="version" type="Version" value="3.0.9"/>
+      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
       <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
