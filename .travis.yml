@@ -1,5 +1,7 @@
 sudo: false
 
+install: gradle wrapper --gradle-version 4.1
+
 language: java
 
 jdk:
