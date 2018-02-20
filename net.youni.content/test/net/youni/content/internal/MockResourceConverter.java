@@ -19,15 +19,48 @@
  */
 package net.youni.content.internal;
 
-import java.util.Comparator;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import net.youni.content.IResourceConverter;
+import net.younic.core.api.Resource;
 
-public class RankResourceConverterComparator implements Comparator<IResourceConverter> {
+/**
+ * @author Andre Albert
+ *
+ */
+class MockResourceConverter implements IResourceConverter {
 
-	@Override
-	public int compare(IResourceConverter o1, IResourceConverter o2) {
-		return o2.rank()-o1.rank();
+	private int rank;
+	private File docRoot;
+
+	public MockResourceConverter(int rank) {
+		super();
+		this.rank = rank;
 	}
 
+	public MockResourceConverter(int rank, File docRoot) {
+		super();
+		this.rank = rank;
+		this.docRoot = docRoot;
+	}
+
+	@Override
+	public Object convert(Resource resource) throws IOException {
+		File dest = new File (new File(docRoot, resource.getPath()), resource.getName());
+		return new String(Files.readAllBytes(Paths.get(dest.getPath())));
+	}
+
+	@Override
+	public boolean handles(Resource resource) {
+		return docRoot!=null;
+	}
+
+	@Override
+	public int rank() {
+		return rank;
+	}
+	
 }

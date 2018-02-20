@@ -7,4 +7,7 @@ language: java
 jdk:
   - oraclejdk8
 
+after_success:
+  - ./gradlew cobertura coveralls
+
 script: ./gradlew clean test jar --continue

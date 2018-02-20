@@ -6,11 +6,26 @@ public class Resource implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * name of the node element or null if it is a folder (container = true)
+	 */
 	private String name;
 	private String path;
 	private boolean container;
 	private boolean hidden;
 	
+	
+	public Resource() {
+		super();
+	}
+
+	public Resource(String path, String name, boolean container) {
+		super();
+		this.name = name;
+		this.path = path;
+		this.container = container;
+	}
+
 	public String getName() {
 		return name;
 	}
