@@ -16,3 +16,5 @@ A example web content management environment can be found in the root/ folder.
 ### Credits:
 The sample web page is based on: http://demo.themewagon.com/preview/bootstrap-4-classified-website-template
 The hero image was taken from https://pixabay.com/en/fog-forest-mountain-world-clouds-1535201/
+
+[![Build Status](https://travis-ci.org/escv/younic.svg?branch=master)](https://travis-ci.org/escv/younic)
