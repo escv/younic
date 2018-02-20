@@ -39,3 +39,4 @@
 
 # JUnit
 junit: org.apache.servicemix.bundles.junit; version=4.12
+jmock: org.jmock.jmock-junit4; version=2.8.2

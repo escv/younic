@@ -13,3 +13,5 @@ cnf/cache/
 # Windows thumbnail db
 Thumbs.db
 .metadata
+
+bin_test/

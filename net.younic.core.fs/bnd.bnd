@@ -5,8 +5,11 @@
 	net.younic.core.api;version=latest
 
 -testpath: \
-	${junit}
-
+	${junit},\
+	org.jmock:jmock; version=2.8.2,\
+	org.jmock:jmock-junit4; version=2.8.2
+	
+	
 javac.source: 1.8
 javac.target: 1.8
 
