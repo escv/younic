@@ -38,7 +38,9 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferencePolicy;
 
 import net.youni.content.IAggregatedResourceContentProvider;
+import net.youni.content.IContextPostProcessor;
 import net.youni.content.IResourceConverter;
+import net.younic.core.api.IRankable;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
 
@@ -51,7 +53,10 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 	@Reference(policy=ReferencePolicy.DYNAMIC)
 	final List<IResourceConverter> converters = new CopyOnWriteArrayList<>();
 	
-	private Comparator<IResourceConverter> rankComparator;
+	@Reference(policy=ReferencePolicy.DYNAMIC)
+	final List<IContextPostProcessor> processors = new CopyOnWriteArrayList<>();
+	
+	private Comparator<IRankable> rankComparator;
 
 	@Override
 	public Map<String, Object> provideContents(Resource resource) throws IOException {
@@ -74,7 +79,14 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 			}			
 		}
 		
-		return prepareContext(result);
+		// allow to hook in post processor for result modification
+		Map<String, Object> context = prepareContext(result);
+		processors.sort(rankComparator);
+		for (IContextPostProcessor processor : processors) {
+			processor.processContext(context);
+		}
+		
+		return context;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

@@ -19,8 +19,11 @@
  */
 package net.younic.core.fs;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.osgi.framework.BundleException;
@@ -67,4 +70,17 @@ public class FileSystemResourceContentProvider implements IResourceContentProvid
 		return content;
 	}
 
+	@Override
+	public InputStream fetchContentStream(Resource resource) throws IOException {
+		return fetchContentStream(resource.getPath() + "/" + resource.getName());
+	}
+
+	@Override
+	public InputStream fetchContentStream(String resourceFQName) throws IOException {
+		Path path = Paths.get(docroot, resourceFQName);
+		
+		return new FileInputStream(path.toFile());
+	}
+
+	
 }

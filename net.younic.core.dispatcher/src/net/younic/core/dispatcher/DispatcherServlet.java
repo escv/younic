@@ -94,7 +94,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		writer.close();
 	}
 	
-	private String fetchTemplateRef(String contentFolder) {
+	private String fetchTemplateRef(String contentFolder) throws IOException {
 		
 		LinkedList<String> parts = new LinkedList<String>(Arrays.asList(contentFolder.split("/")));
 		do {

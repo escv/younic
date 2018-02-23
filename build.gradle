@@ -1,7 +1,8 @@
 // Available to customize the build
 
 plugins {
-    id 'net.saliman.cobertura' version '2.3.1'
+	id 'java'
+    id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.8.2'
 }
 
@@ -13,4 +14,51 @@ task wrapper(type: Wrapper) {
   jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
 }
 
-cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
+task escv() {
+	def aggSourceDirs = [] as LinkedList
+	bndWorkspace.models.each{
+		aggSourceDirs.add(it.value.output)
+	}
+	println aggSourceDirs
+}
+
+task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+    description = 'Generates an aggregate report from all subprojects'
+
+    //dependsOn(publishedProjects.test)
+    def aggProjects = [] as LinkedList
+    def aggSourceDirs = [] as LinkedList
+    def aggOutDirs = [] as LinkedList
+	bndWorkspace.models.each{
+		aggSourceDirs.addAll(it.value.allsourcepath)
+		aggOutDirs.add(it.value.output)
+		aggProjects.add(it.value)
+	}
+
+    additionalSourceDirs = files(aggSourceDirs)
+    sourceDirectories = files(aggSourceDirs)
+    classDirectories = files(aggOutDirs)
+    executionData = files(aggProjects.jacocoTestReport.executionData)
+
+    reports {
+        html.enabled = true // human readable
+        xml.enabled = true // required by coveralls
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
+    
+}
+coveralls {
+	def aggSourceDirs = [] as LinkedList
+	bndWorkspace.models.each{
+		aggSourceDirs.addAll(it.value.allsourcepath)
+	}
+    sourceDirs = aggSourceDirs.flatten()
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+}
+tasks.coveralls {
+    dependsOn jacocoRootReport
+}
+

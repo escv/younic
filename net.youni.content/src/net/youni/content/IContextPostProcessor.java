@@ -17,18 +17,18 @@
  * 
  * =============================================================================
  */
-package net.youni.content.internal;
+package net.youni.content;
 
-import java.util.Comparator;
+import java.util.Map;
 
-import net.youni.content.IResourceConverter;
 import net.younic.core.api.IRankable;
 
-public class RankResourceConverterComparator implements Comparator<IRankable> {
+/**
+ * @author Andre Albert
+ *
+ */
+public interface IContextPostProcessor extends IRankable {
 
-	@Override
-	public int compare(IRankable o1, IRankable o2) {
-		return o2.rank()-o1.rank();
-	}
-
+	
+	Map<String, Object> processContext(Map<String, Object> context);
 }

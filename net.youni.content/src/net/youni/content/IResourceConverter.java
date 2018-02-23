@@ -21,13 +21,13 @@ package net.youni.content;
 
 import java.io.IOException;
 
+import net.younic.core.api.IRankable;
 import net.younic.core.api.Resource;
 
-public interface IResourceConverter {
+public interface IResourceConverter extends IRankable {
 
 	Object convert(Resource resource) throws IOException;
 	
 	boolean handles(Resource resource);
 	
-	int rank();
 }
