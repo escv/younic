@@ -17,5 +17,17 @@
  * 
  * =============================================================================
  */
-@org.osgi.annotation.versioning.Version("1.0.0")
-package net.youni.content;
+package net.younic.content;
+
+import java.io.IOException;
+
+import net.younic.core.api.IRankable;
+import net.younic.core.api.Resource;
+
+public interface IResourceConverter extends IRankable {
+
+	Object convert(Resource resource) throws IOException;
+	
+	boolean handles(Resource resource);
+	
+}

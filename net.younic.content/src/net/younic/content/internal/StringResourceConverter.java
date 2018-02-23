@@ -17,50 +17,36 @@
  * 
  * =============================================================================
  */
-package net.youni.content.internal;
+package net.younic.content.internal;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import net.youni.content.IResourceConverter;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+
+import net.younic.content.IResourceConverter;
+import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.Resource;
 
-/**
- * @author Andre Albert
- *
- */
-class MockResourceConverter implements IResourceConverter {
+@Component(service=IResourceConverter.class)
+public class StringResourceConverter implements IResourceConverter {
 
-	private int rank;
-	private File docRoot;
-
-	public MockResourceConverter(int rank) {
-		super();
-		this.rank = rank;
-	}
-
-	public MockResourceConverter(int rank, File docRoot) {
-		super();
-		this.rank = rank;
-		this.docRoot = docRoot;
-	}
-
+	@Reference
+	private IResourceContentProvider contentProvider;
+	
 	@Override
 	public Object convert(Resource resource) throws IOException {
-		File dest = new File (new File(docRoot, resource.getPath()), resource.getName());
-		return new String(Files.readAllBytes(Paths.get(dest.getPath())));
-	}
-
-	@Override
-	public boolean handles(Resource resource) {
-		return docRoot!=null;
-	}
-
-	@Override
-	public int rank() {
-		return rank;
+		
+		return contentProvider.readContent(resource);
 	}
 	
+	@Override
+	public boolean handles(Resource resource) {
+		return true;
+	}
+	
+	@Override
+	public int rank() {
+		return 0;
+	}
 }

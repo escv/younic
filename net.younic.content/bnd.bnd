@@ -11,5 +11,5 @@ javac.source: 1.8
 javac.target: 1.8
 
 Bundle-Version: 0.0.0.${tstamp}
-Private-Package: net.youni.content.internal
-Export-Package: net.youni.content
+Private-Package: net.younic.content.internal
+Export-Package: net.younic.content

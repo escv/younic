@@ -17,7 +17,7 @@
  * 
  * =============================================================================
  */
-package net.youni.content;
+package net.younic.content;
 
 import java.util.Map;
 

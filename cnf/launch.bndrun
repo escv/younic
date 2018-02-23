@@ -7,7 +7,8 @@
 -runproperties: \
 	org.osgi.service.http.port=8282,\
 	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
-	net.younic.cms.root=/Users/aalbert/Development/cynic/root
+	net.younic.cms.root=/Users/aalbert/Development/cynic/root,\
+	net.younic.devmode=true
 
 
 
@@ -41,4 +42,4 @@
 	org.unbescape;version='[1.1.5,1.1.6)',\
 	slf4j.api;version='[1.7.25,1.7.26)',\
 	slf4j.log4j12;version='[1.7.25,1.7.26)',\
-	net.youni.content;version=snapshot
+	net.younic.content;version=snapshot

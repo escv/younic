@@ -17,7 +17,7 @@
  * 
  * =============================================================================
  */
-package net.youni.content.internal;
+package net.younic.content.internal;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -37,9 +37,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferencePolicy;
 
-import net.youni.content.IAggregatedResourceContentProvider;
-import net.youni.content.IContextPostProcessor;
-import net.youni.content.IResourceConverter;
+import net.younic.content.IAggregatedResourceContentProvider;
+import net.younic.content.IContextPostProcessor;
+import net.younic.content.IResourceConverter;
 import net.younic.core.api.IRankable;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;

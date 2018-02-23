@@ -38,7 +38,7 @@ import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.youni.content.IAggregatedResourceContentProvider;
+import net.younic.content.IAggregatedResourceContentProvider;
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.IResourceRenderer;
 import net.younic.core.api.Resource;

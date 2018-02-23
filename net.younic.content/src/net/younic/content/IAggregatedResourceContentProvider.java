@@ -17,18 +17,14 @@
  * 
  * =============================================================================
  */
-package net.youni.content.internal;
+package net.younic.content;
 
-import java.util.Comparator;
+import java.io.IOException;
+import java.util.Map;
 
-import net.youni.content.IResourceConverter;
-import net.younic.core.api.IRankable;
+import net.younic.core.api.Resource;
 
-public class RankResourceConverterComparator implements Comparator<IRankable> {
+public interface IAggregatedResourceContentProvider {
 
-	@Override
-	public int compare(IRankable o1, IRankable o2) {
-		return o2.rank()-o1.rank();
-	}
-
+	Map<String, Object> provideContents(Resource resource) throws IOException;
 }

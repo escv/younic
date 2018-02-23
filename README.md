@@ -14,6 +14,12 @@ Younic is based on a OSGi environment (Felix) so it can be extend by new bundles
 
 A example web content management environment can be found in the root/ folder.
 
+### Get started (Developer)###
+* Use eclipse bndtools
+* open cnf/launch.bndrun
+* Resolve Dependencies
+* Click on Run OSGi
+
 ### Credits:
 The sample web page is based on: http://demo.themewagon.com/preview/bootstrap-4-classified-website-template
 The hero image was taken from https://pixabay.com/en/fog-forest-mountain-world-clouds-1535201/

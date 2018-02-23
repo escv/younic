@@ -31,6 +31,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.younic.content.internal.WhiteboardAggregatedResourceContentProvider;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
 

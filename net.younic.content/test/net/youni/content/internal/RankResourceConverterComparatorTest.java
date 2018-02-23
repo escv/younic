@@ -27,7 +27,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.youni.content.IResourceConverter;
+import net.younic.content.IResourceConverter;
+import net.younic.content.internal.RankResourceConverterComparator;
 
 /**
  * @author Andre Albert

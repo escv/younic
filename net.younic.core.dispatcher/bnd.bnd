@@ -6,7 +6,7 @@
 	net.younic.core.api;version=latest,\
 	slf4j.api,\
 	org.apache.felix.http.jetty,\
-	net.youni.content;version=latest
+	net.younic.content;version=latest
 
 -contract: *
 
