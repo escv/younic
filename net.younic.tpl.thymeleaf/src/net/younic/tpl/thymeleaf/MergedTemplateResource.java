@@ -61,7 +61,8 @@ public class MergedTemplateResource implements ITemplateResource {
 		if (indexTpl == null) {
 			indexTpl = new String(Files.readAllBytes(Paths.get(indexTplPath)));
 		}
-		String merged = indexTpl.replace("<!-- MAIN-TPL -->", new String(Files.readAllBytes(Paths.get(resourceName))));
+		
+		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) ? "" : new String(Files.readAllBytes(Paths.get(resourceName))));
 		return new StringReader(merged);
 	}
 

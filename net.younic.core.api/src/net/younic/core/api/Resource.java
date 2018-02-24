@@ -13,7 +13,7 @@ public class Resource implements Serializable {
 	private String path;
 	private boolean container;
 	private boolean hidden;
-	
+	private long lastModified;
 	
 	public Resource() {
 		super();
@@ -58,6 +58,14 @@ public class Resource implements Serializable {
 		this.hidden = hidden;
 	}
 	
+	public long getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(long lastModified) {
+		this.lastModified = lastModified;
+	}
+
 	@Override
 	public String toString() {
 		return "" + path+"/"+name;

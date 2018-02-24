@@ -5,9 +5,9 @@
 -resolve.effective: active;skip:="osgi.service"
 
 -runproperties: \
-	org.osgi.service.http.port=8282,\
 	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
-	net.younic.cms.root=/Users/aalbert/Development/cynic/root,\
+	org.osgi.service.http.port=8282,\
+	net.younic.cms.root=../root,\
 	net.younic.devmode=true
 
 

@@ -65,6 +65,7 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 		}
 		converters.sort(rankComparator);
 		
+		long lastModified = 0L;
 		Map<String, Object> result = new TreeMap<>();
 		String[] elems = resource.getPath().split("/");
 		for (int i = 0; i<elems.length; i++) {
@@ -74,17 +75,22 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 					Optional<IResourceConverter> converter = converters.stream().filter(e->e.handles(entry)).findFirst();
 					if (converter.isPresent()) {
 						result.put(entry.getName(), converter.get().convert(entry));
+						if (entry.getLastModified() > lastModified) {
+							lastModified = entry.getLastModified();
+						}
 					}
 				}
 			}			
 		}
 		
+		
+		
 		// allow to hook in post processor for result modification
 		Map<String, Object> context = prepareContext(result);
 		processors.sort(rankComparator);
-		for (IContextPostProcessor processor : processors) {
-			processor.processContext(context);
-		}
+		processors.stream().forEach(p -> p.processContext(context));
+		
+		context.put("net.younic.content.lastModified", lastModified);
 		
 		return context;
 	}

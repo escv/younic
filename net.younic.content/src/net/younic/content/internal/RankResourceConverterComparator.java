@@ -21,7 +21,6 @@ package net.younic.content.internal;
 
 import java.util.Comparator;
 
-import net.younic.content.IResourceConverter;
 import net.younic.core.api.IRankable;
 
 public class RankResourceConverterComparator implements Comparator<IRankable> {

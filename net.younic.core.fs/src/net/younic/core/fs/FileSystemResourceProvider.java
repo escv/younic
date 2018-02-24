@@ -56,10 +56,8 @@ public class FileSystemResourceProvider implements IResourceProvider {
 		
 		if (folder.isDirectory()) {
 			for (File elem : folder.listFiles(this.fileFilter)) {
-				Resource r = new Resource();
-				r.setContainer(elem.isDirectory());
-				r.setName(elem.getName());
-				r.setPath(pathSpec);
+				Resource r = new Resource(pathSpec, elem.getName(), elem.isDirectory());
+				r.setLastModified(elem.lastModified());
 				result.add(r);
 			}
 		}

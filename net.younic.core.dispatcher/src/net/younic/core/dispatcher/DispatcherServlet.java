@@ -68,7 +68,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pathInfo = request.getPathInfo();
-		LOG.info("Dispatch "+pathInfo);
+		LOG.trace("Dispatch "+pathInfo);
 		
 		String[] interpretPath = interpretPath(pathInfo);
 		Resource contentFolder = new Resource();
@@ -76,7 +76,15 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		contentFolder.setPath(interpretPath[0]);
 		
 		Map<String, Object> contents = aggregatedResourceContentProvider.provideContents(contentFolder);
-		
+
+		long modifiedSRV = (Long)contents.get("net.younic.content.lastModified");
+		long modidiedCLI = request.getDateHeader("If-Modified-Since");
+		response.addDateHeader("Last-Modified", modifiedSRV);
+		if (modidiedCLI != -1 && modifiedSRV <= modidiedCLI) {
+			response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+	        return;
+		}
+
 		// read the template.ref
 		String tmplRef = fetchTemplateRef(interpretPath[0]);
 		
@@ -84,7 +92,6 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		
 		PrintWriter writer = response.getWriter();
 		try {
-//			renderer.render(tmplRef == null ? "index" : tmplRef , prepareContext(contents), writer);
 			renderer.render(tmplRef == null ? "index" : tmplRef , contents, writer);
 		} catch (ResourceRenderingFailedException e) {
 			writer.write(e.getMessage());

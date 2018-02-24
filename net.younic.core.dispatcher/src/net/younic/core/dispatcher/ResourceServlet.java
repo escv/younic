@@ -71,7 +71,7 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 	private static final String ETAG = "ETag";
 	// CHECKSTYLE:ON
 
-	private String docroot = "/Users/aalbert/Development/cynic/root/resource";
+	private File docroot;
 	
 	private static final Logger LOG = LoggerFactory
 			.getLogger(ResourceServlet.class);
@@ -86,6 +86,7 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 	@Activate
 	public void activate(ComponentContext context) throws BundleException {
 		this.devMode = "true".equals(context.getBundleContext().getProperty("net.younic.devmode"));
+		this.docroot = new File(context.getBundleContext().getProperty("net.younic.cms.root"),"resource/");
 	}
 
 	/**
@@ -119,6 +120,7 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 	protected void service(final HttpServletRequest request,
 						 final HttpServletResponse response) throws ServletException,
 			IOException {
+		LOG.trace("Request "+request.getPathInfo());
 		if (response.isCommitted()) {
 			return;
 		}
@@ -153,14 +155,15 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 				}
 				return;
 			}
-
-
+			
 			if (resource != null && resource.isDirectory()) {
 				// directory listing
 				response.sendError(HttpServletResponse.SC_FORBIDDEN);
 				return;
 			}
-
+			
+			response.addDateHeader("Last-Modified", resource.lastModified());
+			
 			// if the request contains an etag and its the same for the
 			// resource, we deliver a NOT MODIFIED response
 			String eTag = String.valueOf(resource.lastModified());
@@ -210,9 +213,13 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 					// Write content normally
 					resource.writeTo(out, 0, resource.length());
 				}
+			} else {
+				LOG.error("Response Stream for "+pathInfo+" is null");
 			}
 			response.setStatus(HttpServletResponse.SC_OK);
-		} finally {
+		} catch(Throwable e) {
+			LOG.error(e.getMessage(), e);
+		}finally {
 			resource.close();
 		}
 	}
@@ -229,6 +236,8 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 		File resFile = new File (docroot, path);
 		if (resFile.exists() && resFile.canRead()) {
 			return new FileResource(resFile.toURI());
+		} else {
+			LOG.warn("Resource "+path+" does not exist");
 		}
 		return null;
 	}
