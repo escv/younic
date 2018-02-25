@@ -33,7 +33,8 @@ import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
 
 @Component(
-	service=IResourceProvider.class
+	service=IResourceProvider.class,
+	property="type=impl"
 )
 public class FileSystemResourceProvider implements IResourceProvider {
 
@@ -58,10 +59,36 @@ public class FileSystemResourceProvider implements IResourceProvider {
 			for (File elem : folder.listFiles(this.fileFilter)) {
 				Resource r = new Resource(pathSpec, elem.getName(), elem.isDirectory());
 				r.setLastModified(elem.lastModified());
+				r.setSize(elem.length());
 				result.add(r);
 			}
 		}
 		
+		return result;
+	}
+	
+	/* (non-Javadoc)
+	 * @see net.younic.core.api.IResourceProvider#fetchResource(java.lang.String)
+	 */
+	@Override
+	public Resource fetchResource(String pathSpec) {
+		File resource = new File(docroot, pathSpec);
+		String path = pathSpec;
+		String name = null;
+		
+		if (!resource.isDirectory()) {
+			
+			int lastSepPos = pathSpec.lastIndexOf('/');
+			if (lastSepPos >= 0) {
+				path = pathSpec.substring(0, lastSepPos);
+				name = pathSpec.substring(lastSepPos+1);
+			}
+		}
+		Resource result = new Resource(path, name, resource.isDirectory());
+		result.setLastModified(resource.lastModified());
+		if (!resource.isDirectory()) {
+			result.setSize(resource.length());
+		}
 		return result;
 	}
 	

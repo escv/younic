@@ -14,12 +14,16 @@ task wrapper(type: Wrapper) {
   jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
 }
 
-task escv() {
+task dist() {
 	def aggSourceDirs = [] as LinkedList
 	bndWorkspace.models.each{
-		aggSourceDirs.add(it.value.output)
+		def fromFile = new File(it.value.base, "generated/")
+		copy {
+            from fromFile
+            into 'cnf/run/bundle/'
+            include '**/*.jar'
+        }
 	}
-	println aggSourceDirs
 }
 
 task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
@@ -29,10 +33,16 @@ task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
     def aggProjects = [] as LinkedList
     def aggSourceDirs = [] as LinkedList
     def aggOutDirs = [] as LinkedList
+    def aggExecData = [] as LinkedList
 	bndWorkspace.models.each{
 		aggSourceDirs.addAll(it.value.allsourcepath)
 		aggOutDirs.add(it.value.output)
 		aggProjects.add(it.value)
+		def testReport = new File(it.value.base, "generated/test-reports/test/binary/output.bin")
+		if (testReport.exists()) {
+			aggExecData.add(testReport)
+		}
+		
 	}
 
     additionalSourceDirs = files(aggSourceDirs)
@@ -41,14 +51,10 @@ task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
     executionData = files(aggProjects.jacocoTestReport.executionData)
 
     reports {
-        html.enabled = true // human readable
+        //html.enabled = true // human readable
         xml.enabled = true // required by coveralls
-    }
-
-    doFirst {
-        executionData = files(executionData.findAll { it.exists() })
-    }
-    
+        //xml.destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    } 
 }
 coveralls {
 	def aggSourceDirs = [] as LinkedList

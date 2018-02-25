@@ -47,7 +47,9 @@ import net.younic.core.api.Resource;
 @Component(service=IAggregatedResourceContentProvider.class)
 public class WhiteboardAggregatedResourceContentProvider implements IAggregatedResourceContentProvider {
 
-	@Reference
+	@Reference(
+			target="(type=cache)"
+			)
 	private IResourceProvider resourceProvider;
 	
 	@Reference(policy=ReferencePolicy.DYNAMIC)

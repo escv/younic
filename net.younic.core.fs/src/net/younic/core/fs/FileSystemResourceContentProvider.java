@@ -37,7 +37,8 @@ import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
 
 @Component(
-	service=IResourceContentProvider.class
+	service=IResourceContentProvider.class,
+	property="type=impl"
 )
 public class FileSystemResourceContentProvider implements IResourceContentProvider {
 

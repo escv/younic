@@ -106,6 +106,14 @@ public class WhiteboardAggregatedResourceTest {
 		public Collection<Resource> list(String pathSpec) {
 			throw new UnsupportedOperationException();
 		}
+
+		/* (non-Javadoc)
+		 * @see net.younic.core.api.IResourceProvider#fetchResource(java.lang.String)
+		 */
+		@Override
+		public Resource fetchResource(String pathSpec) {
+			throw new UnsupportedOperationException();
+		}
 		
 	}
 }

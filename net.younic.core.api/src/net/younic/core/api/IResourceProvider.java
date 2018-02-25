@@ -10,4 +10,6 @@ public interface IResourceProvider {
 	Collection<Resource> list(String... pathSpec);
 	
 	Collection<Resource> list(String pathSpec);
+	
+	Resource fetchResource(String pathSpec);
 }

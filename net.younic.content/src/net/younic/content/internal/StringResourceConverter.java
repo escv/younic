@@ -31,7 +31,7 @@ import net.younic.core.api.Resource;
 @Component(service=IResourceConverter.class)
 public class StringResourceConverter implements IResourceConverter {
 
-	@Reference
+	@Reference(target="(type=cache)")
 	private IResourceContentProvider contentProvider;
 	
 	@Override

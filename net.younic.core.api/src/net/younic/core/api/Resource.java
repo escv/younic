@@ -14,13 +14,16 @@ public class Resource implements Serializable {
 	private boolean container;
 	private boolean hidden;
 	private long lastModified;
+	private long size;
 	
 	public Resource() {
 		super();
+		this.size=0L;
+		this.lastModified=0L;
 	}
 
 	public Resource(String path, String name, boolean container) {
-		super();
+		this();
 		this.name = name;
 		this.path = path;
 		this.container = container;
@@ -64,6 +67,15 @@ public class Resource implements Serializable {
 
 	public void setLastModified(long lastModified) {
 		this.lastModified = lastModified;
+	}
+
+	
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
 	}
 
 	@Override

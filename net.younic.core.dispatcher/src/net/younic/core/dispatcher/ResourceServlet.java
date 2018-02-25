@@ -73,8 +73,7 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 
 	private File docroot;
 	
-	private static final Logger LOG = LoggerFactory
-			.getLogger(ResourceServlet.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ResourceServlet.class);
 
 	//private final HttpContext httpContext;
 	//private final String contextName;
@@ -120,7 +119,6 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 	protected void service(final HttpServletRequest request,
 						 final HttpServletResponse response) throws ServletException,
 			IOException {
-		LOG.trace("Request "+request.getPathInfo());
 		if (response.isCommitted()) {
 			return;
 		}
@@ -142,7 +140,6 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 			included = Boolean.FALSE;
 			pathInfo = request.getPathInfo();
 		}
-		LOG.trace("Requesting resource "+pathInfo);
 		
 		Resource resource = getResource(pathInfo);
 		resource.setAssociate(response);

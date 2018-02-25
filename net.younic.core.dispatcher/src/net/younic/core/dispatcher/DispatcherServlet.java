@@ -56,7 +56,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DispatcherServlet.class);
 	
-	@Reference
+	@Reference(target="(type=cache)")
 	private IResourceContentProvider resourceContentProvider;
 	
 	@Reference
@@ -68,7 +68,6 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pathInfo = request.getPathInfo();
-		LOG.trace("Dispatch "+pathInfo);
 		
 		String[] interpretPath = interpretPath(pathInfo);
 		Resource contentFolder = new Resource();
