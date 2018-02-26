@@ -42,7 +42,7 @@
 				<li class="nav-item" th:each="res : ${FS.list('/content/en')}" th:if="${res.container}" th:classappend="${res.equals(currentPage)} ? active : notactive">
 					<a class="nav-link" th:href="${'/content/en/'+res.name+'.html'}">[[${#strings.capitalize(res.name)}]]</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					  <a class="dropdown-item" href="#" th:each="sub : ${FS.list('/content/en/'+res.name+'/')}" th:if="${sub.container}">${sub.name}</a>
+					  <a class="dropdown-item" href="#" th:each="sub : ${FS.list('/content/en/'+res.name+'/')}" th:if="${sub.container}">[[${#strings.capitalize(sub.name)}]]</a>
 					</div>
 				</li>
 			</ul>
