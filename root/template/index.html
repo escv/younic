@@ -38,7 +38,7 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto main-nav ">
+			<ul class="navbar-nav ml-auto">
 				<li class="nav-item" th:each="res : ${FS.list('/content/en')}" th:if="${res.container}" th:classappend="${res.equals(currentPage)} ? active : notactive">
 					<a class="nav-link" th:href="${'/content/en/'+res.name+'.html'}">[[${#strings.capitalize(res.name)}]]</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -203,8 +203,10 @@
 
   <!-- JAVASCRIPTS -->
   <script src="/resource/js/jquery-3.3.1.min.js"></script>
-  <script src="/resource/js/bootstrap.bundle.min.js"></script>
   <script src="/resource/js/jquery-ui.min.js"></script>
+  <script src="/resource/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="/resource/js/main.js"></script>
   
 </body>
 
