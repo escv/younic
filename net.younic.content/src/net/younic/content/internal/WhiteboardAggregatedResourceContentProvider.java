@@ -69,7 +69,7 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 		
 		long lastModified = 0L;
 		Map<String, Object> result = new TreeMap<>();
-		String[] elems = resource.getPath().split("/");
+		String[] elems = resource.qualifiedName().split("/");
 		for (int i = 0; i<elems.length; i++) {
 			Collection<Resource> entries = resourceProvider.list(Arrays.copyOfRange(elems, 0, (i+1)));
 			for (Resource entry : entries) {
@@ -85,14 +85,13 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 			}			
 		}
 		
-		
-		
 		// allow to hook in post processor for result modification
 		Map<String, Object> context = prepareContext(result);
 		processors.sort(rankComparator);
 		processors.stream().forEach(p -> p.processContext(context));
 		
 		context.put("net.younic.content.lastModified", lastModified);
+		context.put("currentPage", resource);
 		
 		return context;
 	}

@@ -57,7 +57,7 @@ public class FileSystemResourceContentProvider implements IResourceContentProvid
 	
 	@Override
 	public String readContent(Resource resource) throws IOException {
-		return readContent(resource.getPath() + "/" + resource.getName());
+		return readContent(resource.qualifiedName());
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class FileSystemResourceContentProvider implements IResourceContentProvid
 
 	@Override
 	public InputStream fetchContentStream(Resource resource) throws IOException {
-		return fetchContentStream(resource.getPath() + "/" + resource.getName());
+		return fetchContentStream(resource.qualifiedName());
 	}
 
 	@Override

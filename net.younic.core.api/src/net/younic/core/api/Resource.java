@@ -6,9 +6,6 @@ public class Resource implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * name of the node element or null if it is a folder (container = true)
-	 */
 	private String name;
 	private String path;
 	private boolean container;
@@ -27,6 +24,11 @@ public class Resource implements Serializable {
 		this.name = name;
 		this.path = path;
 		this.container = container;
+		if (this.path == null || this.path.isEmpty()) {
+			this.path = "/";
+		} else if (this.path.charAt(0) != '/') {
+			this.path = "/"+this.path;
+		}
 	}
 
 	public String getName() {
@@ -78,9 +80,34 @@ public class Resource implements Serializable {
 		this.size = size;
 	}
 
-	@Override
-	public String toString() {
+	/**
+	 * Identified the resource. A Concatenation of path and name.
+	 * @return a string as Resource identification
+	 */
+	public String qualifiedName() {
 		return "" + path+"/"+name;
 	}
+	@Override
+	public String toString() {
+		return qualifiedName();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Resource) {
+			return this.qualifiedName().equals(((Resource)obj).qualifiedName());
+		}
+		return false;
+	}
+	
 	
 }

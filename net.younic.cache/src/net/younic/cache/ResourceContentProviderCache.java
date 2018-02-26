@@ -59,7 +59,7 @@ public class ResourceContentProviderCache implements IResourceContentProvider {
 	@Override
 	public String readContent(Resource resource) throws IOException {
 		if (!resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
-			String fqn = resource.getPath()+"/"+resource.getName();
+			String fqn = resource.qualifiedName();
 			String hit = cache.get(fqn);
 			
 			if (hit != null) {

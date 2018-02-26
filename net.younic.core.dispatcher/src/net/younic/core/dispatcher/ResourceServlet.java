@@ -141,6 +141,13 @@ public class ResourceServlet extends HttpServlet implements Servlet, ResourceFac
 			pathInfo = request.getPathInfo();
 		}
 		
+		if (pathInfo.endsWith(".map")) {
+			if (!response.isCommitted()) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			}
+			return;
+		}
+		
 		Resource resource = getResource(pathInfo);
 		resource.setAssociate(response);
 

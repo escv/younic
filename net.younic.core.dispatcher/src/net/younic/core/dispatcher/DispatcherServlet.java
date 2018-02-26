@@ -73,6 +73,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		Resource contentFolder = new Resource();
 		contentFolder.setContainer(true);
 		contentFolder.setPath(interpretPath[0]);
+		contentFolder.setName(interpretPath[1]);
 		
 		Map<String, Object> contents = aggregatedResourceContentProvider.provideContents(contentFolder);
 
@@ -85,7 +86,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		}
 
 		// read the template.ref
-		String tmplRef = fetchTemplateRef(interpretPath[0]);
+		String tmplRef = fetchTemplateRef(contentFolder);
 		
 		response.setContentType("application/xhtml+xml");
 		
@@ -100,9 +101,9 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		writer.close();
 	}
 	
-	private String fetchTemplateRef(String contentFolder) throws IOException {
-		
-		LinkedList<String> parts = new LinkedList<String>(Arrays.asList(contentFolder.split("/")));
+	private String fetchTemplateRef(Resource contentFolder) throws IOException {
+		String contentFolderPath = contentFolder.qualifiedName();
+		LinkedList<String> parts = new LinkedList<String>(Arrays.asList(contentFolderPath.split("/")));
 		do {
 			String path = parts.stream().collect(Collectors.joining("/"));
 			String content = resourceContentProvider.readContent(path+"/template.ref");
@@ -114,17 +115,28 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	}
 	
 	private String[] interpretPath(String pathInfo) {
-		String[] result =  new String[2];
+		String[] result =  new String[3];
 		if (pathInfo == null) {
 			return homePage;
 		}
 		
 		pathInfo = pathInfo.replace("..", "");
+		if (pathInfo.charAt(0) != '/') {
+			pathInfo = "/"+pathInfo;
+		}
 		
 		int typeSepPos = pathInfo.lastIndexOf('.');
 		if (typeSepPos>0) {
-			result[0] = pathInfo.substring(0, typeSepPos);
-			result[1] = pathInfo.substring(typeSepPos);
+			String path = pathInfo.substring(0, typeSepPos);
+			int lastPathSep = path.lastIndexOf('/');
+			if (lastPathSep>=0) {
+				result[0] = path.substring(0, lastPathSep);
+				result[1] = path.substring(lastPathSep+1);
+			} else {
+				result[0]="/";
+				result[1]=path;
+			}			
+			result[2] = pathInfo.substring(typeSepPos);
 		}
 		
 		return result;
