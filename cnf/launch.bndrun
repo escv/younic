@@ -8,7 +8,7 @@
 	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
 	org.osgi.service.http.port=8282,\
 	net.younic.cms.root=../root,\
-	net.younic.devmode=true
+	net.younic.devmode=false
 
 
 
@@ -23,9 +23,13 @@
 	osgi.identity;filter:='(osgi.identity=org.unbescape)',\
 	osgi.identity;filter:='(osgi.identity=org.apache.servicemix.bundles.ognl)',\
 	osgi.identity;filter:='(osgi.identity=net.younic.thymeleaf-bundle)',\
-	osgi.identity;filter:='(osgi.identity=net.younic.cache)'
+	osgi.identity;filter:='(osgi.identity=net.younic.cache)',\
+	osgi.identity;filter:='(osgi.identity=net.younic.admin)'
 -runbundles: \
 	log4j;version='[1.2.17,1.2.18)',\
+	net.younic.admin;version=snapshot,\
+	net.younic.cache;version=snapshot,\
+	net.younic.content;version=snapshot,\
 	net.younic.core.api;version=snapshot,\
 	net.younic.core.dispatcher;version=snapshot,\
 	net.younic.core.fs;version=snapshot,\
@@ -42,6 +46,4 @@
 	org.attoparser;version='[2.0.4,2.0.5)',\
 	org.unbescape;version='[1.1.5,1.1.6)',\
 	slf4j.api;version='[1.7.25,1.7.26)',\
-	slf4j.log4j12;version='[1.7.25,1.7.26)',\
-	net.younic.content;version=snapshot,\
-	net.younic.cache;version=snapshot
+	slf4j.log4j12;version='[1.7.25,1.7.26)'

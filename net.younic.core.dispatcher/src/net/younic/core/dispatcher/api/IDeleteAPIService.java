@@ -17,36 +17,17 @@
  * 
  * =============================================================================
  */
-package net.younic.content.internal;
+package net.younic.core.dispatcher.api;
 
 import java.io.IOException;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+import net.younic.core.api.IHandleable;
 
-import net.younic.content.IResourceConverter;
-import net.younic.core.api.IResourceContentProvider;
-import net.younic.core.api.Resource;
+/**
+ * @author Andre Albert
+ *
+ */
+public interface IDeleteAPIService extends IHandleable {
 
-@Component(service=IResourceConverter.class)
-public class StringResourceConverter implements IResourceConverter {
-
-	@Reference(target="(type=cache)")
-	private IResourceContentProvider contentProvider;
-	
-	@Override
-	public Object convert(Resource resource) throws IOException {
-		
-		return contentProvider.readContent(resource);
-	}
-	
-	@Override
-	public boolean handles(Object resource) {
-		return true;
-	}
-	
-	@Override
-	public int rank() {
-		return 0;
-	}
+	void delete(String path) throws IOException;
 }

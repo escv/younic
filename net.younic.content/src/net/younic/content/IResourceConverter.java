@@ -21,13 +21,11 @@ package net.younic.content;
 
 import java.io.IOException;
 
-import net.younic.core.api.IRankable;
+import net.younic.core.api.IHandleable;
 import net.younic.core.api.Resource;
 
-public interface IResourceConverter extends IRankable {
+public interface IResourceConverter extends IHandleable {
 
 	Object convert(Resource resource) throws IOException;
-	
-	boolean handles(Resource resource);
-	
+		
 }

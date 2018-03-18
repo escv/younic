@@ -17,36 +17,15 @@
  * 
  * =============================================================================
  */
-package net.younic.content.internal;
+package net.younic.core.api;
 
-import java.io.IOException;
+import java.util.Comparator;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+public class RankableDescendingComparator implements Comparator<IRankable> {
 
-import net.younic.content.IResourceConverter;
-import net.younic.core.api.IResourceContentProvider;
-import net.younic.core.api.Resource;
-
-@Component(service=IResourceConverter.class)
-public class StringResourceConverter implements IResourceConverter {
-
-	@Reference(target="(type=cache)")
-	private IResourceContentProvider contentProvider;
-	
 	@Override
-	public Object convert(Resource resource) throws IOException {
-		
-		return contentProvider.readContent(resource);
+	public int compare(IRankable o1, IRankable o2) {
+		return o2.rank()-o1.rank();
 	}
-	
-	@Override
-	public boolean handles(Object resource) {
-		return true;
-	}
-	
-	@Override
-	public int rank() {
-		return 0;
-	}
+
 }

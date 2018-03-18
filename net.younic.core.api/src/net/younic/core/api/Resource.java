@@ -85,6 +85,10 @@ public class Resource implements Serializable {
 	 * @return a string as Resource identification
 	 */
 	public String qualifiedName() {
+		// for root folder listing, exclusion 
+		if ("/".equals(path)) {
+			return "/"+name;
+		}
 		return "" + path+"/"+name;
 	}
 	@Override

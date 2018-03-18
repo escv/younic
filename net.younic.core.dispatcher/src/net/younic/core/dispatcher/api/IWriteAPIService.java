@@ -17,36 +17,18 @@
  * 
  * =============================================================================
  */
-package net.younic.content.internal;
+package net.younic.core.dispatcher.api;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+import net.younic.core.api.IHandleable;
 
-import net.younic.content.IResourceConverter;
-import net.younic.core.api.IResourceContentProvider;
-import net.younic.core.api.Resource;
-
-@Component(service=IResourceConverter.class)
-public class StringResourceConverter implements IResourceConverter {
-
-	@Reference(target="(type=cache)")
-	private IResourceContentProvider contentProvider;
-	
-	@Override
-	public Object convert(Resource resource) throws IOException {
-		
-		return contentProvider.readContent(resource);
-	}
-	
-	@Override
-	public boolean handles(Object resource) {
-		return true;
-	}
-	
-	@Override
-	public int rank() {
-		return 0;
-	}
+/**
+ * @author Andre Albert
+ *
+ */
+public interface IWriteAPIService extends IHandleable {
+	void write(String path, InputStream in, OutputStream out) throws IOException;
 }

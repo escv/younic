@@ -19,25 +19,34 @@
  */
 package net.younic.cache;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
+import net.younic.core.api.YounicEventsConstants;
 
 /**
  * @author Andre Albert
  *
  */
-@Component(property="type=cache")
-public class ResourceContentProviderCache implements IResourceContentProvider {
+@Component(property= {
+		"type=cache",
+		EventConstants.EVENT_TOPIC + "=" + YounicEventsConstants.RESOURCE_MODIFIED 
+})
+public class ResourceContentProviderCache implements IResourceContentProvider, EventHandler {
 
 	private static final int MAX_CACHE_ENTRY_SIZE = 50000000; // 50K
 	transient private Map<String, String> cache;
@@ -58,6 +67,7 @@ public class ResourceContentProviderCache implements IResourceContentProvider {
 	 */
 	@Override
 	public String readContent(Resource resource) throws IOException {
+		String content = null;
 		if (!resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
 			String fqn = resource.qualifiedName();
 			String hit = cache.get(fqn);
@@ -65,11 +75,11 @@ public class ResourceContentProviderCache implements IResourceContentProvider {
 			if (hit != null) {
 				return hit;
 			} else {
-				String content = target.readContent(resource);
+				content = target.readContent(resource);
 				this.cache.put(fqn, content);
 			}
 		}
-		return target.readContent(resource);
+		return content;
 	}
 
 	/* (non-Javadoc)
@@ -78,17 +88,7 @@ public class ResourceContentProviderCache implements IResourceContentProvider {
 	@Override
 	public String readContent(String resourceFQName) throws IOException {
 		Resource resource = resourceProvider.fetchResource(resourceFQName);
-		if (resource!=null && !resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
-			String hit = cache.get(resourceFQName);
-			
-			if (hit != null) {
-				return hit;
-			} else {
-				String content = target.readContent(resource);
-				this.cache.put(resourceFQName, content);
-			}
-		}
-		return target.readContent(resourceFQName);
+		return this.readContent(resource);
 	}
 
 	/* (non-Javadoc)
@@ -96,8 +96,18 @@ public class ResourceContentProviderCache implements IResourceContentProvider {
 	 */
 	@Override
 	public InputStream fetchContentStream(Resource resource) throws IOException {
-		// Streams are not cached
-		return target.fetchContentStream(resource);
+		InputStream result = null;
+		if (!resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
+			String fqn = resource.qualifiedName();
+			String hit = cache.get(fqn);
+			
+			if (hit != null) {
+				result = new ByteArrayInputStream(hit.getBytes("UTF-8"));
+			} else {
+				result = target.fetchContentStream(resource);
+			}
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -105,8 +115,16 @@ public class ResourceContentProviderCache implements IResourceContentProvider {
 	 */
 	@Override
 	public InputStream fetchContentStream(String resourceFQName) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		Resource resource = resourceProvider.fetchResource(resourceFQName);
+		return this.fetchContentStream(resource);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osgi.service.event.EventHandler#handleEvent(org.osgi.service.event.Event)
+	 */
+	@Override
+	public void handleEvent(Event event) {
+		// TODO aalbert : only remove relevant parts
+		cache.clear();
+	}
 }

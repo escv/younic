@@ -17,36 +17,18 @@
  * 
  * =============================================================================
  */
-package net.younic.content.internal;
+package net.younic.core.api;
 
-import java.io.IOException;
+/**
+ * @author Andre Albert
+ *
+ */
+public interface YounicEventsConstants {
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
-import net.younic.content.IResourceConverter;
-import net.younic.core.api.IResourceContentProvider;
-import net.younic.core.api.Resource;
-
-@Component(service=IResourceConverter.class)
-public class StringResourceConverter implements IResourceConverter {
-
-	@Reference(target="(type=cache)")
-	private IResourceContentProvider contentProvider;
+	String RESOURCE_MODIFIED = "RESOURCE_MODIFIED";
+	String RESOURCE_CREATED = "RESOURCE_CREATED";
+	String RESOURCE_DELETED = "RESOURCE_DELETED";
 	
-	@Override
-	public Object convert(Resource resource) throws IOException {
-		
-		return contentProvider.readContent(resource);
-	}
 	
-	@Override
-	public boolean handles(Object resource) {
-		return true;
-	}
-	
-	@Override
-	public int rank() {
-		return 0;
-	}
+	String PROPERTY_RESOURCE = "RESOURCE";
 }

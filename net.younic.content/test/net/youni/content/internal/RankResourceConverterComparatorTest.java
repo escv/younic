@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.younic.content.IResourceConverter;
-import net.younic.content.internal.RankResourceConverterComparator;
+import net.younic.core.api.RankableDescendingComparator;
 
 /**
  * @author Andre Albert
@@ -36,11 +36,11 @@ import net.younic.content.internal.RankResourceConverterComparator;
  */
 public class RankResourceConverterComparatorTest {
 
-	private RankResourceConverterComparator comparator;
+	private RankableDescendingComparator comparator;
 	
 	@Before
 	public void setup() {
-		comparator = new RankResourceConverterComparator();
+		comparator = new RankableDescendingComparator();
 	}
 
 	@Test

@@ -28,6 +28,9 @@ import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
@@ -35,11 +38,14 @@ import org.thymeleaf.templateresolver.FileTemplateResolver;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.IResourceRenderer;
 import net.younic.core.api.ResourceRenderingFailedException;
+import net.younic.core.api.YounicEventsConstants;
 
 @Component(
-	service=IResourceRenderer.class
+	property= {
+			EventConstants.EVENT_TOPIC + "=" + YounicEventsConstants.RESOURCE_MODIFIED
+	}
 )
-public class ThymeleafResourceRenderer implements IResourceRenderer {
+public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandler {
 
 	@Reference
 	private IResourceProvider resourceProvider;
@@ -87,5 +93,16 @@ public class ThymeleafResourceRenderer implements IResourceRenderer {
 			engine.setTemplateResolver(templateResolver);
 		}
 		return engine;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.osgi.service.event.EventHandler#handleEvent(org.osgi.service.event.Event)
+	 */
+	@Override
+	public void handleEvent(Event event) {
+		if (this.templateEngine != null) {
+			this.templateEngine.clearTemplateCache();
+		}
+		
 	}
 }

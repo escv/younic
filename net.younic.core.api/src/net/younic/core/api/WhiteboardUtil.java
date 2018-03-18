@@ -17,36 +17,28 @@
  * 
  * =============================================================================
  */
-package net.younic.content.internal;
+package net.younic.core.api;
 
-import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
+/**
+ * @author Andre Albert
+ *
+ */
+public final class WhiteboardUtil {
 
-import net.younic.content.IResourceConverter;
-import net.younic.core.api.IResourceContentProvider;
-import net.younic.core.api.Resource;
-
-@Component(service=IResourceConverter.class)
-public class StringResourceConverter implements IResourceConverter {
-
-	@Reference(target="(type=cache)")
-	private IResourceContentProvider contentProvider;
+	private static final RankableDescendingComparator comparator = new RankableDescendingComparator();
 	
-	@Override
-	public Object convert(Resource resource) throws IOException {
-		
-		return contentProvider.readContent(resource);
+	public static final <T extends IHandleable> T findHandler(Class<T> clazz, List<T> candidates, Object matcher) {
+		Collections.sort(candidates, comparator);
+		Optional<T> converter = candidates.stream().filter(e->e.handles(matcher)).findFirst();
+		T result = null;
+		if (converter.isPresent()) {
+			result = (T) converter.get();
+		}
+		return result;
 	}
-	
-	@Override
-	public boolean handles(Object resource) {
-		return true;
-	}
-	
-	@Override
-	public int rank() {
-		return 0;
-	}
+
 }

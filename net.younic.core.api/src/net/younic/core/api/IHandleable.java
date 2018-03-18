@@ -17,17 +17,14 @@
  * 
  * =============================================================================
  */
-package net.younic.content.internal;
+package net.younic.core.api;
 
-import java.util.Comparator;
+/**
+ * @author Andre Albert
+ *
+ */
+public interface IHandleable extends IRankable {
 
-import net.younic.core.api.IRankable;
-
-public class RankResourceConverterComparator implements Comparator<IRankable> {
-
-	@Override
-	public int compare(IRankable o1, IRankable o2) {
-		return o2.rank()-o1.rank();
-	}
-
+	boolean handles(Object resource);
+	
 }

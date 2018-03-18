@@ -28,9 +28,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.osgi.service.component.annotations.Component;
@@ -43,6 +42,7 @@ import net.younic.content.IResourceConverter;
 import net.younic.core.api.IRankable;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
+import net.younic.core.api.WhiteboardUtil;
 
 @Component(service=IAggregatedResourceContentProvider.class)
 public class WhiteboardAggregatedResourceContentProvider implements IAggregatedResourceContentProvider {
@@ -62,10 +62,6 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 
 	@Override
 	public Map<String, Object> provideContents(Resource resource) throws IOException {
-		if (rankComparator == null) {
-			rankComparator = new RankResourceConverterComparator();
-		}
-		converters.sort(rankComparator);
 		
 		long lastModified = 0L;
 		Map<String, Object> result = new TreeMap<>();
@@ -74,9 +70,10 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 			Collection<Resource> entries = resourceProvider.list(Arrays.copyOfRange(elems, 0, (i+1)));
 			for (Resource entry : entries) {
 				if (!entry.isContainer()) {
-					Optional<IResourceConverter> converter = converters.stream().filter(e->e.handles(entry)).findFirst();
-					if (converter.isPresent()) {
-						result.put(entry.getName(), converter.get().convert(entry));
+					IResourceConverter converter = WhiteboardUtil.findHandler(IResourceConverter.class, converters, entry);
+					
+					if (converter != null) {
+						result.put(entry.getName(), converter.convert(entry));
 						if (entry.getLastModified() > lastModified) {
 							lastModified = entry.getLastModified();
 						}

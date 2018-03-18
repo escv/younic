@@ -3,10 +3,8 @@
 	osgi.core;version=6.0,\
 	osgi.cmpn;version=6.0,\
 	org.apache.felix.http.servlet-api;version=1.1,\
-	net.younic.core.api;version=latest,\
-	slf4j.api,\
-	org.apache.felix.http.jetty,\
-	net.younic.content;version=latest
+	net.younic.core.dispatcher;version=latest,\
+	net.younic.core.api;version=latest
 
 -contract: *
 
@@ -17,6 +15,5 @@ javac.source: 1.8
 javac.target: 1.8
 
 Bundle-Version: 0.0.0.${tstamp}
-Private-Package: net.younic.core.dispatcher
+Private-Package: net.younic.admin
 Require-Capability: osgi.implementation; filter:="(&(osgi.implementation=osgi.http)(version>=1.0)(!(version>=2.0)))"
-Export-Package: net.younic.core.dispatcher.api

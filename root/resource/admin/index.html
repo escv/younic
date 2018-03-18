@@ -1,0 +1,113 @@
+<html>
+<head>
+	<title>Resource DIR</title>
+	<meta charset="utf-8"/>
+	<link href="/resource/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+	<style type="text/css">
+		.tax-ctn {
+			background-color: white;
+			border: solid 1px lightgray;
+			display: flex;
+			font-size: 1em;
+			margin-top: 15px;
+			min-height: 400px;./cata
+			overflow: auto;
+			width:100%;
+			font: 400 1em/1.4 "Lucida Grande", Arial, Verdana, sans-serif;
+		}
+		.tax-col {
+			border-right: solid 1px lightgray;
+			max-height: 600px;
+			min-height: inherit;
+			min-width: 200px;
+			overflow-y: auto;
+		}
+		.tax-col > ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.tax-col li {
+			cursor: pointer;
+			padding: 5px;
+		}
+		.tax-col li.active {
+			background-color: azure;
+			border-top: 1px solid #F5F5F5;
+			border-bottom: 1px solid #F5F5F5;
+		}
+		.tax-col li.current {
+			background-color: red;
+		}
+		.tax-col li:hover {
+			background-color: blue;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">younic</a>
+
+  <div class="navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Add Folder</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Add File</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Rename</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Delete</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<section class="container-fluid">
+	<div id="finder-taxonomy" class="tax-ctn row-fluid">
+
+	</div>
+</section>
+<script src="/resource/js/jquery-3.3.1.min.js"></script>
+<script>
+function handleSelect(ev) {
+	var caller = $(ev.currentTarget);
+	var col = caller.closest('div.tax-col');
+	col.find('li').removeClass('current');
+	col.find('li').removeClass('active');
+	col.nextAll().remove();
+	$('#finder-taxonomy li').removeClass('current');
+	$(caller).addClass('active');
+	$(caller).addClass('current');
+
+	drawCol(caller.data('fqn'));
+}
+function drawCol(parent){
+	$.get("http://localhost:8282/api/dir/"+parent, function(data){
+		if (data.length > 0) {
+			var ctn = $('#finder-taxonomy').closest('.tax-ctn');
+			var box = $('<ul>').appendTo($('<div class="tax-col">').appendTo(ctn));
+			for (var i=0; i<data.length; i++) {
+				var li = $('<li>').attr('data-fqn', data[i].fqn);
+				li.html((data[i].container?'&#128193; ':'&#128196; ')+data[i].name);
+				li.appendTo(box);
+				li.click(handleSelect);
+			}
+		}
+	});
+}
+
+$(function(){
+	drawCol('');
+})
+</script>
+<script src="/resource/js/bootstrap.bundle.min.js"></script>
+  
+
+</body>
+
+</hmtl>
