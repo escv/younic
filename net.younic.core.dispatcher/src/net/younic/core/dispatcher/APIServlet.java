@@ -39,9 +39,7 @@ import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
 import net.younic.core.api.WhiteboardUtil;
-import net.younic.core.dispatcher.api.IDeleteAPIService;
-import net.younic.core.dispatcher.api.IReadAPIService;
-import net.younic.core.dispatcher.api.IWriteAPIService;
+import net.younic.core.dispatcher.api.IResourceAPIService;
 
 /**
  * @author Andre Albert
@@ -56,7 +54,7 @@ public class APIServlet extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Reference(policy=ReferencePolicy.DYNAMIC)
-	final List<IReadAPIService> apiServices = new CopyOnWriteArrayList<>();
+	final List<IResourceAPIService> apiServices = new CopyOnWriteArrayList<>();
 	
 	
 	/* (non-Javadoc)
@@ -81,19 +79,18 @@ public class APIServlet extends HttpServlet implements Servlet {
 			matcher = pathInfo.substring(0, firstSep);
 			path = pathInfo.substring(firstSep+1);
 		}
-		IReadAPIService handler = WhiteboardUtil.findHandler(IReadAPIService.class, apiServices, matcher);
+		IResourceAPIService handler = WhiteboardUtil.findHandler(IResourceAPIService.class, apiServices, matcher);
 		
 		resp.setContentType(handler.contentType());
 		hres.addHeader("Access-Control-Allow-Origin", "*");
 		hres.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 		ServletOutputStream out = resp.getOutputStream();
 		
-		if (handler instanceof IWriteAPIService && 
-				("POST".equalsIgnoreCase(hreq.getMethod()) || "PUT".equalsIgnoreCase(hreq.getMethod()))) {
+		if ("POST".equalsIgnoreCase(hreq.getMethod()) || "PUT".equalsIgnoreCase(hreq.getMethod())) {
 			ServletInputStream in = hreq.getInputStream();
-			((IWriteAPIService)handler).write(path, in, out);
-		} else if (handler instanceof IDeleteAPIService && "DELETE".equalsIgnoreCase(hreq.getMethod())) {
-			((IDeleteAPIService) handler).delete(path);
+			handler.write(path, in, out);
+		} else if ("DELETE".equalsIgnoreCase(hreq.getMethod())) {
+			handler.delete(path);
 		} else {
 			handler.read(path, out);
 		}

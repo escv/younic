@@ -17,34 +17,38 @@
  * 
  * =============================================================================
  */
-package net.younic.core.dispatcher;
+package net.younic.admin;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 
-import net.younic.core.api.IResourceProvider;
-import net.younic.core.api.Resource;
-import net.younic.core.dispatcher.api.IReadAPIService;
+import net.younic.core.api.YounicEventsConstants;
+import net.younic.core.dispatcher.api.IResourceAPIService;
 
 /**
  * @author Andre Albert
  *
  */
-@Component(service=IReadAPIService.class)
-public class DirectoryRestService implements IReadAPIService {
+@Component(service=IResourceAPIService.class)
+public class CacheRestService implements IResourceAPIService {
 
-	@Reference(target="(type=impl)")
-	private IResourceProvider resourceProvider;
+	@Reference
+    private EventAdmin eventAdmin;
 	
 	/* (non-Javadoc)
 	 * @see net.younic.core.api.IHandleable#handles(java.lang.Object)
 	 */
 	@Override
 	public boolean handles(Object resource) {
-		return "dir".equals(resource);
+		return "cache".equals(resource);
 	}
 
 	/* (non-Javadoc)
@@ -56,35 +60,41 @@ public class DirectoryRestService implements IReadAPIService {
 	}
 
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#dispatchServices(java.lang.String, java.io.OutputStream)
+	 * @see net.younic.core.dispatcher.api.IResourceAPIService#read(java.lang.String, java.io.OutputStream)
 	 */
 	@Override
 	public void read(String path, OutputStream out) throws IOException {
-		out.write("[".getBytes());
-		boolean first = true;
-		for (Resource r : resourceProvider.list(path)) {
-			if (!first) {
-				out.write(",".getBytes());
-			} else {
-				first = false;
-			}
-			out.write(("{"
-					+ "\"name\":\""+r.getName()+"\","
-					+ "\"fqn\":\""+r.qualifiedName()+"\","
-					+ "\"container\":"+r.isContainer()
-							+ "}").getBytes());
+		if ("clear".equals(path)) {
+			Map<String, String> props = new HashMap<String, String>();
+			eventAdmin.postEvent(new Event(YounicEventsConstants.RESOURCE_DELETED, props));
+			out.write("OK".getBytes("UTF-8"));
 		}
-		
-		out.write("]".getBytes("UTF-8"));
 
 	}
 
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#contentType()
+	 * @see net.younic.core.dispatcher.api.IResourceAPIService#delete(java.lang.String)
+	 */
+	@Override
+	public void delete(String path) throws IOException {
+
+	}
+
+	/* (non-Javadoc)
+	 * @see net.younic.core.dispatcher.api.IResourceAPIService#write(java.lang.String, java.io.InputStream, java.io.OutputStream)
+	 */
+	@Override
+	public void write(String path, InputStream in, OutputStream out) throws IOException {
+
+	}
+
+	/* (non-Javadoc)
+	 * @see net.younic.core.dispatcher.api.IResourceAPIService#contentType()
 	 */
 	@Override
 	public String contentType() {
-		return "application/json";
+		// TODO Auto-generated method stub
+		return "text/plain";
 	}
 
 }

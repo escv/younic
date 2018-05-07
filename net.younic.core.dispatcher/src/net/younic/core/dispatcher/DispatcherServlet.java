@@ -22,6 +22,7 @@ package net.younic.core.dispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,7 +80,13 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 
 		long modifiedSRV = (Long)contents.get("net.younic.content.lastModified");
 		long modidiedCLI = request.getDateHeader("If-Modified-Since");
+
+		// cache control
+		response.addHeader("Cache-Control", "must-revalidate, max-age=120");
 		response.addDateHeader("Last-Modified", modifiedSRV);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.MINUTE, 1);
+		response.addDateHeader("Expires", c.getTimeInMillis());
 		if (modidiedCLI != -1 && modifiedSRV <= modidiedCLI) {
 			response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 	        return;
@@ -94,6 +101,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		try {
 			renderer.render(tmplRef == null ? "index" : tmplRef , contents, writer);
 		} catch (ResourceRenderingFailedException e) {
+			LOG.error("error rendering "+tmplRef, e);
 			writer.write(e.getMessage());
 		}
 

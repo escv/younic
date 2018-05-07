@@ -73,22 +73,19 @@ public class FileSystemResourceProvider implements IResourceProvider {
 	@Override
 	public Resource fetchResource(String pathSpec) {
 		File resource = new File(docroot, pathSpec);
-		String path = pathSpec;
-		String name = null;
 		
-		if (!resource.isDirectory()) {
-			
-			int lastSepPos = pathSpec.lastIndexOf('/');
-			if (lastSepPos >= 0) {
-				path = pathSpec.substring(0, lastSepPos);
-				name = pathSpec.substring(lastSepPos+1);
+		String[] pathName = separatePath(pathSpec);
+		boolean isDir = resource.exists()&&resource.isDirectory() || pathName[1].indexOf('.')==-1;
+		
+		Resource result = new Resource(pathName[0], pathName[1], isDir);
+		
+		if (resource.exists()) {
+			result.setLastModified(resource.lastModified());
+			if (!resource.isDirectory()) {
+				result.setSize(resource.length());
 			}
 		}
-		Resource result = new Resource(path, name, resource.isDirectory());
-		result.setLastModified(resource.lastModified());
-		if (!resource.isDirectory()) {
-			result.setSize(resource.length());
-		}
+		
 		return result;
 	}
 	
@@ -98,4 +95,14 @@ public class FileSystemResourceProvider implements IResourceProvider {
 		return list(pathSpecSerial);
 	}
 
+	private String[] separatePath(String pathSpec) {
+		String path = pathSpec;
+		String name = null;
+		int lastSepPos = pathSpec.lastIndexOf('/');
+		if (lastSepPos >= 0) {
+			path = pathSpec.substring(0, lastSepPos);
+			name = pathSpec.substring(lastSepPos+1);
+		}
+		return new String[] {path, name};
+	}
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+	<title><![CDATA[
+	Das ist ein Test Titel!
+	]]></title>
+	
+	<author><![CDATA[
+	Andre Albert
+	]]></author>
+	
+	<teaser><![CDATA[
+	Wollen Sie wissen wie es hier weiter geht? Dann klicken sie schnell!
+	]]></teaser>
+	
+	<text><![CDATA[
+	<h2>Headline</h2>
+	<p>Lorem ipsum dolor sit</p><p>Amet confuctor.</p>
+	]]></text>
+</content>

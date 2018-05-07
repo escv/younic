@@ -26,7 +26,6 @@ import java.io.OutputStream;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.IResourcePersistence;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
@@ -37,11 +36,8 @@ import net.younic.core.dispatcher.api.IResourceAPIService;
  *
  */
 @Component(service=IResourceAPIService.class)
-public class ResourceTextRestService implements IResourceAPIService {
+public class DirectoryRestService implements IResourceAPIService {
 
-	@Reference(target="(type=impl)")
-	private IResourceContentProvider resourceContentProvider;
-	
 	@Reference(target="(type=impl)")
 	private IResourceProvider resourceProvider;
 	
@@ -53,7 +49,7 @@ public class ResourceTextRestService implements IResourceAPIService {
 	 */
 	@Override
 	public boolean handles(Object resource) {
-		return "txt".equals(resource);
+		return "dir".equals(resource);
 	}
 
 	/* (non-Javadoc)
@@ -63,34 +59,41 @@ public class ResourceTextRestService implements IResourceAPIService {
 	public int rank() {
 		return 0;
 	}
-	
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#contentType()
-	 */
-	@Override
-	public String contentType() {
-		return "text/plain";
-	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.younic.core.dispatcher.IDispatchAPIService#dispatchServices(java.lang.String, java.io.OutputStream)
 	 */
 	@Override
 	public void read(String path, OutputStream out) throws IOException {
-		out.write(resourceContentProvider.readContent(path).getBytes());
+		out.write("[".getBytes());
+		boolean first = true;
+		for (Resource r : resourceProvider.list(path)) {
+			if (!first) {
+				out.write(",".getBytes());
+			} else {
+				first = false;
+			}
+			out.write(("{"
+					+ "\"name\":\""+r.getName()+"\","
+					+ "\"fqn\":\""+r.qualifiedName()+"\","
+					+ "\"container\":"+r.isContainer()
+							+ "}").getBytes());
+		}
+		
+		out.write("]".getBytes("UTF-8"));
+
 	}
 
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IWriteAPIService#dispatchWriteService(java.lang.String, java.io.InputStream, java.io.OutputStream)
+	 * @see net.younic.core.dispatcher.IDispatchAPIService#contentType()
 	 */
 	@Override
-	public void write(String path, InputStream in, OutputStream out) throws IOException {
-		Resource resource = resourceProvider.fetchResource(path);
-		resourcePersistence.persist(resource, in);
+	public String contentType() {
+		return "application/json";
 	}
 
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IDeleteAPIService#write(java.lang.String)
+	 * @see net.younic.core.dispatcher.api.IResourceAPIService#delete(java.lang.String)
 	 */
 	@Override
 	public void delete(String path) throws IOException {
@@ -98,5 +101,16 @@ public class ResourceTextRestService implements IResourceAPIService {
 		resourcePersistence.delete(resource);
 		
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see net.younic.core.dispatcher.api.IResourceAPIService#write(java.lang.String, java.io.InputStream, java.io.OutputStream)
+	 */
+	@Override
+	public void write(String path, InputStream in, OutputStream out) throws IOException {
+		Resource resource = resourceProvider.fetchResource(path);
+		resource.setContainer(true);
+		resourcePersistence.persist(resource, in);
+		
+	}
+
 }

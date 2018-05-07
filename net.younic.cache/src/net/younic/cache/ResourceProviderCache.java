@@ -27,16 +27,23 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
+import net.younic.core.api.YounicEventsConstants;
 
 /**
  * @author Andre Albert
  *
  */
-@Component(property="type=cache")
-public class ResourceProviderCache implements IResourceProvider {
+@Component(property= {
+	"type=cache",
+	EventConstants.EVENT_TOPIC + "=" + YounicEventsConstants.RESOURCE_MODIFIED
+})
+public class ResourceProviderCache implements IResourceProvider, EventHandler {
 
 	@Reference(target="(type=impl)")
 	private IResourceProvider target;
@@ -92,5 +99,12 @@ public class ResourceProviderCache implements IResourceProvider {
 		return target.fetchResource(pathSpec);
 	}
 
-
+	/* (non-Javadoc)
+	 * @see org.osgi.service.event.EventHandler#handleEvent(org.osgi.service.event.Event)
+	 */
+	@Override
+	public void handleEvent(Event event) {
+		// TODO aalbert : only remove relevant parts
+		cache.clear();
+	}
 }

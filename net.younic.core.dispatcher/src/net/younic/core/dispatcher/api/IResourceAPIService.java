@@ -20,6 +20,8 @@
 package net.younic.core.dispatcher.api;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import net.younic.core.api.IHandleable;
 
@@ -27,7 +29,11 @@ import net.younic.core.api.IHandleable;
  * @author Andre Albert
  *
  */
-public interface IDeleteAPIService extends IHandleable {
+public interface IResourceAPIService extends IHandleable {
 
+	void read(String path, OutputStream out) throws IOException;
 	void delete(String path) throws IOException;
+	void write(String path, InputStream in, OutputStream out) throws IOException;
+	
+	String contentType();
 }
