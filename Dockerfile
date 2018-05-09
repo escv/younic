@@ -10,11 +10,11 @@ RUN apk --update add git openssh && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
 
-ADD https://github.com/escv/younic/releases/download/v0.2.2/younic.zip ./younic.zip 
+ADD http://andre.webofferte.com/younic/younic.zip ./younic.zip 
 
 RUN	unzip younic.zip && \
 	rm younic.zip
 
 RUN git clone https://github.com/escv/younic-sample.git /home/younic/cms-root
 
-ENTRYPOINT ["./start.sh"]
+# ENTRYPOINT ["./start.sh"]
