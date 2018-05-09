@@ -10,7 +10,7 @@ RUN apk --update add git openssh && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
 
-ADD https://github.com/escv/younic/releases/download/v0.2/younic.zip ./younic.zip 
+ADD https://github.com/escv/younic/releases/download/v0.2.2/younic.zip ./younic.zip 
 
 RUN	unzip younic.zip && \
 	rm younic.zip
