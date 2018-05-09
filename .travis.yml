@@ -1,18 +1,17 @@
 sudo: false
-
 install: gradle wrapper --gradle-version 4.1
-
 language: java
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 cache:
   directories:
-  - .gradle
-  - $HOME/.gradle
-
-after_success:
-  - ./gradlew cobertura coveralls
-
-script: ./gradlew clean test jar coveralls --continue
+  - ".gradle"
+  - "$HOME/.gradle"
+deploy:
+  provider: releases
+  api_key:
+    secure: CvxuZOv8s+QpR6RlJiPOJFVONeFEwPjriGdP6e+UZwGRiNivAo2zFi9xTHTEhL9SjQ5lxgCyyi38By4sZWOvDaCEv1Z2IZRQITIOVjmkoYnP/uXUmewR+uFzi2dYrlXmkAguH/SaFtG+llZNuUMuUTJxO2cvGQmTaRLvZAOtrlPbp8myE7YWgClSRi880uNITHfbJv+Bh6GkuFYI6Mq8XtatvuQ1kLoR6bZhbtMbhx4zVyuAcM8RYlHkXL91m1BRW8LulkYsDOpY7tGRVicE7iFsJzkA00X0pgCR2rUGdIEGRtdPHNsL4K95cJJsC7PZ64hSsgYYshbZqQnPKjFYfh6RT3XMh9zud6mVxfjKau7vjXqwDz79JLr3XrR1nY9Xb3pw/3xcEZr9eXnroL2/fWsgmlIghubwu5Xp15MypgYaLoalw6kvxIYCAkhAuSnUZpor28vI05vIjnnrcspZKbVcIxi5hAYBESkeI/TFyLhgGkzLwNpRYb4KkCo7s32hFKqXNH2pndz25nIKBGF6jxmxXgv7ycmgtY/H41b1GelJdiJm6McF78+R9nmSH75qgv6oXWas+FXHMsPEm5xrbRtoURptaApQT5zrwkEOz1lQNbVXrOiTA3QagsRSSKW0eUPJ3wZIVOT2n+rJkhxwNnbN2xNf/caJN5aXEXCa0Hc=
+  file: cnf/release/younic.zip
+  on:
+    repo: escv/younic
+script: "./gradlew clean test jar dist packageZip --continue"

@@ -15,4 +15,7 @@ cnf/cache/
 Thumbs.db
 .metadata
 
+cnf/release/*.zip
+cnf/run/bundle/net.younic.*
+
 bin_test/
