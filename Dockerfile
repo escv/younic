@@ -1,15 +1,16 @@
-# AlpineLinux with a glibc-2.27-r0 and Oracle Java 8
+# build it with: docker build -t escv/younic .
+# run it with: docker run -p 127.0.0.1:8080:8080 -it escv/younic
+
 FROM anapsix/alpine-java:latest
-MAINTAINER Andre Albert <tandre.albert82@googlemail.com>
+MAINTAINER Andre Albert <andre.albert82@googlemail.com>
 
 WORKDIR /home/younic
-EXPOSE 8080/tcp
 
 RUN apk --update add git openssh && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
 
-ADD http://andre.webofferte.com/younic/younic.zip ./younic.zip 
+ADD https://github.com/escv/younic/releases/download/v0.2/younic.zip ./younic.zip 
 
 RUN	unzip younic.zip && \
 	rm younic.zip
