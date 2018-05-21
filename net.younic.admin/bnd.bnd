@@ -4,7 +4,8 @@
 	osgi.cmpn;version=6.0,\
 	org.apache.felix.http.servlet-api;version=1.1,\
 	net.younic.core.dispatcher;version=latest,\
-	net.younic.core.api;version=latest
+	net.younic.core.api;version=latest,\
+	slf4j.api
 
 -contract: *
 
@@ -17,3 +18,7 @@ javac.target: 1.8
 Bundle-Version: 0.0.0.${tstamp}
 Private-Package: net.younic.admin
 Require-Capability: osgi.implementation; filter:="(&(osgi.implementation=osgi.http)(version>=1.0)(!(version>=2.0)))"
+Bundle-Activator: net.younic.admin.Activator
+Import-Package: \
+	,\
+	*

@@ -6,6 +6,8 @@ MAINTAINER Andre Albert <andre.albert82@googlemail.com>
 
 WORKDIR /home/younic
 
+# EXPOSE 8080/tcp
+
 RUN apk --update add git openssh && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
@@ -17,4 +19,4 @@ RUN	unzip younic.zip && \
 
 RUN git clone https://github.com/escv/younic-sample.git /home/younic/cms-root
 
-# ENTRYPOINT ["./start.sh"]
+ENTRYPOINT ["./start.sh"]
