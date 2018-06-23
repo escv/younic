@@ -95,7 +95,7 @@ public class FileSystemResourcePersistence implements IResourcePersistence {
 			target.delete();
 		}
 		//post an event
-		postEvent(YounicEventsConstants.RESOURCE_DELETED, resource.qualifiedName());
+		postEvent(YounicEventsConstants.RESOURCE_MODIFIED, resource.qualifiedName());
 	}
 
 	/**

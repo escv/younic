@@ -17,15 +17,39 @@
  * 
  * =============================================================================
  */
-package net.younic.core.api;
+package net.younic.sync;
+
+import java.io.IOException;
+import java.util.TimerTask;
 
 /**
  * @author Andre Albert
  *
  */
-public interface YounicEventsConstants {
+public abstract class SyncTimerTask extends TimerTask {
 
-	String RESOURCE_MODIFIED = "RESOURCE_MODIFIED";
+	private IPostResourceModified eventPoster;
 	
-	String PROPERTY_RESOURCE = "RESOURCE";
+	/* (non-Javadoc)
+	 * @see java.util.TimerTask#run()
+	 */
+	@Override
+	public void run() {
+		//throw events here
+		try {
+			if (sync()) {
+				//throw modified event here
+				eventPoster.postModified();
+			}
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+		// throw done event here
+
+	}
+
+	/**
+	 * @return true if something was changed on sync execution
+	 */
+	protected abstract boolean sync() throws IOException;
 }

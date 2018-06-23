@@ -17,13 +17,14 @@
  * 
  * =============================================================================
  */
-package net.younic.admin;
+package net.younic.core.dispatcher.api;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,6 +36,7 @@ import org.osgi.service.http.HttpContext;
  */
 public class YounicHttpContext implements HttpContext {
 
+	MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
 	
 	/* (non-Javadoc)
 	 * @see org.osgi.service.http.HttpContext#handleSecurity(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -68,8 +70,24 @@ public class YounicHttpContext implements HttpContext {
 	 */
 	@Override
 	public String getMimeType(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		String file = name.toLowerCase();
+		if (file.endsWith(".css")) {
+			return "text/css";
+		} else if (file.endsWith(".js")) {
+			return "text/javascript";
+		} else if (file.endsWith(".html")) {
+			return "text/html";
+		} else if (file.endsWith(".txt")) {
+			return "text/plain";
+		} else if (file.endsWith(".jpg") || name.endsWith(".jpeg")) {
+			return "image/jpeg";
+		} else if (file.endsWith(".png")) {
+			return "image/png";
+		} else if (file.endsWith(".giv")) {
+			return "image/gif";
+		}
+		
+		return "application/octet-stream";
 	}
 
 }

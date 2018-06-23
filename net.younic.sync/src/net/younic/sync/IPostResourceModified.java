@@ -17,15 +17,13 @@
  * 
  * =============================================================================
  */
-package net.younic.core.api;
+package net.younic.sync;
 
 /**
  * @author Andre Albert
  *
  */
-public interface YounicEventsConstants {
+public interface IPostResourceModified {
 
-	String RESOURCE_MODIFIED = "RESOURCE_MODIFIED";
-	
-	String PROPERTY_RESOURCE = "RESOURCE";
+	void postModified();
 }

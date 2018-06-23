@@ -17,8 +17,10 @@
  * 
  * =============================================================================
  */
-package net.younic.admin;
+package net.younic.core.dispatcher;
 
+
+import java.io.File;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -40,17 +42,22 @@ public class Activator implements BundleActivator {
 	private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
 	
 	private ServiceTracker<HttpService, HttpService> httpServiceTracker;
-	private String fileAdminRoot;
+
+	private File docroot;
+
+	//private boolean devMode;
     
 	/* (non-Javadoc).
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		fileAdminRoot = context.getProperty("net.younic.admin.fileadmin-root");
-		LOG.info("Starting fileadmin in "+fileAdminRoot);
-		if (fileAdminRoot == null || fileAdminRoot.isEmpty()) {
-			LOG.info("Disabling FileAdmin due to missing net.younic.admin.fileadmin-root Property");
+		//this.devMode = "true".equals(context.getProperty("net.younic.devmode"));
+		this.docroot = new File(context.getProperty("net.younic.cms.root"),"resource/");
+		
+		LOG.info("Starting resource Servlet for "+docroot);
+		if (!docroot.exists()) {
+			LOG.info("Disabling docroot due to missing net.younic.cms.root Property");
 			return;
 		}
 
@@ -65,12 +72,12 @@ public class Activator implements BundleActivator {
 		        		if(httpService!=null) { 
 		                LOG.debug("Found HttpSerice!"); 
 		                try {
-							httpService.registerResources("/fileadmin", fileAdminRoot, new YounicHttpContext());
+							httpService.registerResources("/resource", docroot.getAbsolutePath(), new YounicHttpContext());
 						} catch (NamespaceException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-		                LOG.info("/fileadmin launched");
+		                LOG.info("/resource launched");
 		            }else{ 
 		                LOG.warn("httpServiceTracker.getService() returned null"); 
 		            }

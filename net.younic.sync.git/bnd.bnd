@@ -1,0 +1,16 @@
+-buildpath: \
+	osgi.annotation; version=latest,\
+	osgi.core; version=latest,\
+	osgi.cmpn; version=latest,\
+	net.younic.sync;version=latest,\
+	slf4j.api
+
+-testpath: \
+	${junit}
+
+javac.source: 1.8
+javac.target: 1.8
+
+Bundle-Version: 0.0.0.${tstamp}
+Private-Package: net.younic.sync.git
+Bundle-Activator: net.younic.sync.git.Activator

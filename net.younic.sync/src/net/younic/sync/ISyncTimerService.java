@@ -17,15 +17,18 @@
  * 
  * =============================================================================
  */
-package net.younic.core.api;
+package net.younic.sync;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Andre Albert
  *
  */
-public interface YounicEventsConstants {
+@ProviderType
+public interface ISyncTimerService {
 
-	String RESOURCE_MODIFIED = "RESOURCE_MODIFIED";
+	void registerSyncTimerTask(SyncTimerTask task);
 	
-	String PROPERTY_RESOURCE = "RESOURCE";
+	void cancel();
 }

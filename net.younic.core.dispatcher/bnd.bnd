@@ -1,7 +1,7 @@
 -buildpath: \
-	osgi.annotation;version=6.0.1,\
-	osgi.core;version=6.0,\
-	osgi.cmpn;version=6.0,\
+	osgi.annotation;version=latest,\
+	osgi.core;version=latest,\
+	osgi.cmpn;version=latest,\
 	org.apache.felix.http.servlet-api;version=1.1,\
 	net.younic.core.api;version=latest,\
 	slf4j.api,\
@@ -20,3 +20,4 @@ Bundle-Version: 0.0.0.${tstamp}
 Private-Package: net.younic.core.dispatcher
 Require-Capability: osgi.implementation; filter:="(&(osgi.implementation=osgi.http)(version>=1.0)(!(version>=2.0)))"
 Export-Package: net.younic.core.dispatcher.api
+Bundle-Activator: net.younic.core.dispatcher.Activator

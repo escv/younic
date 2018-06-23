@@ -22,7 +22,6 @@ package net.younic.content.internal;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -34,7 +33,6 @@ public class MapSAXHandler extends DefaultHandler {
 
 	private Map<String, Object> map; 
 
-	private String current;
 	private StringBuilder data;
 	
 	public MapSAXHandler() {

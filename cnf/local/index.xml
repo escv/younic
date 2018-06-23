@@ -1,140 +1,128 @@
-<?xml version="1.0" encoding="utf-8"?>
-<repository increment="1518729713000" name="Local" xmlns="http://www.osgi.org/xmlns/repository/v1.0.0">
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1529678791808">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.younic.thymeleaf-bundle"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-    </capability>
-    <capability namespace="osgi.content">
-      <attribute name="osgi.content" value="9317c8136ca491e713efbeff1355f2c2ea20dfc8bc56c672a3b8870e55818441"/>
-      <attribute name="url" value="thymeleaf-bundle-3.0.9.jar"/>
-      <attribute name="size" type="Long" value="863821"/>
-      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="version" value="3.0.9" type="Version"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.bundle" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.host" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.thymeleaf"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.thymeleaf.context"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.thymeleaf.templateresolver"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.thymeleaf.expression"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.thymeleaf.templateresource"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
     </capability>
     <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.9" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.thymeleaf.exceptions"/>
-      <attribute name="version" type="Version" value="3.0.9"/>
-      <attribute name="bundle-symbolic-name" value="net.younic.thymeleaf-bundle"/>
-      <attribute name="bundle-version" type="Version" value="3.0.9"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="863821" type="Long"/>
+      <attribute name="url" value="thymeleaf-bundle-3.0.9.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="9317C8136CA491E713EFBEFF1355F2C2EA20DFC8BC56C672A3B8870E55818441"/>
     </capability>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=ognl)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=ognl))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=ognl.enhance)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=ognl.enhance))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.attoparser)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.attoparser))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.attoparser.select)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.attoparser.select))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.attoparser.config)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.attoparser.config))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javassist)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javassist))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jdi))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.unbescape.html)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.unbescape.html))"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi.connect)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jdi.connect))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi.event)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jdi.event))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=com.sun.jdi.request)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.jdi.request))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.servlet)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.servlet.http)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.servlet.http))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=javax.xml.parsers)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.apache.xerces.parsers)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.xerces.parsers))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.apache.xerces.xni.parser)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.xerces.xni.parser))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.cyberneko.html)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.cyberneko.html))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(version&gt;=1.6.0)(!(version&gt;=2.0.0)))"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.slf4j)(&amp;(version&gt;=1.6.0)(!(version&gt;=2.0.0))))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.w3c.dom)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.xml.sax)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.ext)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.ext))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
     <requirement namespace="osgi.wiring.package">
-      <directive name="filter" value="(osgi.wiring.package=org.xml.sax.helpers)"/>
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.helpers))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
   </resource>

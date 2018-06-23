@@ -17,83 +17,70 @@
  * 
  * =============================================================================
  */
-package net.younic.admin;
+package net.younic.sync;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
 import net.younic.core.api.YounicEventsConstants;
-import net.younic.core.dispatcher.api.IResourceAPIService;
 
 /**
  * @author Andre Albert
  *
  */
-@Component(service=IResourceAPIService.class)
-public class CacheRestService implements IResourceAPIService {
+@Component(service=ISyncTimerService.class)
+public class JDKTimerService implements ISyncTimerService, IPostResourceModified {
+
+	private Timer timer;
 
 	@Reference
     private EventAdmin eventAdmin;
 	
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IHandleable#handles(java.lang.Object)
-	 */
-	@Override
-	public boolean handles(Object resource) {
-		return "cache".equals(resource);
+	@Deactivate
+	void deactivate() {
+		timer = null;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IRankable#rank()
-	 */
-	@Override
-	public int rank() {
-		return 0;
+	@Activate
+	void activate() {
+		timer = new Timer("YOUNIC :: timer", false);
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#read(java.lang.String, java.io.OutputStream)
+	 * @see net.younic.sync.internal.IPostResourceModified#postModified()
 	 */
 	@Override
-	public void read(String path, OutputStream out) throws IOException {
-		if ("clear".equals(path)) {
+	public void postModified() {
+		if (eventAdmin != null) {
 			Map<String, String> props = new HashMap<String, String>();
 			eventAdmin.postEvent(new Event(YounicEventsConstants.RESOURCE_MODIFIED, props));
-			out.write("OK".getBytes("UTF-8"));
 		}
-
 	}
 
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#delete(java.lang.String)
+	 * @see net.younic.sync.ISyncTimerService#registerSyncTimerTask(net.younic.sync.SyncTimerTask)
 	 */
 	@Override
-	public void delete(String path) throws IOException {
-
+	public void registerSyncTimerTask(SyncTimerTask task) {
+		timer.schedule(task, 1000, 10000);
+		
 	}
 
 	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#write(java.lang.String, java.io.InputStream, java.io.OutputStream)
+	 * @see net.younic.sync.ISyncTimerService#removeSyncTimerTask(net.younic.sync.SyncTimerTask)
 	 */
 	@Override
-	public void write(String path, InputStream in, OutputStream out) throws IOException {
-
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#contentType()
-	 */
-	@Override
-	public String contentType() {
-		return "text/plain";
+	public void cancel() {
+		timer.cancel();
+		
 	}
 
 }

@@ -1,0 +1,13 @@
+-buildpath: \
+	osgi.annotation;version=latest,\
+	osgi.cmpn;version=latest,\
+	net.younic.core.api;version=latest
+
+-baseline: *]
+
+javac.source: 1.8
+javac.target: 1.8
+
+Bundle-Version: 1.0.0.${tstamp}
+Export-Package: net.younic.sync
+
