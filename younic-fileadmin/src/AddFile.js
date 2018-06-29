@@ -20,7 +20,7 @@ export default class AddFile extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.api = axios.create({
-		  baseURL: 'http://localhost:8282/api/txt/',
+		  baseURL: '/api/txt/',
 		  timeout: 10000,
 		  headers: {
 		    'Accept': 'text/plain',

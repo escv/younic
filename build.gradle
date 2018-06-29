@@ -1,7 +1,7 @@
-// Available to customize the build
-
 plugins {
 	id 'java'
+    id 'com.palantir.docker' version '0.19.2'
+    id 'com.palantir.docker-run' version '0.19.2'
 }
 
 repositories {
@@ -29,4 +29,26 @@ task packageZip(type: Zip) {
     archiveName = "younic.zip"
     destinationDir = file("cnf/release")
     from "cnf/run"
+}
+
+docker {
+    name 'escv/younic'
+    //tags 'latest'
+    dockerfile file('Dockerfile')
+    dependsOn packageZip
+    files file("cnf/release/younic.zip")
+    //buildArgs([BUILD_VERSION: 'version'])
+    //labels(['key': 'value'])
+    pull true
+    noCache true
+}
+dockerRun {
+    name 'younic'
+    image 'escv/younic'
+    //volumes 'hostvolume': '/containervolume'
+    ports '8282:8080'
+    clean true
+    daemonize true
+    env 'YOUNIC_CMS_ROOT_GIT': 'https://github.com/escv/younic-sample.git'
+    //command 'sleep', '100'
 }

@@ -12,7 +12,7 @@ export default class DeleteEntry extends Component {
     		currentFile: '/',
     	}
 	    this.api = axios.create({
-		  baseURL: 'http://localhost:8282/api/txt/',
+		  baseURL: '/api/txt/',
 		  timeout: 10000,
 		  headers: {
 		    'Accept': 'text/plain',

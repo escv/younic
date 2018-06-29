@@ -80,7 +80,6 @@ public class JDKTimerService implements ISyncTimerService, IPostResourceModified
 	@Override
 	public void cancel() {
 		timer.cancel();
-		
 	}
 
 }

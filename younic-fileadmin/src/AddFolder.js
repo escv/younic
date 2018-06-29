@@ -15,7 +15,7 @@ export default class AddFolder extends Component {
     		currentFolder: '/'
     	}
 	    this.api = axios.create({
-		  baseURL: 'http://localhost:8282/api/dir/',
+		  baseURL: '/api/dir/',
 		  timeout: 10000,
 		  headers: {
 		    'Accept': 'text/plain',
