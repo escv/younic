@@ -33,7 +33,7 @@ import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.Resource;
 
 @Component(service=IResourceConverter.class)
-public class CVSResourceConverter implements IResourceConverter {
+public class CSVResourceConverter implements IResourceConverter {
 
 	@Reference(target="(type=cache)")
 	private IResourceContentProvider contentProvider;

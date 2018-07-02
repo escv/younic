@@ -38,7 +38,7 @@ import net.younic.core.api.YounicEventsConstants;
  */
 @Component(service=ISyncTimerService.class)
 public class JDKTimerService implements ISyncTimerService, IPostResourceModified {
-
+	
 	private Timer timer;
 
 	@Reference

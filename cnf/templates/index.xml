@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Templates" increment="1529241779177">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Templates" increment="1529241779000">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="license" value="EPL-1.0; description=&quot;Eclipse Public License, Version 1.0&quot;; link=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;"/>

@@ -1,0 +1,46 @@
+-runfw: org.apache.felix.framework;version='[5.6.10,5.6.10]'
+-runee: JavaSE-1.8
+-runsystemcapabilities: ${native_capability}
+
+-resolve.effective: active;skip:="osgi.service"
+
+-runbundles: \
+	log4j;version='[1.2.17,1.2.18)',\
+	net.younic.admin;version=snapshot,\
+	net.younic.cache;version=snapshot,\
+	net.younic.content;version=snapshot,\
+	net.younic.core.api;version=snapshot,\
+	net.younic.core.dispatcher;version=snapshot,\
+	net.younic.core.fs;version=snapshot,\
+	net.younic.thymeleaf-bundle;version='[3.0.9,3.0.10)',\
+	net.younic.tpl.thymeleaf;version=snapshot,\
+	org.apache.felix.configadmin;version='[1.8.16,1.8.17)',\
+	org.apache.felix.eventadmin;version='[1.4.10,1.4.11)',\
+	org.apache.felix.http.jetty;version='[3.4.8,3.4.9)',\
+	org.apache.felix.http.servlet-api;version='[1.1.2,1.1.3)',\
+	org.apache.felix.log;version='[1.0.1,1.0.2)',\
+	org.apache.felix.scr;version='[2.0.14,2.0.15)',\
+	org.apache.servicemix.bundles.javassist;version='[3.12.1,3.12.2)',\
+	org.apache.servicemix.bundles.ognl;version='[3.1.12,3.1.13)',\
+	org.attoparser;version='[2.0.5,2.0.6)',\
+	org.unbescape;version='[1.1.6,1.1.7)',\
+	slf4j.api;version='[1.7.25,1.7.26)',\
+	slf4j.log4j12;version='[1.7.25,1.7.26)'
+
+-runrequires: \
+	bnd.identity;id='net.younic.admin',\
+	bnd.identity;id='net.younic.cache',\
+	bnd.identity;id='net.younic.content',\
+	bnd.identity;id='net.younic.core.api',\
+	bnd.identity;id='net.younic.core.dispatcher',\
+	bnd.identity;id='net.younic.core.fs',\
+	bnd.identity;id='net.younic.tpl.thymeleaf',\
+	bnd.identity;id='slf4j.api',\
+	bnd.identity;id='net.younic.sync',\
+	bnd.identity;id='net.younic.sync.git'
+-runproperties: \
+	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
+	org.osgi.service.http.port=8282,\
+	net.younic.cms.root=../../younic-sample,\
+	net.younic.admin.fileadmin-root=/Users/aalbert/Development/cynic/cnf/run/fileadmin,\
+	net.younic.devmode=false

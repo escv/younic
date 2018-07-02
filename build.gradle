@@ -37,18 +37,14 @@ docker {
     dockerfile file('Dockerfile')
     dependsOn packageZip
     files file("cnf/release/younic.zip")
-    //buildArgs([BUILD_VERSION: 'version'])
-    //labels(['key': 'value'])
     pull true
     noCache true
 }
 dockerRun {
     name 'younic'
     image 'escv/younic'
-    //volumes 'hostvolume': '/containervolume'
     ports '8282:8080'
     clean true
     daemonize true
     env 'YOUNIC_CMS_ROOT_GIT': 'https://github.com/escv/younic-sample.git'
-    //command 'sleep', '100'
 }

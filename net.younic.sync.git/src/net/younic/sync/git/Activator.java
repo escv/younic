@@ -22,8 +22,8 @@ package net.younic.sync.git;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
 import org.osgi.framework.ServiceReference;
+import org.osgi.util.tracker.ServiceTracker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,18 +43,22 @@ public class Activator implements BundleActivator {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		ServiceReference<ISyncTimerService> timer = context.getServiceReference(ISyncTimerService.class);
-		if (timer == null) {
-			LOG.warn("Sync Timer Service is not available");
-			return;
-		}
-		ISyncTimerService service = context.getService(timer);
-		String docroot = context.getProperty("net.younic.cms.root");
-		if (docroot == null) {
-			throw new BundleException("Missing Property \"net.younic.cms.root\"");
-		}
-		service.registerSyncTimerTask(new GitSyncTimerTask(docroot));
-
+		ServiceTracker<ISyncTimerService,ISyncTimerService> tracker = new ServiceTracker<ISyncTimerService, ISyncTimerService>(context, ISyncTimerService.class, null){
+			@Override
+			public ISyncTimerService addingService(ServiceReference<ISyncTimerService> reference) {
+				if (reference != null) {
+	        		final ISyncTimerService service = context.getService(reference);
+	        		if (service != null) {
+		        		String docroot = context.getProperty("net.younic.cms.root");
+		        		
+		        		service.registerSyncTimerTask(new GitSyncTimerTask(docroot));
+		        		LOG.info("GIT Sync activated");
+	        		}
+				}
+				return super.addingService(reference);
+			}
+		};
+		tracker.open();
 	}
 
 	/* (non-Javadoc)
