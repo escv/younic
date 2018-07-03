@@ -1,9 +1,23 @@
+
 buildscript {
 	repositories { mavenCentral() }
-	dependencies { classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:${bnd_version}" }
+	dependencies {
+		classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:${bnd_version}"
+	}
 	/* Add bnd gradle plugin to buildscript classpath of rootProject */
 	def bndPlugin = files(configurations.classpath.files)
 	gradle.rootProject { buildscript { dependencies { classpath bndPlugin } } }
 }
 
 apply plugin: 'biz.aQute.bnd.workspace'
+
+include 'net.younic.admin'
+include 'net.younic.cache'
+include 'net.younic.content'
+include 'net.younic.core.api'
+include 'net.younic.core.dispatcher'
+include 'net.younic.core.fs'
+include 'net.younic.sync'
+include 'net.younic.sync.git'
+include 'net.younic.tpl.thymeleaf'
+include 'younic-fileadmin'

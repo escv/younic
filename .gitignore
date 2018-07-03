@@ -21,3 +21,6 @@ cnf/run/bundle/net.younic.*
 !cnf/run/bin/
 
 bin_test/
+.idea
+cnf/run/bundle/distributions/*
+*.iml
