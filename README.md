@@ -27,6 +27,11 @@ If you prefer to launch younic as a container, please use the grade build target
 gradle clean compileJava dist docker dockerRun
 ```
 
+run standalone as jar:
+```
+./gradlew startServerStandalone
+```
+
 ### Credits:
 The sample web page is based on: http://demo.themewagon.com/preview/bootstrap-4-classified-website-template
 The hero image was taken from https://pixabay.com/en/fog-forest-mountain-world-clouds-1535201/

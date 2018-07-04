@@ -1,0 +1,10 @@
+task startServerStandalone(dependsOn: ['build','export.launch']) {
+    doLast{
+        javaexec {
+            main="-jar";
+            args = [
+                    "generated/distributions/executable/launch.jar"
+            ]
+        }
+    }
+}
