@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bnd:org.apache.felix.http.servlet-api:1.1.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.http.servlet-api/1.1.2/org.apache.felix.http.servlet-api-1.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

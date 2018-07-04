@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bnd:org.jmock:jmock:2.8.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jmock/jmock/2.8.2/jmock-2.8.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

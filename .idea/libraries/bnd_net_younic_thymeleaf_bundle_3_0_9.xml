@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bnd:net.younic.thymeleaf-bundle:3.0.9">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/cnf/local/thymeleaf-bundle-3.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

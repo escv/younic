@@ -39,8 +39,8 @@
 	bnd.identity;id='net.younic.sync',\
 	bnd.identity;id='net.younic.sync.git'
 -runproperties: \
-	log4j.configuration=file:///path/to/conf/log4j.properties,\
+	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
 	org.osgi.service.http.port=8282,\
-	net.younic.cms.root=/path/to/cms-root,\
-	net.younic.admin.fileadmin-root=/optional/path/to/fileadmin,\
+	net.younic.cms.root=/Users/aalbert/Development/younic-sample,\
+	net.younic.admin.fileadmin-root=/Users/aalbert/Development/cynic/cnf/run/fileadmin,\
 	net.younic.devmode=false
