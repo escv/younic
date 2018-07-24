@@ -36,10 +36,11 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 
 
 	private StringBuilder data;
-	private LinkedList<PrElement> rStack = new LinkedList<PrElement>();
+	private LinkedList<StackElement> rStack = new LinkedList<StackElement>();
 	private final Set<String> inlineStyles = new HashSet<String>();
 	private final Set<String> tableStyles = new HashSet<String>();
 	private final Set<String> stackables = new HashSet<String>();
+	private boolean previousList = false;
 	
 	public DOCx2HTLMHandler() {
 		data = new StringBuilder();
@@ -65,14 +66,18 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 		if ("document".equals(localName)) {
 			data.append("<div class=\"document\">");
 		} else if (stackables.contains(localName)) {
-			rStack.add(new PrElement(mapStyle(localName)));
+			rStack.add(new StackElement(mapStyle(localName)));
 		} else if ("r".equals(localName)) {
-			rStack.getLast().push(new PrElement(mapStyle(localName)));
+			rStack.getLast().push(new StackElement(mapStyle(localName)));
 		} else if ("br".equals(localName)) {
 			rStack.getLast().appendText("<br/>");
 		} else if ("pStyle".equals(localName)) {
 			String style = mapStyle(attributes.getValue("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val"));
-			rStack.getLast().addStyle(style);
+			if ("li".equals(style)) {
+				rStack.getLast().setElem("li");
+			} else {
+				rStack.getLast().addStyle(style);
+			}
 		} else if (inlineStyles.contains(localName)) {
 			rStack.getLast().peek().addStyle(localName);
 		} else if (tableStyles.contains(localName)) {
@@ -102,6 +107,7 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 			return style;
 		}
 	}
+	
 	/* (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -110,12 +116,18 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 		if ("document".equals(localName)) {
 			data.append("</div>");
 		} else if (stackables.contains(localName) && rStack.size()==1) {
+			if ("li".equals(rStack.getFirst().getElem()) && !previousList) {
+				data.append("<ul>");
+				previousList = true;
+			} else if (!"li".equals(rStack.getFirst().getElem()) && previousList) {
+				data.append("</ul>");
+				previousList = false;
+			}
 			data.append(rStack.removeLast().render()+"\r\n");
 		} else if (stackables.contains(localName)) {
 			String finalized = rStack.removeLast().render();
 			rStack.getLast().appendText(finalized);
 		}
-		
 	}
 
 	
@@ -147,26 +159,28 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 		html = html.replace("<p><h4>", "<h4>");
 		html = html.replace("</h4></p>", "</h4>");
 
-		html = html.replace("<p><li>", "<li>");
-		html = html.replace("</li></p>", "</li>");
-		
 		return html;
 	}
 
-	private static class PrElement {
+	private static class StackElement {
 		private String elem;
 		private List<String> styles;
 		private StringBuilder text;
-		private LinkedList<PrElement> innerStack;
+		private LinkedList<StackElement> innerStack;
  
-		private PrElement(String elem) {
+		private StackElement(String elem) {
 			super();
 			this.elem = elem;
 			this.styles = new LinkedList<String>();
-			this.innerStack = new LinkedList<PrElement>();
+			this.innerStack = new LinkedList<StackElement>();
 			this.text = new StringBuilder();
 		}
-
+		public String getElem() {
+			return elem;
+		}
+		public void setElem(String elem) {
+			this.elem = elem;
+		}
 		public void addStyle(String style) {
 			this.styles.add(style);
 		}
@@ -177,15 +191,15 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 				this.innerStack.getLast().appendText(text);
 			}
 		}
-		public void push(PrElement docElem) {
+		public void push(StackElement docElem) {
 			this.innerStack.addLast(docElem);
 		}
-		public PrElement pop() {
+		public StackElement pop() {
 			return this.innerStack.removeLast();
 		}
-		public PrElement peek() {
+		public StackElement peek() {
 			if (innerStack.isEmpty()) {
-				return new PrElement("nullobject");
+				return new StackElement("nullobject");
 			}
 			return this.innerStack.getLast();
 		}
@@ -197,7 +211,7 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 			for (String style : styles) {
 				r.append("<"+style+">");
 			}
-			for (PrElement docElement : innerStack) {
+			for (StackElement docElement : innerStack) {
 				r.append(docElement.render());
 			}
 			if (text.length() > 0) {
@@ -211,9 +225,6 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 			}
 			return r.toString();
 		}
-		/* (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
 		@Override
 		public String toString() {
 			return this.elem;

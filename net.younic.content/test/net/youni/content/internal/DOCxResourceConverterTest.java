@@ -28,6 +28,7 @@ import java.nio.file.Paths;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,5 +66,11 @@ public class DOCxResourceConverterTest {
 		Resource r = new Resource(docRoot.getAbsolutePath()+"/content/", "Simple.docx", false);
 		String markup = (String)conv.convert(r);
 		System.out.println(markup);
+		Assert.assertTrue(markup.startsWith("<div class=\"document\">"));
+		Assert.assertTrue(markup.endsWith("</div>"));
+		Assert.assertTrue(markup.contains("<h1>Test Document</h1>"));
+		Assert.assertTrue(markup.contains("<h2>Second Level Headline</h2>"));
+		Assert.assertTrue(markup.contains("<li>Second unordered</li>"));
+		Assert.assertTrue(markup.contains("<p>Now 3 times Shift+Enter<br/><br/><br/></p>"));
 	}
 }
