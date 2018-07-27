@@ -19,9 +19,13 @@
  */
 package net.younic.content.internal;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.xml.sax.Attributes;
@@ -36,17 +40,15 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 
 
 	private StringBuilder data;
-	private LinkedList<StackElement> rStack = new LinkedList<StackElement>();
-	private final Set<String> inlineStyles = new HashSet<String>();
+	private LinkedList<StackBlockElement> rStack = new LinkedList<StackBlockElement>();
 	private final Set<String> tableStyles = new HashSet<String>();
 	private final Set<String> stackables = new HashSet<String>();
 	private boolean previousList = false;
+	private boolean isOrderedList = false;
+	private boolean inRProps = false;
 	
 	public DOCx2HTLMHandler() {
 		data = new StringBuilder();
-		inlineStyles.add("b");
-		inlineStyles.add("i");
-		inlineStyles.add("u");
 		
 		tableStyles.add("tbl");
 		tableStyles.add("tr");
@@ -66,22 +68,26 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 		if ("document".equals(localName)) {
 			data.append("<div class=\"document\">");
 		} else if (stackables.contains(localName)) {
-			rStack.add(new StackElement(mapStyle(localName)));
+			rStack.add(new StackBlockElement(mapStyle(localName)));
 		} else if ("r".equals(localName)) {
-			rStack.getLast().push(new StackElement(mapStyle(localName)));
+			rStack.getLast().push(new StackBlockElement(mapStyle(localName)));
 		} else if ("br".equals(localName)) {
 			rStack.getLast().appendText("<br/>");
+		} else if ("rStyle".equals(localName)) {
+			rStack.getLast().addAttr("class", attributes.getValue("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val"));
+		} else if (inRProps && !"lang".equals(localName)) {
+			rStack.getLast().peek().addProp(localName, attributes.getValue("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val"));
+		} else if ("rPr".equals(localName)) {
+			inRProps = true;
 		} else if ("pStyle".equals(localName)) {
 			String style = mapStyle(attributes.getValue("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val"));
-			if ("li".equals(style)) {
-				rStack.getLast().setElem("li");
-			} else {
-				rStack.getLast().addStyle(style);
-			}
-		} else if (inlineStyles.contains(localName)) {
-			rStack.getLast().peek().addStyle(localName);
+			rStack.getLast().setElem(style);
+		} else if ("jc".equals(localName)) {
+			rStack.getLast().addProp("text-align", attributes.getValue("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val"));
 		} else if (tableStyles.contains(localName)) {
 			rStack.getLast().appendText("<"+mapStyle(localName)+">");
+		} else if ("numId".equals(localName) && "2".equals(attributes.getValue("http://schemas.openxmlformats.org/wordprocessingml/2006/main", "val"))) {
+			isOrderedList = true;
 		}
 	}
 	
@@ -117,13 +123,15 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 			data.append("</div>");
 		} else if (stackables.contains(localName) && rStack.size()==1) {
 			if ("li".equals(rStack.getFirst().getElem()) && !previousList) {
-				data.append("<ul>");
+				data.append(isOrderedList ? "<ol>" : "<ul>");
 				previousList = true;
 			} else if (!"li".equals(rStack.getFirst().getElem()) && previousList) {
-				data.append("</ul>");
+				data.append(isOrderedList ? "</ol>" : "</ul>");
 				previousList = false;
 			}
 			data.append(rStack.removeLast().render()+"\r\n");
+		} else if ("rPr".equals(localName)) {
+			inRProps = false;
 		} else if (stackables.contains(localName)) {
 			String finalized = rStack.removeLast().render();
 			rStack.getLast().appendText(finalized);
@@ -144,81 +152,96 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 	}
 
 	public String getMarkup() {
-		String html = data.toString();
-		
-		// do some post processing here
-		html = html.replace("<p><h1>", "<h1>");
-		html = html.replace("</h1></p>", "</h1>");
-		
-		html = html.replace("<p><h2>", "<h2>");
-		html = html.replace("</h2></p>", "</h2>");
-		
-		html = html.replace("<p><h3>", "<h3>");
-		html = html.replace("</h3></p>", "</h3>");
-		
-		html = html.replace("<p><h4>", "<h4>");
-		html = html.replace("</h4></p>", "</h4>");
-
-		return html;
+		return data.toString();
 	}
 
-	private static class StackElement {
+	private static class StackBlockElement {
+		private static final String[] INLINE_ELEMENTS = new String[] {"b","i","u"};
 		private String elem;
-		private List<String> styles;
 		private StringBuilder text;
-		private LinkedList<StackElement> innerStack;
+		private LinkedList<StackBlockElement> inlineParts;
+		private Map<String, String> props;
+		private Map<String, String> attrs;
  
-		private StackElement(String elem) {
+		private StackBlockElement(String elem) {
 			super();
 			this.elem = elem;
-			this.styles = new LinkedList<String>();
-			this.innerStack = new LinkedList<StackElement>();
+			this.inlineParts = new LinkedList<StackBlockElement>();
 			this.text = new StringBuilder();
+			this.props = new HashMap<>();
+			this.attrs = new HashMap<>();
 		}
-		public String getElem() {
+		String getElem() {
 			return elem;
 		}
-		public void setElem(String elem) {
+		void setElem(String elem) {
 			this.elem = elem;
 		}
-		public void addStyle(String style) {
-			this.styles.add(style);
+		void addProp(String key, String val) {
+			this.props.put(key, val);
 		}
-		public void appendText(String text) {
-			if (innerStack.isEmpty()) {
+		void addAttr(String key, String val) {
+			this.attrs.put(key, val);
+		}
+		void appendText(String text) {
+			if (inlineParts.isEmpty()) {
 				this.text.append(text);
 			} else {
-				this.innerStack.getLast().appendText(text);
+				this.inlineParts.getLast().appendText(text);
 			}
 		}
-		public void push(StackElement docElem) {
-			this.innerStack.addLast(docElem);
+		void push(StackBlockElement docElem) {
+			this.inlineParts.addLast(docElem);
 		}
-		public StackElement pop() {
-			return this.innerStack.removeLast();
-		}
-		public StackElement peek() {
-			if (innerStack.isEmpty()) {
-				return new StackElement("nullobject");
+		StackBlockElement peek() {
+			if (inlineParts.isEmpty()) {
+				return new StackBlockElement("nullobject");
 			}
-			return this.innerStack.getLast();
+			return this.inlineParts.getLast();
 		}
-		public String render() {
+		String render() {
 			StringBuilder r = new StringBuilder();
-			if (elem!=null && !"r".equals(elem)) {
-				r.append("<"+elem+">");
+			String spanStyles = "";
+			for (String prop : this.props.keySet()) {
+				if (Arrays.binarySearch(INLINE_ELEMENTS, prop)<0) {
+					if (!spanStyles.isEmpty()) {
+						spanStyles+= ";";
+					}
+					spanStyles+= prop+":"+(prop.contains("color")?"#":"")+this.props.get(prop);
+				}
 			}
-			for (String style : styles) {
-				r.append("<"+style+">");
+			if ("r".equals(elem) && !spanStyles.isEmpty()) {
+				this.elem = "span";
 			}
-			for (StackElement docElement : innerStack) {
+			if (!"r".equals(elem)) {
+				r.append("<"+elem);
+				for (Entry<String, String> attr : this.attrs.entrySet()) {
+					r.append(" "+attr.getKey()+"=\""+attr.getValue()+"\"");
+				}
+				if (!spanStyles.isEmpty()) {
+					r.append(" style=\""+spanStyles+"\"");
+				}
+				
+				r.append(">");
+			}
+			for (String prop : this.props.keySet()) {
+				if (Arrays.binarySearch(INLINE_ELEMENTS, prop)>=0) {
+					r.append("<"+prop+">");
+				}
+			}
+			for (StackBlockElement docElement : inlineParts) {
 				r.append(docElement.render());
 			}
 			if (text.length() > 0) {
 				r.append(this.text);
+			} else if (inlineParts.isEmpty()) {
+				r.append("&nbsp;");
 			}
-			for (String style : styles) {
-				r.append("</"+style+">");
+
+			for (String prop : this.props.keySet()) {
+				if (Arrays.binarySearch(INLINE_ELEMENTS, prop)>=0) {
+					r.append("</"+prop+">");
+				}
 			}
 			if (elem!=null && !"r".equals(elem)) {
 				r.append("</"+elem+">");

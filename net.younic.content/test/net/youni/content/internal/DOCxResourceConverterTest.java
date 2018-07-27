@@ -71,6 +71,10 @@ public class DOCxResourceConverterTest {
 		Assert.assertTrue(markup.contains("<h1>Test Document</h1>"));
 		Assert.assertTrue(markup.contains("<h2>Second Level Headline</h2>"));
 		Assert.assertTrue(markup.contains("<li>Second unordered</li>"));
+		Assert.assertTrue(markup.contains("<b>bold</b>"));
+		Assert.assertTrue(markup.contains("<i>italic</i>"));
+		Assert.assertTrue(markup.contains("<u>underline</u>"));
+		Assert.assertTrue(markup.contains("<span style=\"color:#FF0000\">red</span>"));
 		Assert.assertTrue(markup.contains("<p>Now 3 times Shift+Enter<br/><br/><br/></p>"));
 	}
 }
