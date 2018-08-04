@@ -17,6 +17,7 @@ Thumbs.db
 .metadata
 
 cnf/release/*.zip
+cnf/release/index.xml*
 cnf/run/bundle/net.younic.*
 !cnf/run/bin/
 
