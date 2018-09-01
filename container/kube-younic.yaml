@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: younic
+  labels:
+    app: younic
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: younic-config
+  namespace: younic
+data:
+  younic.cms.repository=https://github.com/escv/younic-sample.git
+  younic.cms.repository.branch=master
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: younic-deployment
+  namespace: younic
+  labels:
+    app: younic
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: younic
+  template:
+    metadata:
+      labels:
+        app: younic
+    spec:
+      containers:
+      - name: younic-container
+        image: hub.docker.com/escv/younic
+        ports:
+        - containerPort: 8080
+        env:
+        - name: YOUNIC_CMS_ROOT_GIT
+          valueFrom:
+            configMapKeyRef:
+              name: younic.cms.repository
+        - name: YOUNIC_CMS_ROOT_GIT_BRANCH
+          valueFrom:
+            configMapKeyRef:
+              name: younic.cms.repository.branch
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "1"
+        livenessProbe:
+          httpGet:
+            path: /api/dir/
+            port: 8080
+        volumeMounts:
+          - mountPath: /opt/younic/cms-root
+            name: cms-root
+      volumes:
+      - name: cms-root
+        emptyDir:
+          medium: Memory
+          sizeLimit: "62Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: younic-service
+  namespace: younic
+spec:
+  selector:
+    app: youni
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+    nodePort: 30080

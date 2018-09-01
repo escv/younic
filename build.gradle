@@ -33,13 +33,15 @@ task packageZip(type: Zip) {
 
 docker {
     name 'escv/younic'
+    //name 'hub.docker.com/escv/younic'
     //tags 'latest'
-    dockerfile file('Dockerfile')
+    dockerfile file('container/Dockerfile')
     dependsOn packageZip
     files file("cnf/release/younic.zip")
     pull true
     noCache true
 }
+
 dockerRun {
     name 'younic'
     image 'escv/younic'
