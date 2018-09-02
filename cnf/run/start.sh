@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -d "/opt/younic/cms-root" ]; then
+if [ ! -d "/opt/younic/cms-root/content" ]; then
   git clone $YOUNIC_CMS_ROOT_GIT /opt/younic/cms-root
 fi
 

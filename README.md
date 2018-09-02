@@ -40,6 +40,15 @@ run standalone as jar:
 ./gradlew startServerStandalone
 ```
 
+## Cloud Deployments
+Younic also supports a kubernetes cluster deployment. To do so, run the command:
+```
+kubectl apply -f https://raw.githubusercontent.com/escv/younic/develop/container/kube-younic.yaml
+```
+You can find the git clone URL for the CMS root in a config map. Just replace this URL with your repository and restart your deployment.
+
+
+
 ### Credits:
 The sample web page is based on: http://demo.themewagon.com/preview/bootstrap-4-classified-website-template
 The hero image was taken from https://pixabay.com/en/fog-forest-mountain-world-clouds-1535201/

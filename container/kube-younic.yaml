@@ -9,20 +9,20 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: younic-config
-  namespace: younic
+  # namespace: younic
 data:
-  younic.cms.repository=https://github.com/escv/younic-sample.git
-  younic.cms.repository.branch=master
+  younic.cms.repository: https://github.com/escv/younic-sample.git
+  younic.cms.repository.branch: master
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: younic-deployment
-  namespace: younic
+  #namespace: younic
   labels:
     app: younic
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: younic
@@ -31,24 +31,31 @@ spec:
       labels:
         app: younic
     spec:
+      hostAliases:
+        # the is no internet hostname resolving activated. Adjust here the ip of github.com or find any better solution.
+        - ip: "192.30.253.112"
+          hostnames:
+            - "github.com"
       containers:
       - name: younic-container
-        image: hub.docker.com/escv/younic
+        image: escv/younic
         ports:
         - containerPort: 8080
         env:
         - name: YOUNIC_CMS_ROOT_GIT
           valueFrom:
             configMapKeyRef:
-              name: younic.cms.repository
+              name: younic-config
+              key: younic.cms.repository
         - name: YOUNIC_CMS_ROOT_GIT_BRANCH
           valueFrom:
             configMapKeyRef:
-              name: younic.cms.repository.branch
+              name: younic-config
+              key: younic.cms.repository.branch
         resources:
           limits:
-            memory: "1024Mi"
-            cpu: "1"
+            memory: "768Mi"
+            cpu: "0.2"
         livenessProbe:
           httpGet:
             path: /api/dir/
@@ -66,13 +73,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: younic-service
-  namespace: younic
+  ##namespace: younic
 spec:
   selector:
-    app: youni
+    app: younic
   type: NodePort
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8080
-    nodePort: 30080
+    nodePort: 30082
