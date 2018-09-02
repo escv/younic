@@ -5,9 +5,9 @@
   "dependencies": {
     "axios": "^0.17.0",
     "fbemitter": "^2.0.0",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-modal": "^3.4.4",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-modal": "^3.5.1",
     "react-scripts": "1.1.1"
   },
   "scripts": {
