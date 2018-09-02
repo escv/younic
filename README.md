@@ -46,7 +46,10 @@ Younic also supports a kubernetes cluster deployment. To do so, run the command:
 kubectl apply -f https://raw.githubusercontent.com/escv/younic/develop/container/kube-younic.yaml
 ```
 You can find the git clone URL for the CMS root in a config map. Just replace this URL with your repository and restart your deployment.
-
+To fetch the service port of the running younic service, enter: 
+```
+kubectl describe service younic-service | grep NodePort
+```
 
 
 ### Credits:
