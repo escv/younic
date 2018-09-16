@@ -20,6 +20,7 @@
 package net.younic.cache;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
@@ -45,6 +47,7 @@ import net.younic.core.api.YounicEventsConstants;
 		"type=cache",
 		EventConstants.EVENT_TOPIC + "=" + YounicEventsConstants.RESOURCE_MODIFIED 
 })
+@ServiceRanking(100)
 public class ResourceContentProviderCache implements IResourceContentProvider, EventHandler {
 
 	private static final int MAX_CACHE_ENTRY_SIZE = 50000000; // 50K
@@ -116,6 +119,14 @@ public class ResourceContentProviderCache implements IResourceContentProvider, E
 	public InputStream fetchContentStream(String resourceFQName) throws IOException {
 		Resource resource = resourceProvider.fetchResource(resourceFQName);
 		return this.fetchContentStream(resource);
+	}
+	
+	/* (non-Javadoc)
+	 * @see net.younic.core.api.IResourceContentProvider#fetchContentFile(net.younic.core.api.Resource)
+	 */
+	@Override
+	public File fetchContentFile(Resource resource) throws IOException {
+		return target.fetchContentFile(resource);
 	}
 
 	/* (non-Javadoc)

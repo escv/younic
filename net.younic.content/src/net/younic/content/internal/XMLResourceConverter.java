@@ -38,7 +38,7 @@ import net.younic.core.api.Resource;
 @Component(service=IResourceConverter.class)
 public class XMLResourceConverter implements IResourceConverter {
 
-	@Reference(target="(type=cache)")
+	@Reference
 	private IResourceContentProvider contentProvider;
 	
 	@Override

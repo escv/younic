@@ -56,8 +56,8 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	private final String[] homePage = new String[] {"/", "html"};
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DispatcherServlet.class);
-	
-	@Reference(target="(type=cache)")
+		
+	@Reference
 	private IResourceContentProvider resourceContentProvider;
 	
 	@Reference
@@ -141,8 +141,8 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 				result[0] = path.substring(0, lastPathSep);
 				result[1] = path.substring(lastPathSep+1);
 			} else {
-				result[0]="/";
-				result[1]=path;
+				result[0] = "/";
+				result[1] = path;
 			}			
 			result[2] = pathInfo.substring(typeSepPos);
 		}

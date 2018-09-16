@@ -6,7 +6,8 @@
 	net.younic.core.dispatcher;version=latest,\
 	net.younic.core.api;version=latest,\
 	slf4j.api,\
-	org.apache.felix.log;version=1.0
+	org.apache.felix.log;version=1.0,\
+	org.apache.aries.javax.jax.rs-api
 
 -contract: *
 

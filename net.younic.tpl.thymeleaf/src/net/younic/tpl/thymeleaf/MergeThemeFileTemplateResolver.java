@@ -19,17 +19,28 @@
  */
 package net.younic.tpl.thymeleaf;
 
+import java.util.List;
 import java.util.Map;
 
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.thymeleaf.templateresource.ITemplateResource;
 
+import net.younic.core.api.ITemplatePreProcessor;
+
 public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
+
+	private List<ITemplatePreProcessor> preProcessors;
+	
+	public MergeThemeFileTemplateResolver(List<ITemplatePreProcessor> preProcessors) {
+		super();
+		this.preProcessors = preProcessors;
+	}
 
 	@Override
     protected ITemplateResource computeTemplateResource(
             final IEngineConfiguration configuration, final String ownerTemplate, final String template, final String resourceName, final String characterEncoding, final Map<String, Object> templateResolutionAttributes) {
-	    	return new MergedTemplateResource(resourceName, characterEncoding, this.getPrefix() + "index"+this.getSuffix());
+
+		return new MergedTemplateResource(resourceName, characterEncoding == null ? "utf-8" : characterEncoding, this.getPrefix() + "index"+this.getSuffix(), preProcessors);
     }
 }

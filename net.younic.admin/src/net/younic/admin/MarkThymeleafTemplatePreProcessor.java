@@ -17,14 +17,29 @@
  * 
  * =============================================================================
  */
-package net.younic.core.fs;
+package net.younic.admin;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import org.osgi.service.component.annotations.Component;
 
-final class NonTechnicalFilter implements FilenameFilter {
+import net.younic.core.api.ITemplatePreProcessor;
+
+/**
+ * @author Andre Albert
+ *
+ */
+@Component(service=ITemplatePreProcessor.class)
+public class MarkThymeleafTemplatePreProcessor implements ITemplatePreProcessor {
+
+	private static final String SHOW_TH_CSS = "<style type=\"text/css\">[data-tpl-text=\"true\"], [data-tpl-utext=\"true\"] {border:2px solid blue;} \n [data-tpl-each=\"true\"] {border:2px solid red !important;}</style>";
+	/* (non-Javadoc)
+	 * @see net.younic.core.api.ITemplatePreProcessor#process(java.lang.String)
+	 */
 	@Override
-	public boolean accept(File dir, String name) {
-		return name.charAt(0) != '.' && !"TEMPLATE.REF".equalsIgnoreCase(name) && !name.startsWith("~$");
+	public String process(String content) {
+		
+		String processed = content.replaceAll(" th:([a-z]+)=", " data-tpl-$1=\"true\" th:$1=");
+		processed = processed.replaceAll("</head>", SHOW_TH_CSS+"</head>");
+		return processed;
 	}
+
 }

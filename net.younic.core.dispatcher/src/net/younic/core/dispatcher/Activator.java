@@ -35,7 +35,6 @@ import net.younic.core.dispatcher.api.YounicHttpContext;
 
 /**
  * @author Andre Albert
- *i
  */
 public class Activator implements BundleActivator {
 

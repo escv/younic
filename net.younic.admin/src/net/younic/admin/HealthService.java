@@ -17,23 +17,28 @@
  * 
  * =============================================================================
  */
-package net.younic.core.dispatcher.api;
+package net.younic.admin;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
-import net.younic.core.api.IHandleable;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationSelect;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsResource;
 
 /**
  * @author Andre Albert
  *
  */
-public interface IResourceAPIService extends IHandleable {
+@JaxrsResource
+@JaxrsApplicationSelect("(osgi.jaxrs.name=api)")
+@Component(service=HealthService.class)
+@Path("health")
+public class HealthService {
 
-	void read(String path, OutputStream out) throws IOException;
-	void delete(String path) throws IOException;
-	void write(String path, InputStream in, OutputStream out) throws IOException;
-	
-	String contentType();
+    @GET
+    public String ping() {
+        return "OK";
+    }
+
 }

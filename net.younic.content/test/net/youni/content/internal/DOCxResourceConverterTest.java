@@ -19,10 +19,8 @@
  */
 package net.youni.content.internal;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.lang.reflect.Field;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.jmock.Expectations;
@@ -52,8 +50,8 @@ public class DOCxResourceConverterTest {
 		this.conv = new DOCxResourceConverter();
 		final IResourceContentProvider rcp = m.mock(IResourceContentProvider.class);
 		m.checking(new Expectations() {{
-			allowing(rcp).fetchContentStream(with(any(Resource.class)));
-			will(returnValue(new ByteArrayInputStream(Files.readAllBytes(Paths.get(docRoot.getAbsolutePath()+"/content/table.csv")))));			
+			allowing(rcp).fetchContentFile(with(any(Resource.class)));
+			will(returnValue(Paths.get(docRoot.getAbsolutePath()+"/content/Simple.docx").toFile()));			
 		}});
 		Field field = DOCxResourceConverter.class.getDeclaredField("contentProvider");
 		field.setAccessible(true);
@@ -63,7 +61,7 @@ public class DOCxResourceConverterTest {
 
 	@Test
 	public void testTransformWordXML() throws Exception {
-		Resource r = new Resource(docRoot.getAbsolutePath()+"/content/", "Simple.docx", false);
+		Resource r = new Resource(docRoot.getAbsolutePath()+"/content", "Simple.docx", false);
 		String markup = (String)conv.convert(r);
 		System.out.println(markup);
 		Assert.assertTrue(markup.startsWith("<div class=\"document\">"));

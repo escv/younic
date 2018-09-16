@@ -20,6 +20,7 @@
 package net.younic.content.internal;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -224,7 +225,8 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 				
 				r.append(">");
 			}
-			for (String prop : this.props.keySet()) {
+			List<String> propElems = new LinkedList<String>(this.props.keySet());
+			for (String prop : propElems) {
 				if (Arrays.binarySearch(INLINE_ELEMENTS, prop)>=0) {
 					r.append("<"+prop+">");
 				}
@@ -235,10 +237,10 @@ public class DOCx2HTLMHandler extends DefaultHandler {
 			if (text.length() > 0) {
 				r.append(this.text);
 			} else if (inlineParts.isEmpty()) {
-				r.append("&nbsp;");
+				r.append("&#160;");
 			}
-
-			for (String prop : this.props.keySet()) {
+			Collections.reverse(propElems);
+			for (String prop : propElems) {
 				if (Arrays.binarySearch(INLINE_ELEMENTS, prop)>=0) {
 					r.append("</"+prop+">");
 				}

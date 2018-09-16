@@ -20,80 +20,43 @@
 package net.younic.admin;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationSelect;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsResource;
 
 import net.younic.core.api.YounicEventsConstants;
-import net.younic.core.dispatcher.api.IResourceAPIService;
 
 /**
+ * Allows to clear all caches (template, resource ...) to force a clean re-rendering afterwards.
  * @author Andre Albert
- *
  */
-@Component(service=IResourceAPIService.class)
-public class CacheRestService implements IResourceAPIService {
+@Component(service=CacheRestService.class)
+@JaxrsResource
+@JaxrsApplicationSelect("(osgi.jaxrs.name=api)")
+@Path("cache")
+public class CacheRestService {
 
 	@Reference
     private EventAdmin eventAdmin;
-	
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IHandleable#handles(java.lang.Object)
-	 */
-	@Override
-	public boolean handles(Object resource) {
-		return "cache".equals(resource);
-	}
 
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IRankable#rank()
-	 */
-	@Override
-	public int rank() {
-		return 0;
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#read(java.lang.String, java.io.OutputStream)
-	 */
-	@Override
-	public void read(String path, OutputStream out) throws IOException {
-		if ("clear".equals(path)) {
-			Map<String, String> props = new HashMap<String, String>();
-			eventAdmin.postEvent(new Event(YounicEventsConstants.RESOURCE_MODIFIED, props));
-			out.write("OK".getBytes("UTF-8"));
-		}
-
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#delete(java.lang.String)
-	 */
-	@Override
-	public void delete(String path) throws IOException {
-
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#write(java.lang.String, java.io.InputStream, java.io.OutputStream)
-	 */
-	@Override
-	public void write(String path, InputStream in, OutputStream out) throws IOException {
-
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#contentType()
-	 */
-	@Override
-	public String contentType() {
-		return "text/plain";
+	@GET
+	@Path("clear")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String clear() throws IOException {
+		Map<String, String> props = new HashMap<String, String>();
+		eventAdmin.postEvent(new Event(YounicEventsConstants.RESOURCE_MODIFIED, props));
+		return "OK";
 	}
 
 }

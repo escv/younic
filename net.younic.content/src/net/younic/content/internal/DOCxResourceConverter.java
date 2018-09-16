@@ -19,12 +19,9 @@
  */
 package net.younic.content.internal;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -48,7 +45,7 @@ import net.younic.core.api.Resource;
 public class DOCxResourceConverter implements IResourceConverter {
 
 
-	@Reference(target="(type=cache)")
+	@Reference
 	private IResourceContentProvider contentProvider;
 	
 	/* (non-Javadoc)
@@ -71,22 +68,24 @@ public class DOCxResourceConverter implements IResourceConverter {
 	 * @see net.younic.content.IResourceConverter#convert(net.younic.core.api.Resource)
 	 */
 	@Override
-	public Object convert(Resource resource) throws IOException {
-		ZipFile zip = new ZipFile(new File(resource.getPath()+resource.getName()));
-		Enumeration<? extends ZipEntry> entries = zip.entries();
-		String markup = null;
-		while ( entries.hasMoreElements()) {
-		   ZipEntry entry = (ZipEntry)entries.nextElement();
+	public Object convert(Resource resource) throws IOException {//TODO
 
-		   if ( !entry.getName().equals("word/document.xml")) continue;
-
-		   InputStream in = zip.getInputStream(entry);
-		   markup = parseDocumentXML(in);
-		   break;
-		}
-		return markup;
-	}
+		try (ZipFile zip = new ZipFile(contentProvider.fetchContentFile(resource))) {
+			Enumeration<? extends ZipEntry> entries = zip.entries();
+			String markup = null;
+			while ( entries.hasMoreElements()) {
+			   ZipEntry entry = (ZipEntry)entries.nextElement();
 	
+			   if ( !entry.getName().equals("word/document.xml")) continue;
+	
+			   InputStream in = zip.getInputStream(entry);
+			   markup = parseDocumentXML(in);
+			   break;
+			}
+			return markup;
+		}
+	}
+
 	private String parseDocumentXML(InputStream docXML) throws IOException {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);

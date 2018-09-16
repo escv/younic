@@ -22,95 +22,68 @@ package net.younic.admin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collection;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationSelect;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsResource;
 
 import net.younic.core.api.IResourcePersistence;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
-import net.younic.core.dispatcher.api.IResourceAPIService;
 
 /**
  * @author Andre Albert
  *
  */
-@Component(service=IResourceAPIService.class)
-public class DirectoryRestService implements IResourceAPIService {
+@Component(service=DirectoryRestService.class)
+@JaxrsResource
+@JaxrsApplicationSelect("(osgi.jaxrs.name=api)")
+@Path("dir")
+public class DirectoryRestService {
 
-	@Reference(target="(type=impl)")
+	@Reference
 	private IResourceProvider resourceProvider;
 	
 	@Reference
 	private IResourcePersistence resourcePersistence;
 	
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IHandleable#handles(java.lang.Object)
-	 */
-	@Override
-	public boolean handles(Object resource) {
-		return "dir".equals(resource);
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IRankable#rank()
-	 */
-	@Override
-	public int rank() {
-		return 0;
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#dispatchServices(java.lang.String, java.io.OutputStream)
-	 */
-	@Override
-	public void read(String path, OutputStream out) throws IOException {
-		out.write("[".getBytes());
-		boolean first = true;
-		for (Resource r : resourceProvider.list(path)) {
-			if (!first) {
-				out.write(",".getBytes());
-			} else {
-				first = false;
-			}
-			out.write(("{"
-					+ "\"name\":\""+r.getName()+"\","
-					+ "\"fqn\":\""+r.qualifiedName()+"\","
-					+ "\"container\":"+r.isContainer()
-							+ "}").getBytes());
+	@GET
+	@Path("{path:.*}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Resource> list(@PathParam("path") String path) {
+		if (path.indexOf(0) != '/') {
+			path = "/"+path;
 		}
-		
-		out.write("]".getBytes("UTF-8"));
-
+		return resourceProvider.list(path);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#contentType()
-	 */
-	@Override
-	public String contentType() {
-		return "application/json";
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#delete(java.lang.String)
-	 */
-	@Override
+	@DELETE
+	@Path("{path:.*}")
 	public void delete(String path) throws IOException {
+		if (path.indexOf(0) != '/') {
+			path = "/"+path;
+		}
 		Resource resource = resourceProvider.fetchResource(path);
 		resourcePersistence.delete(resource);
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IResourceAPIService#write(java.lang.String, java.io.InputStream, java.io.OutputStream)
-	 */
-	@Override
 	public void write(String path, InputStream in, OutputStream out) throws IOException {
+		if (path.indexOf(0) != '/') {
+			path = "/"+path;
+		}
 		Resource resource = resourceProvider.fetchResource(path);
 		resource.setContainer(true);
 		resourcePersistence.persist(resource, in);
-		
 	}
 
 }

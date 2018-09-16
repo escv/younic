@@ -28,14 +28,16 @@ import org.osgi.framework.BundleException;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
 
 @Component(
 	service=IResourceProvider.class,
-	property="type=impl"
+	property= {"type=impl"}
 )
+@ServiceRanking(1)
 public class FileSystemResourceProvider implements IResourceProvider {
 
 	private File docroot;

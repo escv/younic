@@ -17,14 +17,21 @@
  * 
  * =============================================================================
  */
-package net.younic.core.fs;
+package net.younic.admin;
 
-import java.io.File;
-import java.io.FilenameFilter;
+import javax.ws.rs.core.Application;
 
-final class NonTechnicalFilter implements FilenameFilter {
-	@Override
-	public boolean accept(File dir, String name) {
-		return name.charAt(0) != '.' && !"TEMPLATE.REF".equalsIgnoreCase(name) && !name.startsWith("~$");
-	}
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationBase;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsName;
+
+/**
+ * @author Andre Albert
+ *
+ */
+@Component(service=Application.class)
+@JaxrsApplicationBase("api")
+@JaxrsName("api")
+public class APIApplication extends Application {
+
 }

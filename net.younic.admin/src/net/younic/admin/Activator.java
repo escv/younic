@@ -80,7 +80,7 @@ public class Activator implements BundleActivator {
 				return super.addingService(reference);
 			}
 		};
-        httpServiceTracker.open();        
+        httpServiceTracker.open();
 	}
 
 	/* (non-Javadoc)
