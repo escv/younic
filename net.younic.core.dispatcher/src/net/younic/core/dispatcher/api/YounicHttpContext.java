@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,8 +34,6 @@ import org.osgi.service.http.HttpContext;
  *
  */
 public class YounicHttpContext implements HttpContext {
-
-	MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
 	
 	/* (non-Javadoc)
 	 * @see org.osgi.service.http.HttpContext#handleSecurity(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
