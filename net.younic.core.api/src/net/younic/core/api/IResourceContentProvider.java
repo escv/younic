@@ -1,5 +1,6 @@
 package net.younic.core.api;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,4 +26,15 @@ public interface IResourceContentProvider {
 	 */
 	InputStream fetchContentStream(Resource resource) throws IOException;
 	InputStream fetchContentStream(String resourceFQName) throws IOException;
+	
+	/**
+	 * Fetches up the resource and returns a file (if any). This operation can return null
+	 * if the requested resource is not file based.
+	 * @param resource the abstract resource
+	 *
+	 * @return a File handle
+	 * @throws IOException in case of errors creating a file
+	 */
+			
+	File fetchContentFile(Resource resource) throws IOException;
 }

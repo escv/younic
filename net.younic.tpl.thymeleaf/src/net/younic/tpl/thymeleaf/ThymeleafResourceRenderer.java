@@ -20,14 +20,17 @@
 package net.younic.tpl.thymeleaf;
 
 import java.io.Writer;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.osgi.framework.BundleException;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
@@ -37,6 +40,7 @@ import org.thymeleaf.templateresolver.FileTemplateResolver;
 
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.IResourceRenderer;
+import net.younic.core.api.ITemplatePreProcessor;
 import net.younic.core.api.ResourceRenderingFailedException;
 import net.younic.core.api.YounicEventsConstants;
 
@@ -49,6 +53,9 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 
 	@Reference
 	private IResourceProvider resourceProvider;
+	
+	@Reference(policy=ReferencePolicy.DYNAMIC)
+	final List<ITemplatePreProcessor> preProcessors = new CopyOnWriteArrayList<>();
 	
 	private String docroot;
 
@@ -79,16 +86,18 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 		if (!devMode) {
 			if (templateEngine == null) {
 				this.templateEngine = new TemplateEngine();
-				FileTemplateResolver templateResolver = new MergeThemeFileTemplateResolver();
+				FileTemplateResolver templateResolver = new MergeThemeFileTemplateResolver(this.preProcessors);
+				templateResolver.setCacheable(true);
 				templateResolver.setPrefix(this.docroot + "/template/");
 				templateResolver.setSuffix(".html");
 				this.templateEngine.setTemplateResolver(templateResolver);
 			}
 			engine = this.templateEngine;
 		} else {
-			engine = new TemplateEngine();
-			FileTemplateResolver templateResolver = new MergeThemeFileTemplateResolver();
+			engine = new TemplateEngine();			
+			FileTemplateResolver templateResolver = new MergeThemeFileTemplateResolver(this.preProcessors);
 			templateResolver.setPrefix(this.docroot + "/template/");
+			templateResolver.setCacheable(false);
 			templateResolver.setSuffix(".html");
 			engine.setTemplateResolver(templateResolver);
 		}

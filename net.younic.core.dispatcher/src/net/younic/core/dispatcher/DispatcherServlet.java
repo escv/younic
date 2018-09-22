@@ -56,8 +56,8 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	private final String[] homePage = new String[] {"/", "html"};
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DispatcherServlet.class);
-	
-	@Reference(target="(type=cache)")
+		
+	@Reference
 	private IResourceContentProvider resourceContentProvider;
 	
 	@Reference
@@ -69,6 +69,11 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pathInfo = request.getPathInfo();
+		
+		if (pathInfo != null && (pathInfo.startsWith("/template") || pathInfo.startsWith("/bundles"))) {
+			LOG.warn("Illegal Request to either template or bundles forlder was blocked");
+			response.sendError(403);
+		}
 		
 		String[] interpretPath = interpretPath(pathInfo);
 		Resource contentFolder = new Resource();
@@ -141,8 +146,8 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 				result[0] = path.substring(0, lastPathSep);
 				result[1] = path.substring(lastPathSep+1);
 			} else {
-				result[0]="/";
-				result[1]=path;
+				result[0] = "/";
+				result[1] = path;
 			}			
 			result[2] = pathInfo.substring(typeSepPos);
 		}

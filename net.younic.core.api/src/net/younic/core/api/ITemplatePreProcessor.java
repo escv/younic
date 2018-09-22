@@ -17,14 +17,26 @@
  * 
  * =============================================================================
  */
-package net.younic.core.fs;
+package net.younic.core.api;
 
-import java.io.File;
-import java.io.FilenameFilter;
+/**
+ * A Template Pre-Processor allows to hook in custom code to modify the plain
+ * text (String) to be provided for template rendering. For example to remove some
+ * XSS code from untrusted sources. Also, for admin purposes, it is possible to 
+ * mark template code for ui presentations.
+ * 
+ * @author Andre Albert
+ *
+ */
+public interface ITemplatePreProcessor {
 
-final class NonTechnicalFilter implements FilenameFilter {
-	@Override
-	public boolean accept(File dir, String name) {
-		return name.charAt(0) != '.' && !"TEMPLATE.REF".equalsIgnoreCase(name) && !name.startsWith("~$");
-	}
+	/**
+	 * Called before Providing the template to to template engine.
+	 * It should not return nothing, so that some template engines might
+	 * not throw an exception.
+	 * 
+	 * @param content the content to process.
+	 * @return the content to be proved to the template engine.
+	 */
+	String process(String content);
 }

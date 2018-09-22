@@ -24,9 +24,12 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.thymeleaf.exceptions.TemplateInputException;
 import org.thymeleaf.templateresource.ITemplateResource;
+
+import net.younic.core.api.ITemplatePreProcessor;
 
 public class MergedTemplateResource implements ITemplateResource {
 
@@ -34,11 +37,13 @@ public class MergedTemplateResource implements ITemplateResource {
 	private String resourceName;
 	private String indexTpl;
 	private String indexTplPath;
+	private List<ITemplatePreProcessor> preProcessors;
 
-	public MergedTemplateResource(String resourceName, String characterEncoding, String indexTplPath) {
+	public MergedTemplateResource(String resourceName, String characterEncoding, String indexTplPath, List<ITemplatePreProcessor> preProcessors) {
 		this.resourceName = resourceName;
 		this.charachterEncoding = characterEncoding;
 		this.indexTplPath = indexTplPath;
+		this.preProcessors = preProcessors;
 	}
 
 	@Override
@@ -59,10 +64,17 @@ public class MergedTemplateResource implements ITemplateResource {
 	@Override
 	public Reader reader() throws IOException {
 		if (indexTpl == null) {
-			indexTpl = new String(Files.readAllBytes(Paths.get(indexTplPath)));
+			indexTpl = new String(Files.readAllBytes(Paths.get(indexTplPath)), charachterEncoding);
 		}
 		
-		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) ? "" : new String(Files.readAllBytes(Paths.get(resourceName))));
+		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) ? "" : new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding));
+		
+		// hook in registered PreProcessor before providing Template code to engine
+		if (preProcessors != null) {
+			for (ITemplatePreProcessor processor : preProcessors) {
+				merged = processor.process(merged);
+			}
+		}
 		return new StringReader(merged);
 	}
 

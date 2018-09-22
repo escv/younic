@@ -22,20 +22,24 @@ package net.younic.core.fs;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.osgi.framework.BundleException;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
 
 @Component(
 	service=IResourceProvider.class,
-	property="type=impl"
+	property= {"type=impl"}
 )
+@ServiceRanking(1)
 public class FileSystemResourceProvider implements IResourceProvider {
 
 	private File docroot;
@@ -52,7 +56,7 @@ public class FileSystemResourceProvider implements IResourceProvider {
 	
 	@Override
 	public Collection<Resource> list(String pathSpec) {
-		Collection<Resource> result = new LinkedList<>();
+		List<Resource> result = new LinkedList<>();
 		File folder = new File(docroot, pathSpec);
 		
 		if (folder.isDirectory()) {
@@ -63,7 +67,7 @@ public class FileSystemResourceProvider implements IResourceProvider {
 				result.add(r);
 			}
 		}
-		
+		Collections.sort(result);
 		return result;
 	}
 	

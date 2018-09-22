@@ -27,6 +27,7 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventConstants;
 import org.osgi.service.event.EventHandler;
@@ -43,6 +44,7 @@ import net.younic.core.api.YounicEventsConstants;
 	"type=cache",
 	EventConstants.EVENT_TOPIC + "=" + YounicEventsConstants.RESOURCE_MODIFIED
 })
+@ServiceRanking(100)
 public class ResourceProviderCache implements IResourceProvider, EventHandler {
 
 	@Reference(target="(type=impl)")

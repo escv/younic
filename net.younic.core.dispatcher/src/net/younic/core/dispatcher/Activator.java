@@ -35,7 +35,6 @@ import net.younic.core.dispatcher.api.YounicHttpContext;
 
 /**
  * @author Andre Albert
- *i
  */
 public class Activator implements BundleActivator {
 
@@ -54,6 +53,11 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 		//this.devMode = "true".equals(context.getProperty("net.younic.devmode"));
 		this.docroot = new File(context.getProperty("net.younic.cms.root"),"resource/");
+
+		File extBundleDir = new File(context.getProperty("net.younic.cms.root"),"bundles/");
+		if (extBundleDir.exists() && extBundleDir.isDirectory()) {
+			System.setProperty("felix.fileinstall.dir", extBundleDir.getAbsolutePath());
+		}
 		
 		LOG.info("Starting resource Servlet for "+docroot);
 		if (!docroot.exists()) {
@@ -73,11 +77,10 @@ public class Activator implements BundleActivator {
 		                LOG.debug("Found HttpSerice!"); 
 		                try {
 							httpService.registerResources("/resource", docroot.getAbsolutePath(), new YounicHttpContext());
+							LOG.info("/resource launched");
 						} catch (NamespaceException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							LOG.error("Error starting Resoruce Service for /resource", e);
 						}
-		                LOG.info("/resource launched");
 		            }else{ 
 		                LOG.warn("httpServiceTracker.getService() returned null"); 
 		            }
@@ -96,7 +99,6 @@ public class Activator implements BundleActivator {
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		httpServiceTracker.close();
-
 	}
 
 }

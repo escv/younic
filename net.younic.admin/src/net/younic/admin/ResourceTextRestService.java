@@ -23,80 +23,68 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationSelect;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsResource;
 
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.IResourcePersistence;
 import net.younic.core.api.IResourceProvider;
 import net.younic.core.api.Resource;
-import net.younic.core.dispatcher.api.IResourceAPIService;
 
 /**
  * @author Andre Albert
  *
  */
-@Component(service=IResourceAPIService.class)
-public class ResourceTextRestService implements IResourceAPIService {
+@Component(service=ResourceTextRestService.class)
+@JaxrsResource
+@JaxrsApplicationSelect("(osgi.jaxrs.name=api)")
+@Path("txt")
+public class ResourceTextRestService {
 
-	@Reference(target="(type=impl)")
+	@Reference
 	private IResourceContentProvider resourceContentProvider;
 	
-	@Reference(target="(type=impl)")
+	@Reference
 	private IResourceProvider resourceProvider;
 	
 	@Reference
 	private IResourcePersistence resourcePersistence;
 	
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IHandleable#handles(java.lang.Object)
-	 */
-	@Override
-	public boolean handles(Object resource) {
-		return "txt".equals(resource);
-	}
-
-	/* (non-Javadoc)
-	 * @see net.younic.core.api.IRankable#rank()
-	 */
-	@Override
-	public int rank() {
-		return 0;
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#contentType()
-	 */
-	@Override
-	public String contentType() {
-		return "text/plain";
-	}
-	
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.IDispatchAPIService#dispatchServices(java.lang.String, java.io.OutputStream)
-	 */
-	@Override
-	public void read(String path, OutputStream out) throws IOException {
-		out.write(resourceContentProvider.readContent(path).getBytes());
+	@GET
+	@Path("{path:.*}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String read(@PathParam("path") String path) throws IOException {
+		if (path.indexOf(0) != '/') {
+			path = "/"+path;
+		}
+		return resourceContentProvider.readContent(path);
 	}
 
 	/* (non-Javadoc)
 	 * @see net.younic.core.dispatcher.api.IWriteAPIService#dispatchWriteService(java.lang.String, java.io.InputStream, java.io.OutputStream)
 	 */
-	@Override
 	public void write(String path, InputStream in, OutputStream out) throws IOException {
 		Resource resource = resourceProvider.fetchResource(path);
 		resourcePersistence.persist(resource, in);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.younic.core.dispatcher.api.IDeleteAPIService#write(java.lang.String)
-	 */
-	@Override
-	public void delete(String path) throws IOException {
+	@DELETE
+	@Path("{path:.*}")
+	public void delete(@PathParam("path") String path) throws IOException {
+		if (path.indexOf(0) != '/') {
+			path = "/"+path;
+		}
 		Resource resource = resourceProvider.fetchResource(path);
 		resourcePersistence.delete(resource);
-		
 	}
 	
 }

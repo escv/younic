@@ -19,6 +19,7 @@
  */
 package net.younic.core.fs;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +32,7 @@ import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.propertytypes.ServiceRanking;
 
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.IResourceProvider;
@@ -38,8 +40,9 @@ import net.younic.core.api.Resource;
 
 @Component(
 	service=IResourceContentProvider.class,
-	property="type=impl"
+	property= {"type=impl"}
 )
+@ServiceRanking(1)
 public class FileSystemResourceContentProvider implements IResourceContentProvider {
 
 	private String docroot;
@@ -81,6 +84,16 @@ public class FileSystemResourceContentProvider implements IResourceContentProvid
 		Path path = Paths.get(docroot, resourceFQName);
 		
 		return new FileInputStream(path.toFile());
+	}
+	
+	/* (non-Javadoc)
+	 * @see net.younic.core.api.IResourceContentProvider#fetchContentFile(net.younic.core.api.Resource)
+	 */
+	@Override
+	public File fetchContentFile(Resource resource) throws IOException {
+		Path path = Paths.get(docroot, resource.qualifiedName());
+		
+		return path.toFile();
 	}
 
 	
