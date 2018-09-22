@@ -2,11 +2,12 @@ package net.younic.core.api;
 
 import java.io.Serializable;
 
-public class Resource implements Serializable {
+public class Resource implements Serializable, Comparable<Resource> {
 
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	private String displayName;
 	private String path;
 	private boolean container;
 	private boolean hidden;
@@ -23,6 +24,7 @@ public class Resource implements Serializable {
 		this();
 		this.name = name;
 		this.path = path;
+		this.displayName = fetchDisplayName(name);
 		this.container = container;
 		if (this.path == null || this.path.isEmpty()) {
 			this.path = "/";
@@ -36,6 +38,7 @@ public class Resource implements Serializable {
 	}
 
 	public void setName(String name) {
+		this.displayName = fetchDisplayName(name);
 		this.name = name;
 	}
 
@@ -53,6 +56,14 @@ public class Resource implements Serializable {
 
 	public void setContainer(boolean container) {
 		this.container = container;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public boolean isHidden() {
@@ -113,5 +124,26 @@ public class Resource implements Serializable {
 		return false;
 	}
 	
-	
+	private String fetchDisplayName(String name) {
+		if (name == null || name.length()==0) {
+			return "";
+		}
+		if (Character.isDigit(name.charAt(0))) {
+			int indexOf = name.indexOf('-');
+			if (indexOf > 0) {
+				name = name.substring(indexOf+1);
+			}
+		}
+		name = name.replace("_", " ");
+		name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+		return name;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Resource o) {
+		return getName().compareTo(o.getName());
+	}
 }

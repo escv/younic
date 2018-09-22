@@ -70,6 +70,11 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pathInfo = request.getPathInfo();
 		
+		if (pathInfo != null && (pathInfo.startsWith("/template") || pathInfo.startsWith("/bundles"))) {
+			LOG.warn("Illegal Request to either template or bundles forlder was blocked");
+			response.sendError(403);
+		}
+		
 		String[] interpretPath = interpretPath(pathInfo);
 		Resource contentFolder = new Resource();
 		contentFolder.setContainer(true);

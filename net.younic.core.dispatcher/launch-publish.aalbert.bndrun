@@ -23,7 +23,9 @@
 	net.younic.sync.git;version=snapshot,\
 	org.apache.felix.eventadmin;version='[1.5.0,1.5.1)',\
 	org.apache.felix.http.jetty;version='[4.0.4,4.0.5)',\
-	org.apache.felix.scr;version='[2.1.6,2.1.7)'
+	org.apache.felix.scr;version='[2.1.6,2.1.7)',\
+	slf4j.log4j12;version=1.7.25,\
+	org.apache.felix.fileinstall;version=3.6.4
 
 -runrequires: \
 	bnd.identity;id='net.younic.cache',\
