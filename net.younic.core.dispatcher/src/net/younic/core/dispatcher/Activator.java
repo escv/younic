@@ -95,7 +95,7 @@ public class Activator implements BundleActivator {
 		addFileInstallDeployFolder(extBundleDir);
 		String runAdmin = System.getenv("YOUNIC_RUN_ADMIN");
 		LOG.info("Check if run in Admin Mode: "+runAdmin);
-		if (runAdmin.equals("true")) {
+		if (runAdmin != null && runAdmin.equals("true")) {
 	        File admBundleDir = new File("bundle-adm");
 			addFileInstallDeployFolder(admBundleDir);
 		}
