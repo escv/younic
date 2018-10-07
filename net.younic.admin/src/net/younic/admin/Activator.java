@@ -66,11 +66,10 @@ public class Activator implements BundleActivator {
 		                LOG.debug("Found HttpSerice!"); 
 		                try {
 							httpService.registerResources("/fileadmin", fileAdminRoot, new YounicHttpContext());
+							LOG.info("/fileadmin launched");
 						} catch (NamespaceException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							LOG.warn("Error registering fileadmin app", e);
 						}
-		                LOG.info("/fileadmin launched");
 		            }else{ 
 		                LOG.warn("httpServiceTracker.getService() returned null"); 
 		            }

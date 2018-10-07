@@ -13,7 +13,7 @@ RUN apk --update add git openssh && \
     rm /var/cache/apk/*
 
 # ADD http://andre.webofferte.com/younic/younic.zip ./younic.zip 
-ADD younic.zip ./younic.zip 
+ADD cnf/release/younic.zip ./younic.zip 
 
 RUN	unzip younic.zip && \
 	rm younic.zip
