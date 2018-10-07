@@ -1,43 +1,47 @@
 plugins {
 	id 'java'
-    id 'com.palantir.docker' version '0.19.2'
-    id 'com.palantir.docker-run' version '0.19.2'
+	id 'com.palantir.docker' version '0.20.1'
+	id 'com.palantir.docker-run' version '0.20.1'
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 task wrapper(type: Wrapper) {
-  jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
+	jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
 }
 
-task dist() {
+task dist {
 	def aggSourceDirs = [] as LinkedList
 	bndWorkspace.models.each{
 		def fromFile = new File(it.value.base, "generated/")
 		copy {
-            from fromFile
-            into 'cnf/run/bundle/'
-            include '**/*.jar'
-        }
+			from fromFile
+			into 'cnf/run/bundle/'
+			include '**/*.jar'
+			exclude '**/net.younic.admin.jar'
+		}
 	}
+	copy {
+		from 'net.younic.admin/generated/net.younic.admin.jar'
+                into 'cnf/run/bundle-adm/'
+	}
+    delete 'cnf/run/felix-cache'
 }
 
 task packageZip(type: Zip) {
-    dependsOn dist
     archiveName = "younic.zip"
     destinationDir = file("cnf/release")
     from "cnf/run"
 }
 
-docker {
+docker (){
     name 'escv/younic'
     //name 'hub.docker.com/escv/younic'
     //tags 'latest'
     dockerfile file('container/Dockerfile')
-    dependsOn packageZip
-    files file("cnf/release/younic.zip")
+    files 'cnf/release/younic.zip'
     pull true
     noCache true
 }
@@ -50,3 +54,7 @@ dockerRun {
     daemonize true
     env 'YOUNIC_CMS_ROOT_GIT': 'https://github.com/escv/younic-sample.git'
 }
+
+compileJava.dependsOn clean
+dist.dependsOn compileJava
+packageZip.dependsOn dist

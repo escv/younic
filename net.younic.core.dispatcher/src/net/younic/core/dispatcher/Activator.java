@@ -43,23 +43,17 @@ public class Activator implements BundleActivator {
 	private ServiceTracker<HttpService, HttpService> httpServiceTracker;
 
 	private File docroot;
-
-	//private boolean devMode;
     
 	/* (non-Javadoc).
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		//this.devMode = "true".equals(context.getProperty("net.younic.devmode"));
 		this.docroot = new File(context.getProperty("net.younic.cms.root"),"resource/");
+		LOG.info("Starting dispatch for cms-root: "+this.docroot.getParentFile().getAbsolutePath());
 
-		File extBundleDir = new File(context.getProperty("net.younic.cms.root"),"bundles/");
-		if (extBundleDir.exists() && extBundleDir.isDirectory()) {
-			System.setProperty("felix.fileinstall.dir", extBundleDir.getAbsolutePath());
-		}
+		setupFileInstallDeployFolders(context);
 		
-		LOG.info("Starting resource Servlet for "+docroot);
 		if (!docroot.exists()) {
 			LOG.info("Disabling docroot due to missing net.younic.cms.root Property");
 			return;
@@ -77,7 +71,7 @@ public class Activator implements BundleActivator {
 		                LOG.debug("Found HttpSerice!"); 
 		                try {
 							httpService.registerResources("/resource", docroot.getAbsolutePath(), new YounicHttpContext());
-							LOG.info("/resource launched");
+							LOG.info("ResourceServlet "+docroot.getAbsolutePath()+" launched");
 						} catch (NamespaceException e) {
 							LOG.error("Error starting Resoruce Service for /resource", e);
 						}
@@ -91,6 +85,36 @@ public class Activator implements BundleActivator {
 			}
 		};
         httpServiceTracker.open();        
+	}
+
+	/**
+	 * @param context
+	 */
+	private void setupFileInstallDeployFolders(BundleContext context) {
+		File extBundleDir = new File(context.getProperty("net.younic.cms.root"),"bundles/");
+		addFileInstallDeployFolder(extBundleDir);
+		String runAdmin = System.getenv("YOUNIC_RUN_ADMIN");
+		LOG.info("Check if run in Admin Mode: "+runAdmin);
+		if (runAdmin != null && runAdmin.equals("true")) {
+	        File admBundleDir = new File("bundle-adm");
+			addFileInstallDeployFolder(admBundleDir);
+		}
+	}
+
+	/**
+	 * @param extBundleDir
+	 * @return
+	 */
+	private void addFileInstallDeployFolder(File extBundleDir) {
+		String fileinstallDir = System.getProperty("felix.fileinstall.dir", "").trim();
+		if (extBundleDir.exists() && extBundleDir.isDirectory()) {
+			if (!fileinstallDir.isEmpty()) {
+				fileinstallDir += ",";
+			}
+			fileinstallDir += extBundleDir.getAbsolutePath();
+			System.setProperty("felix.fileinstall.dir", fileinstallDir);
+			LOG.info("New Felix.Fileinstall.Dir: "+System.getProperty("felix.fileinstall.dir"));
+		}
 	}
 
 	/* (non-Javadoc)
