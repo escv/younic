@@ -46,9 +46,9 @@ import net.younic.core.api.Resource;
 import net.younic.core.api.ResourceRenderingFailedException;
 
 @Component(
-		property = {
-			HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN + "=/*"
-		})
+	property = {
+		HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN + "=/*"
+	})
 public class DispatcherServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = 1L;
@@ -87,20 +87,26 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		long modidiedCLI = request.getDateHeader("If-Modified-Since");
 
 		// cache control
-		response.addHeader("Cache-Control", "must-revalidate, max-age=120");
-		response.addDateHeader("Last-Modified", modifiedSRV);
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.MINUTE, 1);
-		response.addDateHeader("Expires", c.getTimeInMillis());
-		if (modidiedCLI != -1 && modifiedSRV <= modidiedCLI) {
-			response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
-	        return;
+		if (!Activator.DEV_MODE) {
+			response.addHeader("Cache-Control", "must-revalidate, max-age=120");
+			response.addDateHeader("Last-Modified", modifiedSRV);
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.MINUTE, 1);
+			response.addDateHeader("Expires", c.getTimeInMillis());
+			if (modidiedCLI != -1 && modifiedSRV <= modidiedCLI) {
+				response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+		        return;
+			}
+		} else {
+			response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+			response.addDateHeader("Expires", 0L);
+			response.addHeader("Pragma", "no-cache");		
 		}
 
 		// read the template.ref
 		String tmplRef = fetchTemplateRef(contentFolder);
 		
-		response.setContentType("application/xhtml+xml");
+		response.setContentType("text/html; charset=utf-8");
 		
 		PrintWriter writer = response.getWriter();
 		try {
@@ -121,7 +127,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 			String path = parts.stream().collect(Collectors.joining("/"));
 			String content = resourceContentProvider.readContent(path+"/template.ref");
 			if (content != null) {
-				return content;
+				return content.trim();
 			}
 		} while (parts.pollLast() != null);
 		return null;
@@ -153,6 +159,5 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		}
 		
 		return result;
-		
 	}
 }

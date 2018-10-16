@@ -52,18 +52,18 @@ public class ResourceContentProviderCache implements IResourceContentProvider, E
 
 	private static final int MAX_CACHE_ENTRY_SIZE = 50000000; // 50K
 	transient private Map<String, String> cache;
-	
+
 	@Reference(target="(type=impl)")
 	private IResourceContentProvider target;
-	
+
 	@Reference(target="(type=impl)")
 	private IResourceProvider resourceProvider;
-	
+
 	@Activate
 	public void init() {
 		this.cache = new HashMap<String, String>();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.younic.core.api.IResourceContentProvider#readContent(net.younic.core.api.Resource)
 	 */
@@ -73,7 +73,7 @@ public class ResourceContentProviderCache implements IResourceContentProvider, E
 		if (!resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
 			String fqn = resource.qualifiedName();
 			String hit = cache.get(fqn);
-			
+
 			if (hit != null) {
 				return hit;
 			} else {
