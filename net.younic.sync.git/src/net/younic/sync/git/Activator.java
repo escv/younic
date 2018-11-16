@@ -69,7 +69,6 @@ public class Activator implements BundleActivator {
 		ServiceReference<ISyncTimerService> timer = context.getServiceReference(ISyncTimerService.class);
 		ISyncTimerService service = context.getService(timer);
 		service.cancel();
-
 	}
 
 }

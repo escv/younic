@@ -22,12 +22,16 @@ package net.younic.sync;
 import java.io.IOException;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Andre Albert
  *
  */
 public abstract class SyncTimerTask extends TimerTask {
 
+	private static final Logger LOG = LoggerFactory.getLogger(SyncTimerTask.class);
 	private IPostResourceModified eventPoster;
 	
 	/* (non-Javadoc)
@@ -35,17 +39,19 @@ public abstract class SyncTimerTask extends TimerTask {
 	 */
 	@Override
 	public void run() {
-		//throw events here
 		try {
-			if (sync()) {
-				//throw modified event here
+			if (sync() && eventPoster != null) {
+				LOG.info("CMS Root Repository modified, firing Event");
 				eventPoster.postModified();
 			}
 		} catch (IOException e) {
-			// TODO: handle exception
+			LOG.error("sync timer event handling failed", e);
 		}
 		// throw done event here
+	}
 
+	public void setEventPoster(IPostResourceModified eventPoster) {
+		this.eventPoster = eventPoster;
 	}
 
 	/**

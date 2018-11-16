@@ -75,7 +75,6 @@ public class FileSystemResourcePersistence implements IResourcePersistence {
 		
 		//post an event
 		postEvent(YounicEventsConstants.RESOURCE_MODIFIED, resource.qualifiedName());
-
 	}
 	
 	/* (non-Javadoc)

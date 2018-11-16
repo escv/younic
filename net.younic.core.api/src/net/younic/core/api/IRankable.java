@@ -20,6 +20,7 @@
 package net.younic.core.api;
 
 /**
+ * Allows to sort/rank a list of objects.
  * @author Andre Albert
  *
  */

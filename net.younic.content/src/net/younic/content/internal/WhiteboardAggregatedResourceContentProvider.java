@@ -66,18 +66,19 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 		String[] elems = resource.qualifiedName().split("/");
 		for (int i = 0; i<elems.length; i++) {
 			Collection<Resource> entries = resourceProvider.list(Arrays.copyOfRange(elems, 0, (i+1)));
-			for (Resource entry : entries) {
-				if (!entry.isContainer()) {
-					IResourceConverter converter = WhiteboardUtil.findHandler(IResourceConverter.class, converters, entry);
-					
-					if (converter != null) {
-						result.put(entry.getName(), converter.convert(entry));
-						if (entry.getLastModified() > lastModified) {
-							lastModified = entry.getLastModified();
-						}
+			
+			entries.stream().filter(e->!e.isContainer()).mapToLong(e->{
+				IResourceConverter converter = WhiteboardUtil.findHandler(IResourceConverter.class, converters, e);
+				if (converter != null) {
+					try {
+						result.put(e.getName(), converter.convert(e));
+						return e.getLastModified();
+					} catch(IOException ioe) {
+						
 					}
 				}
-			}			
+				return 0L;
+			}).max();
 		}
 		
 		// allow to hook in post processor for result modification
@@ -106,7 +107,6 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 			if (orderSepPos > 0) {
 				entryName = entryName.substring(0, orderSepPos);
 				try {
-					//int order = Integer.parseInt(entryName.substring(orderSepPos));
 					List<Object> values = null;
 					Object currentVal = result.get(entryName);
 					if (currentVal == null) {

@@ -25,7 +25,8 @@
 	org.apache.felix.http.jetty;version='[4.0.4,4.0.5)',\
 	org.apache.felix.scr;version='[2.1.6,2.1.7)',\
 	slf4j.log4j12;version=1.7.25,\
-	org.apache.felix.fileinstall;version=3.6.4
+	org.apache.felix.fileinstall;version=3.6.4,\
+	com.github.rjeschke.txtmark;version=0.14.0
 
 -runrequires: \
 	bnd.identity;id='net.younic.cache',\

@@ -1,5 +1,30 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1529678791000">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1539852786000">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.github.rjeschke.txtmark"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="0.14.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="0.14.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.github.rjeschke.txtmark"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.14.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.github.rjeschke.txtmark"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.14.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.rjeschke.txtmark"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="71139" type="Long"/>
+      <attribute name="url" value="txtmark-0.14.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="31C6F6BE07A898338471D617E2197108F1BF5BFD2561705C5D899E3EC62F05CF"/>
+    </capability>
+  </resource>
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="net.younic.thymeleaf-bundle"/>

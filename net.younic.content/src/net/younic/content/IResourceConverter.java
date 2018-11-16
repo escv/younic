@@ -24,7 +24,7 @@ import java.io.IOException;
 import net.younic.core.api.IHandleable;
 import net.younic.core.api.Resource;
 
-public interface IResourceConverter extends IHandleable {
+public interface IResourceConverter extends IHandleable<Resource> {
 
 	Object convert(Resource resource) throws IOException;
 		

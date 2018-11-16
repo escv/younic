@@ -23,8 +23,8 @@ package net.younic.core.api;
  * @author Andre Albert
  *
  */
-public interface IHandleable extends IRankable {
+public interface IHandleable<T> extends IRankable {
 
-	boolean handles(Object resource);
+	boolean handles(T resource);
 	
 }

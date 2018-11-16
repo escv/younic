@@ -31,6 +31,7 @@ public final class WhiteboardUtil {
 
 	private static final RankableDescendingComparator comparator = new RankableDescendingComparator();
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static final <T extends IHandleable> T findHandler(Class<T> clazz, List<T> candidates, Object matcher) {
 		Collections.sort(candidates, comparator);
 		Optional<T> converter = candidates.stream().filter(e->e.handles(matcher)).findFirst();

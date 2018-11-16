@@ -32,7 +32,8 @@
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
 	org.osgi.util.promise;version='[1.1.0,1.1.1)',\
 	slf4j.log4j12;version=1.7.25,\
-	org.apache.felix.fileinstall;version=3.6.4
+	org.apache.felix.fileinstall;version=3.6.4,\
+	com.github.rjeschke.txtmark;version=0.14.0
 
 -runrequires: \
 	bnd.identity;id='net.younic.admin',\
