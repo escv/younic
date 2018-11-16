@@ -20,50 +20,33 @@
 package net.younic.content.internal;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.xml.sax.SAXException;
+
+import com.github.rjeschke.txtmark.Processor;
 
 import net.younic.content.IResourceConverter;
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.Resource;
 
 @Component(service=IResourceConverter.class)
-public class XMLResourceConverter implements IResourceConverter {
+public class MarkdownResourceConverter implements IResourceConverter {
 
 	@Reference
 	private IResourceContentProvider contentProvider;
 	
 	@Override
 	public Object convert(Resource resource) throws IOException {
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser saxParser;
-		MapSAXHandler handler = new MapSAXHandler();
-		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			saxParser = factory.newSAXParser();
-			saxParser.parse(contentProvider.fetchContentStream(resource), handler);
-			result.putAll(handler.getMap());
-			
-		} catch (ParserConfigurationException | SAXException e) {
-			throw new IOException("Error reading resource "+resource);
-		} finally {
-			handler.cleanup();
-		}
+		final String txtContent = contentProvider.readContent(resource);
+		final String processed = Processor.process(txtContent);
 		
-		return result;
+		return processed;
 	}
 	
 	@Override
 	public boolean handles(Resource resource) {
-		return resource.getName().endsWith(".xml");
+		return resource.getName().endsWith(".md");
 	}
 	
 	@Override

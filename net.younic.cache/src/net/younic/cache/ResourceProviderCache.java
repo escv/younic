@@ -67,13 +67,12 @@ public class ResourceProviderCache implements IResourceProvider, EventHandler {
 		Collection<Resource> hit = cache.get(path);
 		if (hit != null) {
 			return hit;
-		} else {
-			Collection<Resource> result = target.list(pathSpec);
-			if (result!=null) {
-				cache.put(path, result);
-			}
-			return result;
 		}
+		Collection<Resource> result = target.list(pathSpec);
+		if (result!=null) {
+			cache.put(path, result);
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -84,13 +83,12 @@ public class ResourceProviderCache implements IResourceProvider, EventHandler {
 		Collection<Resource> hit = cache.get(pathSpec);
 		if (hit != null) {
 			return hit;
-		} else {
-			Collection<Resource> result = target.list(pathSpec);
-			if (result!=null) {
-				cache.put(pathSpec, result);
-			}
-			return result;
 		}
+		Collection<Resource> result = target.list(pathSpec);
+		if (result!=null) {
+			cache.put(pathSpec, result);
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)

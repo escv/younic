@@ -58,6 +58,7 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 	final List<ITemplatePreProcessor> preProcessors = new CopyOnWriteArrayList<>();
 	
 	private String docroot;
+	private String tplroot;
 
 	private boolean devMode;
 	private transient TemplateEngine templateEngine;
@@ -66,6 +67,7 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 	public void activate(ComponentContext context) throws BundleException {
 		this.devMode = "true".equals(context.getBundleContext().getProperty("net.younic.devmode"));
 		this.docroot = context.getBundleContext().getProperty("net.younic.cms.root");
+		this.tplroot = this.docroot + "/template/";
 		if (this.docroot == null) {
 			throw new BundleException("Missing Property \"net.younic.cms.root\"");
 		}
@@ -88,7 +90,7 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 				this.templateEngine = new TemplateEngine();
 				FileTemplateResolver templateResolver = new MergeThemeFileTemplateResolver(this.preProcessors);
 				templateResolver.setCacheable(true);
-				templateResolver.setPrefix(this.docroot + "/template/");
+				templateResolver.setPrefix(this.tplroot);
 				templateResolver.setSuffix(".html");
 				this.templateEngine.setTemplateResolver(templateResolver);
 			}
@@ -96,7 +98,7 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 		} else {
 			engine = new TemplateEngine();			
 			FileTemplateResolver templateResolver = new MergeThemeFileTemplateResolver(this.preProcessors);
-			templateResolver.setPrefix(this.docroot + "/template/");
+			templateResolver.setPrefix(this.tplroot);
 			templateResolver.setCacheable(false);
 			templateResolver.setSuffix(".html");
 			engine.setTemplateResolver(templateResolver);

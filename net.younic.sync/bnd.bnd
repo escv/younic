@@ -1,7 +1,8 @@
 -buildpath: \
 	osgi.annotation;version=latest,\
 	osgi.cmpn;version=latest,\
-	net.younic.core.api;version=latest
+	net.younic.core.api;version=latest,\
+	slf4j.api;version=latest
 
 -baseline: *]
 

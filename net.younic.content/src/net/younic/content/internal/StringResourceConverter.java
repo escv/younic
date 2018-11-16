@@ -41,7 +41,7 @@ public class StringResourceConverter implements IResourceConverter {
 	}
 	
 	@Override
-	public boolean handles(Object resource) {
+	public boolean handles(Resource resource) {
 		return true;
 	}
 	

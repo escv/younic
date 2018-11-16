@@ -43,6 +43,8 @@ public class Activator implements BundleActivator {
 	private ServiceTracker<HttpService, HttpService> httpServiceTracker;
 
 	private File docroot;
+
+	public static boolean DEV_MODE = false;
     
 	/* (non-Javadoc).
 	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
@@ -59,6 +61,8 @@ public class Activator implements BundleActivator {
 			return;
 		}
 
+		Activator.DEV_MODE  = "true".equals(context.getProperty("net.younic.devmode"));
+		
 		httpServiceTracker = new ServiceTracker<HttpService, HttpService>(context, HttpService.class.getName(), null){
 
 			@Override

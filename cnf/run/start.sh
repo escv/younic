@@ -6,7 +6,7 @@ if [ -z "$YOUNIC_CMS_ROOT_GIT" ]; then
 fi
 
 if [ ! -d "cms-root/content" ]; then
-  git clone $YOUNIC_CMS_ROOT_GIT cms-root
+  git clone --depth 1 $YOUNIC_CMS_ROOT_GIT cms-root
 fi
 
 ## to start in ADMIN Mode (enable bundle-adm folder), uncomment the following line

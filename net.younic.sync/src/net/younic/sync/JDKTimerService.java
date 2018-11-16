@@ -33,6 +33,7 @@ import org.osgi.service.event.EventAdmin;
 import net.younic.core.api.YounicEventsConstants;
 
 /**
+ * Implementation based on JDK Timer service creating a 'YOUNIC :: timer'
  * @author Andre Albert
  *
  */
@@ -70,8 +71,8 @@ public class JDKTimerService implements ISyncTimerService, IPostResourceModified
 	 */
 	@Override
 	public void registerSyncTimerTask(SyncTimerTask task) {
-		timer.schedule(task, 1000, 10000);
-		
+		task.setEventPoster(this);
+		timer.schedule(task, 1000, 30000);
 	}
 
 	/* (non-Javadoc)

@@ -67,7 +67,8 @@ public class MergedTemplateResource implements ITemplateResource {
 			indexTpl = new String(Files.readAllBytes(Paths.get(indexTplPath)), charachterEncoding);
 		}
 		
-		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) ? "" : new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding));
+		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) 
+				? "" : new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding));
 		
 		// hook in registered PreProcessor before providing Template code to engine
 		if (preProcessors != null) {

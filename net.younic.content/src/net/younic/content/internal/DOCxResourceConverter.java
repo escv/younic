@@ -52,8 +52,8 @@ public class DOCxResourceConverter implements IResourceConverter {
 	 * @see net.younic.core.api.IHandleable#handles(java.lang.Object)
 	 */
 	@Override
-	public boolean handles(Object resource) {
-		return (resource instanceof Resource) && ((Resource)resource).getName().endsWith(".docx");
+	public boolean handles(Resource resource) {
+		return resource.getName().endsWith(".docx");
 	}
 
 	/* (non-Javadoc)

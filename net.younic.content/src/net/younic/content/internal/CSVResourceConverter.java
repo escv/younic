@@ -44,16 +44,15 @@ public class CSVResourceConverter implements IResourceConverter {
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(contentProvider.fetchContentStream(resource)))) {
 			String line;
 		    while((line = br.readLine()) != null){
-		    	String[] parts = line.split(",");
-		    	result.add(parts);
+		    	result.add(line.split(","));
 		    }
 		}
 		return result;
 	}
 	
 	@Override
-	public boolean handles(Object resource) {
-		return (resource instanceof Resource) && ((Resource)resource).getName().endsWith(".csv");
+	public boolean handles(Resource resource) {
+		return resource.getName().endsWith(".csv");
 	}
 	
 	@Override

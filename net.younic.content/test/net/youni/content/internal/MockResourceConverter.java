@@ -54,7 +54,7 @@ class MockResourceConverter implements IResourceConverter {
 	}
 
 	@Override
-	public boolean handles(Object resource) {
+	public boolean handles(Resource resource) {
 		return docRoot!=null;
 	}
 
