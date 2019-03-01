@@ -2,13 +2,11 @@
 
 Lightweight Web Content Management System without a Database and an Administration Backend
 
-The central idea is to use a File System based Content Repository. Folders represent pages consisting of documents that are converted and put into a context.
-Currently, younic only supports plain text and html documents which are put to context. Later, different documents such as .csv, .xml, .docx or .md can be placed to folder.
+The central idea is to use a File System based Content Repository. Folders represent pages consisting of documents that are converted and put into a context map.
+Currently, younic supports plain text, html, csv, xml, docx (Word) or md (Markdown) documents which are put to the context map by their filename. File more deeper in the folder hierachy replace more general files having the same name (matching algorithm).
 Appropriate resource converters are able to interpret these files and their content is available inside templates to.
 
-The page context will be provided to a thymeleaf template engine and renders a html webpage. Certain rules allow to overwrite context variables with documents having the same name deaper inside the folder structure (matching algorithm).
-
-The rendering is based on a main template and folders define a specific templated used for rendering their context documents. Those specific template output will be placed to the main template.
+The page context map will be provided to a thymeleaf template engine that renders a html webpage. The rendering is based on a main template and folders define a specific templated used for rendering their context documents. Those specific template output will be placed to the main template.
 
 Younic is based on a OSGi environment (Felix) so it can be extend by new bundles easily.
 
@@ -18,8 +16,8 @@ Younic is based on a OSGi environment (Felix) so it can be extend by new bundles
 * younic and Felix OSGi framework currently only support Java8
 * clone the repository (or a fork) https://github.com/escv/younic-sample next to this project
 * duplicate /net.younic.core.dispatcher/launch.bndrun to a personal one (launch.{name}.bdnrun example launch.aalbert.bndrun) and add it to gitignore
-** modify the launch.{name}.bndrun (your copy) config -runproperties to fit your environment
-** to not modify logging config - create a /var/log/younic.log file add give appropriate permissions for your user account
+* modify the launch.{name}.bndrun (your copy) config -runproperties to fit your environment
+* to not modify logging config - create a /var/log/younic.log file add give appropriate permissions for your user account
 
 ## Using Eclipse + bndtools
 * Use eclipse bndtools (tested with latest version 4.1 and eclipse photon)
@@ -33,6 +31,11 @@ Younic is based on a OSGi environment (Felix) so it can be extend by new bundles
 If you prefer to launch younic as a container, please use the grade build target:
 ```
 gradle clean compileJava dist docker dockerRun
+```
+
+Or from Docker Hub:
+```
+docker run -e "YOUNIC_CMS_ROOT_GIT=https://github.com/escv/younic-sample.git" -p 8080:8080 escv/youni
 ```
 
 run standalone as jar:
