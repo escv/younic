@@ -6,10 +6,12 @@ public class Resource implements Serializable, Comparable<Resource> {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String RESOURCE_COMPONENT_PREFIX = "!";
 	private String name;
 	private String displayName;
 	private String path;
 	private boolean container;
+	private boolean component = false;
 	private boolean hidden;
 	private long lastModified;
 	private long size;
@@ -22,9 +24,14 @@ public class Resource implements Serializable, Comparable<Resource> {
 
 	public Resource(String path, String name, boolean container) {
 		this();
-		this.name = name;
+		if (name.startsWith(RESOURCE_COMPONENT_PREFIX)) {
+			this.component = true;
+			this.name = name.substring(1);
+		} else {
+			this.name = name;
+		}
 		this.path = path;
-		this.displayName = fetchDisplayName(name);
+		this.displayName = fetchDisplayName(this.name);
 		this.container = container;
 		if (this.path == null || this.path.isEmpty()) {
 			this.path = "/";
@@ -38,8 +45,13 @@ public class Resource implements Serializable, Comparable<Resource> {
 	}
 
 	public void setName(String name) {
-		this.displayName = fetchDisplayName(name);
-		this.name = name;
+		if (name.startsWith(RESOURCE_COMPONENT_PREFIX)) {
+			this.component = true;
+			this.name = name.substring(1);
+		} else {
+			this.name = name;
+		}
+		this.displayName = fetchDisplayName(this.name);
 	}
 
 	public String getPath() {
@@ -68,6 +80,10 @@ public class Resource implements Serializable, Comparable<Resource> {
 
 	public boolean isHidden() {
 		return hidden;
+	}
+
+	public boolean isComponent() {
+		return component;
 	}
 
 	public void setHidden(boolean hidden) {
@@ -100,7 +116,7 @@ public class Resource implements Serializable, Comparable<Resource> {
 		if ("/".equals(path)) {
 			return "/"+name;
 		}
-		return "" + path+"/"+name;
+		return "" + path+"/" + (isComponent()?"!":"") + name;
 	}
 	@Override
 	public String toString() {

@@ -37,10 +37,12 @@ public class MergedTemplateResource implements ITemplateResource {
 	private String resourceName;
 	private String indexTpl;
 	private String indexTplPath;
+	private boolean plain;
 	private List<ITemplatePreProcessor> preProcessors;
 
-	public MergedTemplateResource(String resourceName, String characterEncoding, String indexTplPath, List<ITemplatePreProcessor> preProcessors) {
+	public MergedTemplateResource(String resourceName, boolean plain, String characterEncoding, String indexTplPath, List<ITemplatePreProcessor> preProcessors) {
 		this.resourceName = resourceName;
+		this.plain = plain;
 		this.charachterEncoding = characterEncoding;
 		this.indexTplPath = indexTplPath;
 		this.preProcessors = preProcessors;

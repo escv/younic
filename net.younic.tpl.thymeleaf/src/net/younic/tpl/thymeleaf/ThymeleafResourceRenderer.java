@@ -74,14 +74,21 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 	}
 	
 	@Override
-	public void render(String tpl, Map<String, Object> context, Writer out) throws ResourceRenderingFailedException {
+	public void render(String tpl, boolean plain, Map<String, Object> context, Writer out) throws ResourceRenderingFailedException {
 		TemplateEngine engine = obtainTemplateEngine();
+		
+		if (plain) {
+			engine.setTemplateResolver(new FileTemplateResolver());
+		} else {
+			engine.setTemplateResolver(new MergeThemeFileTemplateResolver(this.preProcessors));
+		}
 		
 		Context tlContext = new Context(Locale.US, context);
 		tlContext.setVariable("FS", resourceProvider);
 
 		engine.process(tpl, tlContext, out);
 	}
+	
 
 	private TemplateEngine obtainTemplateEngine() {
 		TemplateEngine engine;

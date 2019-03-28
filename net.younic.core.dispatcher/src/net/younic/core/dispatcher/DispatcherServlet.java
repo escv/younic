@@ -110,7 +110,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		
 		PrintWriter writer = response.getWriter();
 		try {
-			renderer.render(tmplRef == null ? "index" : tmplRef , contents, writer);
+			renderer.render(tmplRef == null ? "index" : tmplRef, false, contents, writer);
 		} catch (ResourceRenderingFailedException e) {
 			LOG.error("error rendering "+tmplRef, e);
 			writer.write(e.getMessage());
