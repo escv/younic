@@ -65,12 +65,17 @@ public class MergedTemplateResource implements ITemplateResource {
 
 	@Override
 	public Reader reader() throws IOException {
-		if (indexTpl == null) {
+		if (indexTpl == null && !plain) {
 			indexTpl = new String(Files.readAllBytes(Paths.get(indexTplPath)), charachterEncoding);
 		}
 		
-		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) 
+		String merged = "";
+		if (plain) {
+			merged = new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding);
+		} else {
+			merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) 
 				? "" : new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding));
+		}
 		
 		// hook in registered PreProcessor before providing Template code to engine
 		if (preProcessors != null) {

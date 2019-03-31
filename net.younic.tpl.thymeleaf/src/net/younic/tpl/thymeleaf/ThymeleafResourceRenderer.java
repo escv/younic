@@ -77,11 +77,9 @@ public class ThymeleafResourceRenderer implements IResourceRenderer, EventHandle
 	public void render(String tpl, boolean plain, Map<String, Object> context, Writer out) throws ResourceRenderingFailedException {
 		TemplateEngine engine = obtainTemplateEngine();
 		
-		if (plain) {
-			engine.setTemplateResolver(new FileTemplateResolver());
-		} else {
-			engine.setTemplateResolver(new MergeThemeFileTemplateResolver(this.preProcessors));
-		}
+		engine.getTemplateResolvers().stream().
+			filter(MergeThemeFileTemplateResolver.class::isInstance)
+			.forEach(tr -> ((MergeThemeFileTemplateResolver)tr).setPlain(plain));
 		
 		Context tlContext = new Context(Locale.US, context);
 		tlContext.setVariable("FS", resourceProvider);

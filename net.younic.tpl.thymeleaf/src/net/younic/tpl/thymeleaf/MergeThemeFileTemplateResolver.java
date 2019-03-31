@@ -28,9 +28,15 @@ import org.thymeleaf.templateresource.ITemplateResource;
 
 import net.younic.core.api.ITemplatePreProcessor;
 
+/**
+ * Hooks a mergeable template that only replaces rendered markup inside a parent host template.
+ * @author Andre Albert
+ *
+ */
 public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
 
 	private List<ITemplatePreProcessor> preProcessors;
+	private boolean plain = false;
 	
 	public MergeThemeFileTemplateResolver(List<ITemplatePreProcessor> preProcessors) {
 		super();
@@ -41,6 +47,15 @@ public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
     protected ITemplateResource computeTemplateResource(
             final IEngineConfiguration configuration, final String ownerTemplate, final String template, final String resourceName, final String characterEncoding, final Map<String, Object> templateResolutionAttributes) {
 
-		return new MergedTemplateResource(resourceName, characterEncoding == null ? "utf-8" : characterEncoding, this.getPrefix() + "index"+this.getSuffix(), preProcessors);
+		return new MergedTemplateResource(resourceName, this.plain, characterEncoding == null ? "utf-8" : characterEncoding, this.getPrefix() + "index"+this.getSuffix(), preProcessors);
     }
+
+	public boolean isPlain() {
+		return plain;
+	}
+
+	public void setPlain(boolean plain) {
+		this.plain = plain;
+	}
+	
 }
