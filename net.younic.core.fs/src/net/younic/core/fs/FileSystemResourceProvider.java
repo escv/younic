@@ -61,7 +61,7 @@ public class FileSystemResourceProvider implements IResourceProvider {
 		
 		if (folder.isDirectory()) {
 			for (File elem : folder.listFiles(this.fileFilter)) {
-				Resource r = new Resource(pathSpec, elem.getName(), elem.isDirectory());
+				Resource r = new Resource(pathSpec, elem.getName(), elem.isDirectory()&&!elem.getName().startsWith("!"));
 				r.setLastModified(elem.lastModified());
 				r.setSize(elem.length());
 				result.add(r);

@@ -37,10 +37,12 @@ public class MergedTemplateResource implements ITemplateResource {
 	private String resourceName;
 	private String indexTpl;
 	private String indexTplPath;
+	private boolean plain;
 	private List<ITemplatePreProcessor> preProcessors;
 
-	public MergedTemplateResource(String resourceName, String characterEncoding, String indexTplPath, List<ITemplatePreProcessor> preProcessors) {
+	public MergedTemplateResource(String resourceName, boolean plain, String characterEncoding, String indexTplPath, List<ITemplatePreProcessor> preProcessors) {
 		this.resourceName = resourceName;
+		this.plain = plain;
 		this.charachterEncoding = characterEncoding;
 		this.indexTplPath = indexTplPath;
 		this.preProcessors = preProcessors;
@@ -63,12 +65,17 @@ public class MergedTemplateResource implements ITemplateResource {
 
 	@Override
 	public Reader reader() throws IOException {
-		if (indexTpl == null) {
+		if (indexTpl == null && !plain) {
 			indexTpl = new String(Files.readAllBytes(Paths.get(indexTplPath)), charachterEncoding);
 		}
 		
-		String merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) 
+		String merged = "";
+		if (plain) {
+			merged = new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding);
+		} else {
+			merged = indexTpl.replace("<!-- MAIN-TPL -->", resourceName.equals(indexTplPath) 
 				? "" : new String(Files.readAllBytes(Paths.get(resourceName)), charachterEncoding));
+		}
 		
 		// hook in registered PreProcessor before providing Template code to engine
 		if (preProcessors != null) {

@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalLong;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -61,24 +62,14 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 	@Override
 	public Map<String, Object> provideContents(Resource resource) throws IOException {
 		
-		long lastModified = 0L;
 		Map<String, Object> result = new TreeMap<>();
-		String[] elems = resource.qualifiedName().split("/");
-		for (int i = 0; i<elems.length; i++) {
-			Collection<Resource> entries = resourceProvider.list(Arrays.copyOfRange(elems, 0, (i+1)));
-			
-			entries.stream().filter(e->!e.isContainer()).mapToLong(e->{
-				IResourceConverter converter = WhiteboardUtil.findHandler(IResourceConverter.class, converters, e);
-				if (converter != null) {
-					try {
-						result.put(e.getName(), converter.convert(e));
-						return e.getLastModified();
-					} catch(IOException ioe) {
-						
-					}
-				}
-				return 0L;
-			}).max();
+		
+		long lastModified = 0L;
+		
+		if (resource.isComponent()) {
+			lastModified =  fetchSubContents(resource, result);
+		} else {
+			lastModified =  fetchHierarchyContents(resource, result);
 		}
 		
 		// allow to hook in post processor for result modification
@@ -90,6 +81,49 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 		context.put("currentPage", resource);
 		
 		return context;
+	}
+
+	private long fetchSubContents(Resource resource, Map<String, Object> result) {
+		long lastModified = 0L;
+		Collection<Resource> entries = resourceProvider.list(resource.qualifiedName());
+		
+		entries.stream().filter(e->!e.isComponent() && !e.isContainer()).forEach(e->{
+			IResourceConverter converter = WhiteboardUtil.findHandler(IResourceConverter.class, converters, e);
+			if (converter != null) {
+				try {
+					result.put(e.getName(), converter.convert(e));
+				} catch(IOException ioe) {
+					
+				}
+			}
+		});
+		
+		return lastModified;
+	}
+
+	private long fetchHierarchyContents(Resource resource, Map<String, Object> result) {
+		long lastModified = 0L;
+		String[] elems = resource.qualifiedName().split("/");
+		for (int i = 0; i<elems.length; i++) {
+			Collection<Resource> entries = resourceProvider.list(Arrays.copyOfRange(elems, 0, (i+1)));
+			
+			OptionalLong currentMax = entries.stream().filter(e->e.isComponent() || !e.isContainer()).mapToLong(e->{
+				IResourceConverter converter = WhiteboardUtil.findHandler(IResourceConverter.class, converters, e);
+				if (converter != null) {
+					try {
+						result.put(e.getName(), converter.convert(e));
+						return e.getLastModified();
+					} catch(IOException ioe) {
+						
+					}
+				}
+				return 0L;
+			}).max();
+			if (currentMax.isPresent() && currentMax.getAsLong()>lastModified) {
+				lastModified = currentMax.getAsLong();
+			}
+		}
+		return lastModified;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

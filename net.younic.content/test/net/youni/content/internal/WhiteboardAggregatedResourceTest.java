@@ -63,7 +63,7 @@ public class WhiteboardAggregatedResourceTest {
 	
 	@Test
 	public void testProvideContents() throws Exception {
-		Resource r = new Resource("content/de", null, true);
+		Resource r = new Resource("content", "de", true);
 		
 		Map<String, Object> contents = wbarcp.provideContents(r);
 		assertEquals("A in de", contents.get("A"));

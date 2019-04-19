@@ -37,10 +37,11 @@
 	bnd.identity;id='net.younic.tpl.thymeleaf',\
 	bnd.identity;id='slf4j.api',\
 	bnd.identity;id='net.younic.sync',\
-	bnd.identity;id='net.younic.sync.git'
+	bnd.identity;id='net.younic.sync.git',\
+	bnd.identity;id='net.younic.content.component'
 -runproperties: \
 	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
 	org.osgi.service.http.port=8282,\
-	net.younic.cms.root=/Users/aalbert/Development/younic-sample,\
+	net.younic.cms.root=/Users/aalbert/Development/younic-bootstrap,\
 	net.younic.admin.fileadmin-root=/Users/aalbert/Development/cynic/cnf/run/fileadmin,\
 	net.younic.devmode=false
