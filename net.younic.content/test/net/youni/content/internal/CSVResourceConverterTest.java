@@ -25,7 +25,6 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -35,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.younic.content.internal.CSVResourceConverter;
-import net.younic.content.internal.XMLResourceConverter;
 import net.younic.core.api.IResourceContentProvider;
 import net.younic.core.api.Resource;
 

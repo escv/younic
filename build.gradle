@@ -13,6 +13,8 @@ task wrapper(type: Wrapper) {
 }
 
 task dist {
+	delete 'cnf/run/bundle/tmp'
+	delete 'cnf/run/bundle/distributions'
 	def aggSourceDirs = [] as LinkedList
 	bndWorkspace.models.each{
 		def fromFile = new File(it.value.base, "generated/")
