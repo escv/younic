@@ -16,15 +16,17 @@ task dist {
 	delete 'cnf/run/bundle/tmp'
 	delete 'cnf/run/bundle/distributions'
 	def aggSourceDirs = [] as LinkedList
-	bndWorkspace.models.each{
-		def fromFile = new File(it.value.base, "generated/")
+	
+	bndWorkspace.allProjects.each{
+		def genFolder = it.targetDir
 		copy {
-			from fromFile
+			from genFolder
 			into 'cnf/run/bundle/'
 			include '**/*.jar'
 			exclude '**/net.younic.admin.jar'
 		}
 	}
+
 	copy {
 		from 'net.younic.admin/generated/net.younic.admin.jar'
                 into 'cnf/run/bundle-adm/'
@@ -58,5 +60,5 @@ dockerRun {
 }
 
 compileJava.dependsOn clean
-dist.dependsOn compileJava
+dist.dependsOn jar
 packageZip.dependsOn dist

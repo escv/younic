@@ -13,4 +13,5 @@ fi
 # export YOUNIC_RUN_ADMIN=true
 
 rm -rf felix-cache
-java -Dlog4j.configuration=file://$(pwd)/conf/log4j.properties -jar bin/felix.jar
+java -Dlog4j.configuration="file://$(pwd)/conf/log4j.properties" -jar bin/felix.jar &
+echo $! > younic.pid
