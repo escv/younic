@@ -52,8 +52,6 @@ import net.younic.core.api.ResourceRenderingFailedException;
 public class DispatcherServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = 1L;
-
-	private final String[] homePage = new String[] {"/", "html"};
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DispatcherServlet.class);
 		
@@ -66,16 +64,10 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	@Reference
 	private IResourceRenderer renderer;
 	
-	
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pathInfo = request.getPathInfo();
 		
-		if (pathInfo != null && (pathInfo.startsWith("/template") || pathInfo.startsWith("/bundles"))) {
-			LOG.warn("Illegal Request to either template or bundles forlder was blocked");
-			response.sendError(403);
-		}
-		
-		String[] interpretPath = interpretPath(pathInfo);
+		String[] interpretPath = interpretPath(request.getPathInfo());
 		Resource contentFolder = new Resource();
 		contentFolder.setContainer(true);
 		contentFolder.setPath(interpretPath[0]);
@@ -102,24 +94,25 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 			response.addDateHeader("Expires", 0L);
 			response.addHeader("Pragma", "no-cache");		
 		}
+		response.setContentType("text/html; charset=utf-8");
 
 		// read the template.ref
-		String tmplRef = fetchTemplateRef(contentFolder);
+		String tmplRef = fetchTemplateRef(contentFolder);		
 		
-		response.setContentType("text/html; charset=utf-8");
-		
-		PrintWriter writer = response.getWriter();
-		try {
-			renderer.render(tmplRef == null ? "index" : tmplRef, false, contents, writer);
+		try (PrintWriter writer = response.getWriter()){
+			renderer.render(tmplRef == null ? "index" : tmplRef, false, contents, writer);			
+			writer.flush();
 		} catch (ResourceRenderingFailedException e) {
 			LOG.error("error rendering "+tmplRef, e);
-			writer.write(e.getMessage());
 		}
-
-		writer.flush();
-		writer.close();
 	}
 	
+	/**
+	 * Looks up for a template reference with a bottom-up strategy starting form "contentFolder" param.
+	 * @param contentFolder
+	 * @return the name of the template file to use
+	 * @throws IOException
+	 */
 	private String fetchTemplateRef(Resource contentFolder) throws IOException {
 		String contentFolderPath = contentFolder.qualifiedName();
 		LinkedList<String> parts = new LinkedList<String>(Arrays.asList(contentFolderPath.split("/")));
@@ -133,10 +126,29 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 		return null;
 	}
 	
-	private String[] interpretPath(String pathInfo) {
+	/**
+	 * Interpretes the Request path to match it with the filesystem resources.
+	 * Direct access to /template and /bundles is prohibited.
+	 * If not already in path, the content folder will be prefixed.
+	 * Could later by a own OSGi component to allow Vanity URLs and other matchers.
+	 * 
+	 * @param pathInfo as obtained by servlet request, might be null
+	 * @return an 3-elem. Array with 0: the folder 1: the filename 2: the file extension
+	 * @throws ServletException on not allowed path access
+	 */
+	private String[] interpretPath(String pathInfo) throws ServletException {
 		String[] result =  new String[3];
 		if (pathInfo == null) {
-			return homePage;
+			pathInfo = "/content.html";
+		}
+		
+		if (pathInfo.startsWith("/template") || pathInfo.startsWith("/bundles")) {
+			LOG.warn("Illegal Request to either template or bundles forlder was blocked");
+			throw new ServletException("Illegal Request");
+		}
+		
+		if (!pathInfo.startsWith(Resource.RESOURCE_RESOURCE_FOLDER) && !pathInfo.startsWith(Resource.RESOURCE_CONTENT_FOLDER)) {
+			pathInfo = Resource.RESOURCE_CONTENT_FOLDER+pathInfo;
 		}
 		
 		pathInfo = pathInfo.replace("..", "");
