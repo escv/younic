@@ -7,6 +7,9 @@ public class Resource implements Serializable, Comparable<Resource> {
 	private static final long serialVersionUID = 1L;
 
 	public static final String RESOURCE_COMPONENT_PREFIX = "!";
+	public static final String RESOURCE_CONTENT_FOLDER = "/content";
+	public static final String RESOURCE_RESOURCE_FOLDER = "/resource";
+
 	private String name;
 	private String displayName;
 	private String path;
@@ -118,6 +121,18 @@ public class Resource implements Serializable, Comparable<Resource> {
 		}
 		return "" + path+"/" + (isComponent()?"!":"") + name;
 	}
+	
+	public String navigableName() {
+		String nPath = path;
+		if (path!=null && path.startsWith(RESOURCE_CONTENT_FOLDER)) {
+			nPath = path.substring(RESOURCE_CONTENT_FOLDER.length());	
+		}
+		if ("/".equals(nPath)) {
+			return "/"+name;
+		}
+		return "" + nPath+"/" + (isComponent()?"!":"") + name;
+	}
+	
 	@Override
 	public String toString() {
 		return qualifiedName();
