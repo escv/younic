@@ -1,4 +1,4 @@
-# younic [![Build Status](https://travis-ci.org/escv/younic.svg?branch=master)](https://travis-ci.org/escv/younic)
+# ![younic](https://github.com/escv/younic/raw/master/cnf/younic-logo.png) [![Build Status](https://travis-ci.org/escv/younic.svg?branch=master)](https://travis-ci.org/escv/younic)
 
 Lightweight Web Content Management System without a Database and an Administration Backend
 
