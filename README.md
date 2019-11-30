@@ -9,6 +9,9 @@ Appropriate resource converters are able to interpret these files and their cont
 The page context map will be provided to a thymeleaf template engine that renders a html webpage. The rendering is based on a main template and folders define a specific templated used for rendering their context documents. Those specific template output will be placed to the main template.
 Younic is based on a OSGi environment (Felix) so it can be extend by new bundles easily.
 
+## Local Install
+Download a recent Realease Package from the [packages](https://github.com/escv/younic/packages) section and set a YOUNIC_CMS_ROOT_GIT environment variable to point to Git clone URL. Or adjust the start script to use a different default clone url.
+ 
 ## Cloud Native
 The CMS was designed for typical cloud requirements. It is using a distributed version controll system (Git) to synchronize the data between CMS nodes. If there are newer versions of pages, templates and content available, all Younic nodes get those changes via GIT synchronization (Younic does not use any databases). Therewith typical CMS processes can be mapped to git concept:
 * Git Branches are used for Staging
