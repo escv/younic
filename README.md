@@ -41,7 +41,7 @@ gradle clean compileJava dist docker dockerRun
 
 Or from Docker Hub:
 ```
-docker run -e "YOUNIC_CMS_ROOT_GIT=https://github.com/escv/younic-sample.git" -p 8080:8080 escv/youni
+docker run -e "YOUNIC_CMS_ROOT_GIT=https://github.com/escv/younic-sample.git" --name younic -p 8080:8080 escv/younic
 ```
 
 run standalone as jar:
