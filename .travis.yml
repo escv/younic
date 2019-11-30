@@ -1,5 +1,5 @@
 sudo: false
-install: true
+install: gradle wrapper --gradle-version 4.2
 language: java
 jdk:
 - openjdk8
