@@ -1,0 +1,10 @@
+namespace: younic
+configMapGenerator:
+- name: younic-config
+  envs:
+    - younic.properties
+resources:
+- ns.yml
+- depl.yml
+- srv.yml
+- ingr.yml

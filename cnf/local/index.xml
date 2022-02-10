@@ -1,29 +1,761 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1539852786000">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Local" increment="1577097056593">
   <resource>
     <capability namespace="osgi.identity">
-      <attribute name="osgi.identity" value="com.github.rjeschke.txtmark"/>
+      <attribute name="license" value="http://www.eclipse.org/org/documents/edl-v10.php"/>
+      <attribute name="osgi.identity" value="com.sun.xml.bind.jaxb-osgi"/>
       <attribute name="type" value="osgi.bundle"/>
-      <attribute name="version" value="0.14.0" type="Version"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="documentation" value="https://www.eclipse.org"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
-      <attribute name="bundle-version" value="0.14.0" type="Version"/>
-      <attribute name="osgi.wiring.bundle" value="com.github.rjeschke.txtmark"/>
+      <attribute name="bundle-version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.sun.xml.bind.jaxb-osgi"/>
     </capability>
     <capability namespace="osgi.wiring.host">
-      <attribute name="bundle-version" value="0.14.0" type="Version"/>
-      <attribute name="osgi.wiring.host" value="com.github.rjeschke.txtmark"/>
+      <attribute name="bundle-version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.sun.xml.bind.jaxb-osgi"/>
     </capability>
     <capability namespace="osgi.wiring.package">
-      <attribute name="version" value="0.14.0" type="Version"/>
-      <attribute name="osgi.wiring.package" value="com.github.rjeschke.txtmark"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.codemodel"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.codemodel.fmt"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.codemodel.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.codemodel.writer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.activation,javax.xml.stream,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="3.0.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.istack"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.istack.localization"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="3.0.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.istack.logging"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.apache.tools.ant,org.xml.sax"/>
+      <attribute name="version" value="3.0.10" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.istack.tools"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.jxc.gen.config,com.sun.tools.xjc.api,javax.annotation.processing,javax.lang.model.element,javax.xml.bind,org.apache.tools.ant.taskdefs,org.apache.tools.ant.types,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.jxc"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.xml.bind.v2.model.annotation,javax.annotation.processing,javax.lang.model,javax.lang.model.element,javax.lang.model.type"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.jxc.ap"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc.api"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.jxc.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc.api,javax.annotation.processing,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.jxc.api.impl.j2s"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.jxc,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.jxc.gen.config"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.model.nav,com.sun.xml.bind.v2.runtime,javax.annotation.processing,javax.lang.model.element,javax.lang.model.type"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.jxc.model.nav"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngdatatype"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngdatatype.helpers"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngom.ast.om,com.sun.tools.rngom.parse"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.ast.builder"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.ast.om"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,com.sun.tools.rngom.parse,com.sun.tools.rngom.parse.host,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.ast.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,com.sun.tools.rngom.binary.visitor,com.sun.tools.rngom.nc,com.sun.tools.rngom.parse,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.binary"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.tools.rngom.binary,com.sun.tools.rngom.nc"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.binary.visitor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,com.sun.tools.rngom.ast.util,com.sun.tools.rngom.nc,com.sun.tools.rngom.parse,javax.xml.namespace,javax.xml.stream,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.digested"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.dt"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.dt.builtin"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.nc"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.parse"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,com.sun.tools.rngom.parse,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.parse.compact"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,com.sun.tools.rngom.parse"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.parse.host"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.tools.rngom.ast.builder,com.sun.tools.rngom.ast.om,com.sun.tools.rngom.parse,com.sun.tools.rngom.xml.sax,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.parse.xml"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.parsers,org.xml.sax,org.xml.sax.ext"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.xml.sax"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.rngom.xml.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.istack.tools,com.sun.tools.xjc.api,com.sun.tools.xjc.generator.bean.field,com.sun.tools.xjc.model,com.sun.tools.xjc.outline,com.sun.tools.xjc.reader.internalizer,com.sun.xml.bind.api.impl,com.sun.xml.xsom,com.sun.xml.xsom.parser,javax.xml.validation,org.apache.tools.ant,org.apache.tools.ant.taskdefs,org.apache.tools.ant.types,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.outline,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.addon.accessors"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.outline,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.addon.at_generated"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.outline,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.addon.code_injector"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.outline,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.addon.episode"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.outline,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.addon.locator"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.outline,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.addon.sync"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.xml.bind.api,javax.annotation.processing,javax.lang.model.element,javax.lang.model.type,javax.xml.bind,javax.xml.namespace,javax.xml.stream,javax.xml.transform,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.api,com.sun.tools.xjc.model,com.sun.tools.xjc.outline,com.sun.tools.xjc.reader.internalizer,javax.xml.namespace,javax.xml.stream,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.api.impl.s2j"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.generator.annotation.spec"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.model,com.sun.tools.xjc.outline,com.sun.tools.xjc.util,javax.xml.bind.annotation"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.generator.bean"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc.generator.bean,com.sun.tools.xjc.model,com.sun.tools.xjc.outline"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.generator.bean.field"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.generator.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.api,com.sun.tools.xjc.generator.bean,com.sun.tools.xjc.generator.bean.field,com.sun.tools.xjc.model.nav,com.sun.tools.xjc.outline,com.sun.tools.xjc.reader.xmlschema.bindinfo,com.sun.xml.bind.api.impl,com.sun.xml.bind.v2.model.annotation,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.nav,com.sun.xml.bind.v2.runtime,com.sun.xml.xsom,javax.activation,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,javax.xml.namespace,javax.xml.transform,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.model"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc.outline,com.sun.xml.bind.v2.model.nav,com.sun.xml.bind.v2.runtime"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.model.nav"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.generator.bean,com.sun.tools.xjc.model,com.sun.tools.xjc.util,javax.xml.bind.annotation"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.outline"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.model,com.sun.tools.xjc.util,com.sun.xml.bind.v2.model.core,javax.activation,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.model,com.sun.xml.dtdparser,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.dtd"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.generator.bean.field,com.sun.tools.xjc.model,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.dtd.bindinfo"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.gbind"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.xml.xsom,com.sun.xml.xsom.parser,javax.xml.parsers,javax.xml.stream,javax.xml.transform.sax,javax.xml.validation,org.w3c.dom,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.internalizer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.rngom.digested,com.sun.tools.xjc,com.sun.tools.xjc.model,com.sun.tools.xjc.reader,com.sun.tools.xjc.reader.internalizer,org.w3c.dom,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.relaxng"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.rngom.nc,com.sun.tools.xjc,com.sun.tools.xjc.generator.bean.field,com.sun.tools.xjc.model,com.sun.tools.xjc.reader,com.sun.tools.xjc.reader.gbind,com.sun.tools.xjc.reader.xmlschema.bindinfo,com.sun.xml.bind.api.impl,com.sun.xml.bind.v2.model.core,com.sun.xml.xsom,com.sun.xml.xsom.visitor,javax.activation,javax.xml.namespace,javax.xml.transform"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.xmlschema"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.generator.bean,com.sun.tools.xjc.model,com.sun.tools.xjc.reader,com.sun.tools.xjc.reader.xmlschema,com.sun.xml.bind.api.impl,com.sun.xml.xsom,com.sun.xml.xsom.parser,javax.xml.bind,javax.xml.bind.annotation,javax.xml.namespace,javax.xml.transform.sax,org.w3c.dom,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.xmlschema.bindinfo"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc.reader.xmlschema,com.sun.xml.xsom"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.xmlschema.ct"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc,com.sun.tools.xjc.reader.internalizer,org.w3c.dom,org.w3c.dom.ls,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.reader.xmlschema.parser"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.bind,javax.xml.bind.annotation.adapters"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.runtime"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.codemodel,com.sun.tools.xjc,com.sun.tools.xjc.api,com.sun.xml.xsom,javax.activation,javax.xml.bind.annotation.adapters,javax.xml.namespace,org.w3c.dom,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.xjc.outline"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.tools.xjc.writer"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.runtime.reflect,javax.xml.bind,javax.xml.bind.annotation.adapters,javax.xml.datatype,javax.xml.namespace,javax.xml.stream,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.model.annotation,com.sun.xml.bind.v2.model.runtime,com.sun.xml.bind.v2.runtime,javax.xml.bind,javax.xml.bind.attachment,javax.xml.namespace,javax.xml.stream,javax.xml.transform,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.api"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.api.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.parsers,org.w3c.dom,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.marshaller"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.runtime.unmarshaller,javax.xml.bind,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.unmarshaller"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind,javax.xml.bind.helpers,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.api,com.sun.xml.bind.v2.model.annotation,javax.xml.bind"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.bytecode"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.nav,com.sun.xml.bind.v2.runtime"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.model.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.model.annotation,com.sun.xml.bind.v2.model.impl,com.sun.xml.bind.v2.model.nav,com.sun.xml.bind.v2.runtime,javax.activation,javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,javax.xml.namespace,javax.xml.transform"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.model.core"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.api,com.sun.xml.bind.v2.model.annotation,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.nav,com.sun.xml.bind.v2.model.runtime,com.sun.xml.bind.v2.runtime,javax.activation,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.model.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.runtime"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.model.nav"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.runtime,com.sun.xml.bind.v2.runtime.reflect,javax.xml.bind,javax.xml.namespace,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.model.runtime"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.model.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.istack,com.sun.xml.bind.api,com.sun.xml.bind.marshaller,com.sun.xml.bind.v2.model.annotation,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.runtime,com.sun.xml.bind.v2.runtime.output,com.sun.xml.bind.v2.runtime.property,com.sun.xml.bind.v2.runtime.unmarshaller,javax.activation,javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,javax.xml.bind.attachment,javax.xml.bind.helpers,javax.xml.namespace,javax.xml.stream,javax.xml.transform,javax.xml.transform.sax,javax.xml.validation,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.runtime"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.marshaller,com.sun.xml.bind.v2.runtime,com.sun.xml.fastinfoset.stax,javax.xml.stream,org.jvnet.staxex,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.runtime.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.api,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.runtime,com.sun.xml.bind.v2.runtime,com.sun.xml.bind.v2.runtime.reflect,com.sun.xml.bind.v2.runtime.unmarshaller,com.sun.xml.bind.v2.util,javax.xml.namespace,javax.xml.stream,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.runtime.property"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.api,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.runtime,com.sun.xml.bind.v2.runtime,com.sun.xml.bind.v2.runtime.unmarshaller,javax.xml.bind,javax.xml.bind.annotation.adapters,javax.xml.stream,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.runtime.reflect"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.api,com.sun.xml.bind.v2.model.runtime,com.sun.xml.bind.v2.runtime,com.sun.xml.bind.v2.runtime.reflect,javax.xml.stream,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.runtime.reflect.opt"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind,com.sun.xml.bind.api,com.sun.xml.bind.unmarshaller,com.sun.xml.bind.util,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.runtime,com.sun.xml.bind.v2.runtime.output,com.sun.xml.bind.v2.runtime.reflect,javax.activation,javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.annotation.adapters,javax.xml.bind.attachment,javax.xml.bind.helpers,javax.xml.namespace,javax.xml.stream,javax.xml.transform,javax.xml.transform.sax,javax.xml.validation,org.w3c.dom,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.runtime.unmarshaller"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.api,com.sun.xml.bind.v2.model.core,com.sun.xml.bind.v2.model.nav,com.sun.xml.txw2.output,javax.xml.bind,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.schemagen"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.txw2,com.sun.xml.txw2.annotation"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.schemagen.episode"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.txw2,com.sun.xml.txw2.annotation,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.schemagen.xmlschema"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.bind.v2.runtime,com.sun.xml.bind.v2.runtime.unmarshaller,javax.activation,javax.xml.namespace,javax.xml.parsers,javax.xml.transform,javax.xml.transform.stream,javax.xml.validation,javax.xml.xpath,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.v2.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.xml.sax"/>
+      <attribute name="version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.dtdparser"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.4.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.dtdparser.resources"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset.util,com.sun.xml.fastinfoset.vocab,javax.xml.namespace,org.jvnet.fastinfoset,org.xml.sax.helpers"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jvnet.fastinfoset"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.algorithm"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.alphabet"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset,com.sun.xml.fastinfoset.util,org.jvnet.fastinfoset,org.w3c.dom"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.dom"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.org.apache.xerces.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.resources"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset,com.sun.xml.fastinfoset.algorithm,com.sun.xml.fastinfoset.util,org.jvnet.fastinfoset,org.jvnet.fastinfoset.sax,org.xml.sax,org.xml.sax.ext"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.sax"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset,com.sun.xml.fastinfoset.sax,com.sun.xml.fastinfoset.util,javax.xml.namespace,javax.xml.stream,org.jvnet.fastinfoset,org.jvnet.fastinfoset.stax"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.stax"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,javax.xml.stream.util"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.stax.events"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream,javax.xml.stream.events,javax.xml.stream.util,javax.xml.transform"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.stax.factory"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.namespace,javax.xml.stream"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.stax.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset.util,com.sun.xml.fastinfoset.vocab,javax.xml.stream,org.jvnet.fastinfoset,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.tools"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset,javax.xml.namespace,org.jvnet.fastinfoset"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.fastinfoset.util,org.jvnet.fastinfoset"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.fastinfoset.vocab"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.txw2.output,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.txw2"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.txw2.annotation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.txw2,javax.xml.namespace,javax.xml.stream,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.sax,javax.xml.transform.stream,org.w3c.dom,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.txw2.output"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.xml.xsom.parser,com.sun.xml.xsom.visitor,javax.xml.namespace,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.xml.xsom,com.sun.xml.xsom.impl.parser,com.sun.xml.xsom.parser,com.sun.xml.xsom.visitor,javax.xml.namespace,org.xml.sax,org.xml.sax.helpers"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.impl"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.tools.rngdatatype,com.sun.xml.xsom,com.sun.xml.xsom.impl,com.sun.xml.xsom.impl.parser.state,com.sun.xml.xsom.parser,javax.xml.parsers,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.impl.parser"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.xsom.impl.parser,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.impl.parser.state"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.xsom,com.sun.xml.xsom.impl,javax.xml.namespace"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.impl.scd"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.xsom,com.sun.xml.xsom.visitor,javax.swing,javax.swing.tree,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.impl.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.xsom,javax.xml.parsers,org.xml.sax"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.parser"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.xsom,com.sun.xml.xsom.parser,com.sun.xml.xsom.visitor"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.xml.xsom"/>
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.xsom.visitor"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.transform.sax,org.xml.sax,org.xml.sax.ext"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jvnet.fastinfoset"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jvnet.fastinfoset,org.xml.sax,org.xml.sax.ext"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jvnet.fastinfoset.sax"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="org.jvnet.fastinfoset.sax,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jvnet.fastinfoset.sax.helpers"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.stream"/>
+      <attribute name="version" value="1.2.17" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jvnet.fastinfoset.stax"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.activation,javax.xml.namespace,javax.xml.stream"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jvnet.staxex"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.xml.bind.attachment,javax.xml.namespace,javax.xml.stream,org.w3c.dom"/>
+      <attribute name="version" value="1.8.2" type="Version"/>
+      <attribute name="osgi.wiring.package" value="org.jvnet.staxex.util"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="2.3.3.b02" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.xml.bind.external"/>
     </capability>
     <capability namespace="osgi.content">
-      <attribute name="size" value="71139" type="Long"/>
-      <attribute name="url" value="txtmark-0.14.jar"/>
+      <attribute name="size" value="3507864" type="Long"/>
+      <attribute name="url" value="jaxb-osgi-2.3.3-b02.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
-      <attribute name="osgi.content" value="31C6F6BE07A898338471D617E2197108F1BF5BFD2561705C5D899E3EC62F05CF"/>
+      <attribute name="osgi.content" value="4A6504F3C532458E9177D04ECF1FDF3E5DBA7719D38BF2871C94B4AA45A16FC1"/>
     </capability>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind)(version&gt;=2.3.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.annotation)(version&gt;=2.3.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.annotation.adapters)(version&gt;=2.3.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.attachment)(version&gt;=2.3.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.bind.helpers)(version&gt;=2.3.0))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.activation))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.annotation.processing))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.imageio))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.imageio.stream))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.lang.model))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.lang.model.element))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.lang.model.type))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.lang.model.util))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.swing))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.swing.border))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.swing.tree))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.tools))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.datatype))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.namespace))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.parsers))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.events))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.stream.util))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.dom))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.sax))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.transform.stream))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.validation))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.xpath))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.w3c.dom.ls))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.ext))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.helpers))"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.org.apache.xml.internal.resolver))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.org.apache.xml.internal.resolver.tools))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.source.tree))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=com.sun.source.util))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.tools.ant))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.tools.ant.taskdefs))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.tools.ant.taskdefs.compilers))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=org.apache.tools.ant.types))"/>
+      <directive name="resolution" value="optional"/>
+    </requirement>
+    <requirement namespace="osgi.wiring.package">
+      <directive name="filter" value="(&amp;(osgi.wiring.package=javax.xml.catalog))"/>
+    </requirement>
+    <requirement namespace="osgi.ee">
+      <directive name="filter" value="(&amp;(osgi.ee=JavaSE)(version=1.8))"/>
+    </requirement>
   </resource>
   <resource>
     <capability namespace="osgi.identity">
@@ -150,5 +882,66 @@
       <directive name="filter" value="(&amp;(osgi.wiring.package=org.xml.sax.helpers))"/>
       <directive name="resolution" value="optional"/>
     </requirement>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="com.github.rjeschke.txtmark"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="0.14.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="0.14.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="com.github.rjeschke.txtmark"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.14.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="com.github.rjeschke.txtmark"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="0.14.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.github.rjeschke.txtmark"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="71139" type="Long"/>
+      <attribute name="url" value="txtmark-0.14.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="31C6F6BE07A898338471D617E2197108F1BF5BFD2561705C5D899E3EC62F05CF"/>
+    </capability>
+  </resource>
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="target"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="1.1.0" type="Version"/>
+      <attribute name="documentation" value="&amp;nbsp;"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="1.1.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="target"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="1.1.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="target"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="com.sun.activation.registries"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="javax.activation"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <directive name="uses" value="javax.activation"/>
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.activation.viewers"/>
+    </capability>
+    <capability namespace="osgi.wiring.package">
+      <attribute name="version" value="1.0.0" type="Version"/>
+      <attribute name="osgi.wiring.package" value="com.sun.activation.registries"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="64014" type="Long"/>
+      <attribute name="url" value="activation-1.1-osgi.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="6723FA1D6FE5F050BAD7E5F435C4243A70F00B46D16D189D10440E2FAA49F079"/>
+    </capability>
   </resource>
 </repository>

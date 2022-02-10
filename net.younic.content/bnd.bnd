@@ -2,7 +2,8 @@
 	osgi.annotation;version=latest,\
 	osgi.cmpn;version=latest,\
 	net.younic.core.api;version=latest,\
-	com.github.rjeschke.txtmark
+	com.github.rjeschke.txtmark,\
+	org.jsoup;version='1.14'
 
 -testpath: \
 	${junit},\

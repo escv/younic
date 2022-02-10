@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: younic-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # cert-manager.io/issuer: "my-ca-issuer"
+spec:
+  #tls:
+  #- hosts:
+  #  - test.example.com
+  #  secretName: root-secret
+  #ingressClassName: nginx
+  rules:
+    - host: test.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: younic-service
+                port:
+                  number: 8080

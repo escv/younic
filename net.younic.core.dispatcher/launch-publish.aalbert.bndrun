@@ -1,4 +1,4 @@
--runfw: org.apache.felix.framework;version='[6.0.1,6.0.1]'
+-runfw: org.apache.felix.framework;version='[6.0.3,6.0.3]'
 -runee: JavaSE-1.8
 -runsystemcapabilities: ${native_capability}
 
@@ -22,11 +22,12 @@
 	net.younic.sync;version=snapshot,\
 	net.younic.sync.git;version=snapshot,\
 	org.apache.felix.eventadmin;version='[1.5.0,1.5.1)',\
-	org.apache.felix.http.jetty;version='[4.0.4,4.0.5)',\
-	org.apache.felix.scr;version='[2.1.6,2.1.7)',\
-	slf4j.log4j12;version=1.7.25,\
-	org.apache.felix.fileinstall;version=3.6.4,\
-	com.github.rjeschke.txtmark;version=0.14.0
+	org.apache.felix.http.jetty;version='[4.0.10,4.0.11)',\
+	org.apache.felix.scr;version='[2.1.14,2.1.15)',\
+	slf4j.log4j12;version='1.7.25',\
+	org.apache.felix.fileinstall;version='3.6.4',\
+	com.github.rjeschke.txtmark;version='0.14.0',\
+	org.jsoup;version='1.15.1'
 
 -runrequires: \
 	bnd.identity;id='net.younic.cache',\
@@ -40,8 +41,8 @@
 	bnd.identity;id='net.younic.sync.git',\
 	bnd.identity;id='net.younic.content.component'
 -runproperties: \
-	log4j.configuration=file:///Users/aalbert/Development/cynic/cnf/run/conf/log4j.properties,\
+	log4j.configuration=file:///Users/aalbert/Development/younic/younic/cnf/run/conf/log4j.properties,\
+	net.younic.admin.fileadmin-root=/Users/aalbert/Development/younic/younic/cnf/run/fileadmin,\
 	org.osgi.service.http.port=8282,\
-	net.younic.cms.root=/Users/aalbert/Development/younic-bootstrap,\
-	net.younic.admin.fileadmin-root=/Users/aalbert/Development/cynic/cnf/run/fileadmin,\
+	net.younic.cms.root=/Users/aalbert/Development/younic/younic-sample,\
 	net.younic.devmode=false

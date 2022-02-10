@@ -50,15 +50,18 @@ run standalone as jar:
 ```
 
 ## Cloud Deployments
-Younic also supports a kubernetes cluster deployment. To do so, run the command:
+Younic also supports a kubernetes cluster deployment. To do so, checkout the project and inspect the container/kubernetes folder.
+First you need to adjust the `younic.properties` to point your `YOUNIC_CMS_ROOT` to a repository containing your cms content.
+Following that: please create a kubernetes namespache such as younic. Use this namespace in the kustomization.yaml
+
+Also, there is an ingress to adjust - please adjust `host: test.example.com` in ingr.yml to follow your needs.
+
+Execute the deployment via:
+
 ```
-kubectl apply -f https://raw.githubusercontent.com/escv/younic/develop/container/kube-younic.yaml
+kubectl apply -k ./
 ```
-You can find the git clone URL for the CMS root in a config map. Just replace this URL with your repository and restart your deployment.
-To fetch the service port of the running younic service, enter: 
-```
-kubectl describe service younic-service | grep NodePort
-```
+
 
 
 ### Credits:

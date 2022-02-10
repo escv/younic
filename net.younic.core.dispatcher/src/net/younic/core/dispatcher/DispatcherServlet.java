@@ -94,16 +94,30 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 			response.addDateHeader("Expires", 0L);
 			response.addHeader("Pragma", "no-cache");		
 		}
-		response.setContentType("text/html; charset=utf-8");
-
-		// read the template.ref
-		String tmplRef = fetchTemplateRef(contentFolder);		
 		
-		try (PrintWriter writer = response.getWriter()){
-			renderer.render(tmplRef == null ? "index" : tmplRef, false, contents, writer);			
-			writer.flush();
-		} catch (ResourceRenderingFailedException e) {
-			LOG.error("error rendering "+tmplRef, e);
+		if (".json".equalsIgnoreCase(interpretPath[2])) {
+			// render to (x)html
+			response.setContentType("application/json; charset=utf-8");
+			IResourceRenderer jsonRenderer = new JsonResourceRenderer();
+			try (PrintWriter writer = response.getWriter()){
+				jsonRenderer.render(null, true, contents, writer);			
+				writer.flush();
+			} catch (ResourceRenderingFailedException e) {
+				LOG.error("error rendering json", e);
+			}
+		} else {
+			// render to (x)html
+			response.setContentType("text/html; charset=utf-8");
+	
+			// read the template.ref
+			String tmplRef = fetchTemplateRef(contentFolder);		
+			
+			try (PrintWriter writer = response.getWriter()){
+				renderer.render(tmplRef == null ? "index" : tmplRef, false, contents, writer);			
+				writer.flush();
+			} catch (ResourceRenderingFailedException e) {
+				LOG.error("error rendering "+tmplRef, e);
+			}
 		}
 	}
 	

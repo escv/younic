@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: younic-deployment
+  labels:
+    app: younic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: younic
+  template:
+    metadata:
+      labels:
+        app: younic
+    spec:
+      hostAliases:
+        # the is no internet hostname resolving activated. Adjust here the ip of github.com or find any better solution.
+        - ip: "140.82.121.3"
+          hostnames:
+            - "github.com"
+      containers:
+      - name: younic-container
+        image: escv/younic
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: younic-config
+        resources:
+          limits:
+            memory: "768Mi"
+            cpu: "0.2"
+#        livenessProbe:
+#          httpGet:
+#            path: /api/dir/
+#            port: 8080
+        volumeMounts:
+          - mountPath: /opt/younic/cms-root
+            name: cms-root
+      volumes:
+      - name: cms-root
+        emptyDir:
+          medium: Memory
+          sizeLimit: "62Mi"
