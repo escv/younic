@@ -8,10 +8,6 @@ repositories {
 	mavenCentral()
 }
 
-task wrapper2(type: Wrapper) {
-	jarFile = rootProject.file('.gradle-wrapper/gradle-wrapper.jar')
-}
-
 task dist {
 	delete 'cnf/run/bundle/tmp'
 	delete 'cnf/run/bundle/distributions'
@@ -43,7 +39,7 @@ task packageZip(type: Zip) {
 docker (){
     name 'escv/younic'
     //name 'hub.docker.com/escv/younic'
-    //tags 'latest'
+    tags 'latest'
     dockerfile file('container/Dockerfile')
     files 'cnf/release/younic.zip'
     pull true
@@ -62,3 +58,4 @@ dockerRun {
 compileJava.dependsOn clean
 dist.dependsOn jar
 packageZip.dependsOn dist
+docker.dependsOn packageZip
