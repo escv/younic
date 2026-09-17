@@ -50,7 +50,10 @@ public class Activator implements BundleActivator {
 	        		final ISyncTimerService service = context.getService(reference);
 	        		if (service != null) {
 		        		String docroot = context.getProperty("net.younic.cms.root");
-		        		
+		        		if (docroot == null) {
+		        			LOG.warn("Skipping GIT Sync due to missing net.younic.cms.root Property");
+		        			return super.addingService(reference);
+		        		}
 		        		service.registerSyncTimerTask(new GitSyncTimerTask(docroot));
 		        		LOG.info("GIT Sync activated");
 	        		}
@@ -66,9 +69,14 @@ public class Activator implements BundleActivator {
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		ServiceReference<ISyncTimerService> timer = context.getServiceReference(ISyncTimerService.class);
-		ISyncTimerService service = context.getService(timer);
-		service.cancel();
+		ServiceReference<ISyncTimerService> timerRef = context.getServiceReference(ISyncTimerService.class);
+		if (timerRef == null) {
+			return;
+		}
+		ISyncTimerService service = context.getService(timerRef);
+		if (service != null) {
+			service.cancel();
+		}
 	}
 
 }

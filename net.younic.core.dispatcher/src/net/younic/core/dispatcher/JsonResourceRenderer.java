@@ -27,7 +27,7 @@ public class JsonResourceRenderer implements IResourceRenderer {
 				} else {
 					first = false;
 				}
-				out.append("\""+entry.getKey()+"\":");
+				out.append("\""+escapeForJSON(entry.getKey())+"\":");
 				Object val = entry.getValue();
 				jsonSerializeValue(out, val);
 			}
@@ -39,9 +39,11 @@ public class JsonResourceRenderer implements IResourceRenderer {
 	}
 
 	private void jsonSerializeValue(Writer out, Object val) throws IOException {
-		if (val instanceof String) {
+		if (val == null) {
+			out.append("null");
+		} else if (val instanceof String) {
 			out.append("\""+escapeForJSON((String)val)+"\"");
-		} else if (val instanceof Number) {
+		} else if (val instanceof Number || val instanceof Boolean) {
 			out.append(val.toString());
 		} else if (val instanceof Map<?,?>) {
 			out.append("{");
@@ -52,12 +54,12 @@ public class JsonResourceRenderer implements IResourceRenderer {
 				} else {
 					first = false;
 				}
-				out.append("\""+obj.getKey()+"\":");
+				out.append("\""+escapeForJSON(String.valueOf(obj.getKey()))+"\":");
 				jsonSerializeValue(out, obj.getValue());
 			}
 			out.append("}");
 		} else if (val instanceof Resource) {
-			out.append("\""+((Resource)val).qualifiedName()+"\"");
+			out.append("\""+escapeForJSON(((Resource)val).qualifiedName())+"\"");
 		} else if (val instanceof Iterable<?>) {
 			out.append("[");
 			boolean first=true;
@@ -86,6 +88,33 @@ public class JsonResourceRenderer implements IResourceRenderer {
 	}
 
 	private String escapeForJSON(String str) {
-		return str.replace("\"", "\\\"").replace("\n", "").replace("\r", "").replace("\t", " ");
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			switch (c) {
+			case '"':
+				sb.append("\\\"");
+				break;
+			case '\\':
+				sb.append("\\\\");
+				break;
+			case '\n':
+				sb.append("\\n");
+				break;
+			case '\r':
+				sb.append("\\r");
+				break;
+			case '\t':
+				sb.append("\\t");
+				break;
+			default:
+				if (c < 0x20) {
+					sb.append(String.format("\\u%04x", (int) c));
+				} else {
+					sb.append(c);
+				}
+			}
+		}
+		return sb.toString();
 	}
 }

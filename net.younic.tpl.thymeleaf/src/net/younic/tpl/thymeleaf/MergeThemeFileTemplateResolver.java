@@ -36,7 +36,12 @@ import net.younic.core.api.ITemplatePreProcessor;
 public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
 
 	private List<ITemplatePreProcessor> preProcessors;
-	private boolean plain = false;
+	private final ThreadLocal<Boolean> plain = new ThreadLocal<Boolean>() {
+		@Override
+		protected Boolean initialValue() {
+			return Boolean.FALSE;
+		}
+	};
 	
 	public MergeThemeFileTemplateResolver(List<ITemplatePreProcessor> preProcessors) {
 		super();
@@ -47,15 +52,15 @@ public class MergeThemeFileTemplateResolver extends FileTemplateResolver {
     protected ITemplateResource computeTemplateResource(
             final IEngineConfiguration configuration, final String ownerTemplate, final String template, final String resourceName, final String characterEncoding, final Map<String, Object> templateResolutionAttributes) {
 
-		return new MergedTemplateResource(resourceName, this.plain, characterEncoding == null ? "utf-8" : characterEncoding, this.getPrefix() + "index"+this.getSuffix(), preProcessors);
+		return new MergedTemplateResource(resourceName, this.plain.get(), characterEncoding == null ? "utf-8" : characterEncoding, this.getPrefix() + "index"+this.getSuffix(), preProcessors);
     }
 
 	public boolean isPlain() {
-		return plain;
+		return plain.get();
 	}
 
 	public void setPlain(boolean plain) {
-		this.plain = plain;
+		this.plain.set(plain);
 	}
 	
 }

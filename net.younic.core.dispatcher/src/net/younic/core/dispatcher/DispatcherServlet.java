@@ -152,7 +152,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 	 */
 	private String[] interpretPath(String pathInfo) throws ServletException {
 		String[] result =  new String[3];
-		if (pathInfo == null) {
+		if (pathInfo == null || pathInfo.isEmpty() || "/".equals(pathInfo)) {
 			pathInfo = "/content.html";
 		}
 		
@@ -161,11 +161,15 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 			throw new ServletException("Illegal Request");
 		}
 		
+		if (pathInfo.contains("..")) {
+			LOG.warn("Illegal Request containing parent path traversal was blocked");
+			throw new ServletException("Illegal Request");
+		}
+		
 		if (!pathInfo.startsWith(Resource.RESOURCE_RESOURCE_FOLDER) && !pathInfo.startsWith(Resource.RESOURCE_CONTENT_FOLDER)) {
 			pathInfo = Resource.RESOURCE_CONTENT_FOLDER+pathInfo;
 		}
 		
-		pathInfo = pathInfo.replace("..", "");
 		if (pathInfo.charAt(0) != '/') {
 			pathInfo = "/"+pathInfo;
 		}
@@ -182,6 +186,23 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 				result[1] = path;
 			}			
 			result[2] = pathInfo.substring(typeSepPos);
+		} else {
+			int lastPathSep = pathInfo.lastIndexOf('/');
+			if (lastPathSep>=0) {
+				result[0] = pathInfo.substring(0, lastPathSep);
+				result[1] = pathInfo.substring(lastPathSep+1);
+			} else {
+				result[0] = "/";
+				result[1] = pathInfo;
+			}
+			result[2] = "";
+		}
+		
+		if (result[0] == null || result[0].isEmpty()) {
+			result[0] = "/";
+		}
+		if (result[1] == null || result[1].isEmpty()) {
+			result[1] = "index";
 		}
 		
 		return result;

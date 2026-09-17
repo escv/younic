@@ -49,9 +49,11 @@ public class GitSyncTimerTask extends SyncTimerTask {
 	@Override
 	protected boolean sync() throws IOException {
 		
-		Process p = Runtime.getRuntime().exec("git pull", new String[0], this.docroot);
+		ProcessBuilder pb = new ProcessBuilder("git", "pull");
+		pb.directory(this.docroot);
+		pb.redirectErrorStream(true);
+		Process p = pb.start();
 	    try {
-			p.waitFor();
 			BufferedReader reader = 
 					new BufferedReader(new InputStreamReader(p.getInputStream()));
 			
@@ -61,6 +63,8 @@ public class GitSyncTimerTask extends SyncTimerTask {
 				sb.append(line + "\n");
 			}
 			
+			p.waitFor();
+			
 			String result = sb.toString();
 			if (result.contains(NO_CHANGES_CONTAINS)) {
 				return false;
@@ -68,6 +72,7 @@ public class GitSyncTimerTask extends SyncTimerTask {
 				return true;
 			}
 		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 			throw new IOException("Error executing Process", e);
 		}
 

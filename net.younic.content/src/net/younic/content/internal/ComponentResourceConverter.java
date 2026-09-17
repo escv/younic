@@ -76,7 +76,8 @@ public class ComponentResourceConverter implements IResourceConverter {
 	@Override
 	public Object convert(Resource resource) throws IOException {
 		Map<String, Object> context = aggregatedResourceContentProvider.provideContents(resource);
-		String template = contentProvider.readContent(resource.qualifiedName()+"/template.ref").trim();
+		String templateRef = contentProvider.readContent(resource.qualifiedName()+"/template.ref");
+		String template = templateRef == null ? "index" : templateRef.trim();
 		
 		Writer out = new StringWriter();
 		try {

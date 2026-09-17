@@ -51,7 +51,12 @@ public class Activator implements BundleActivator {
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
-		this.docroot = new File(context.getProperty("net.younic.cms.root"),"resource/");
+		String cmsRoot = context.getProperty("net.younic.cms.root");
+		if (cmsRoot == null) {
+			LOG.info("Disabling docroot due to missing net.younic.cms.root Property");
+			return;
+		}
+		this.docroot = new File(cmsRoot, "resource/");
 		LOG.info("Starting dispatch for cms-root: "+this.docroot.getParentFile().getAbsolutePath());
 
 		setupFileInstallDeployFolders(context);
@@ -95,7 +100,8 @@ public class Activator implements BundleActivator {
 	 * @param context
 	 */
 	private void setupFileInstallDeployFolders(BundleContext context) {
-		File extBundleDir = new File(context.getProperty("net.younic.cms.root"),"bundles/");
+		String cmsRoot = context.getProperty("net.younic.cms.root");
+		File extBundleDir = new File(cmsRoot,"bundles/");
 		addFileInstallDeployFolder(extBundleDir);
 		String runAdmin = System.getenv("YOUNIC_RUN_ADMIN");
 		LOG.info("Check if run in Admin Mode: "+runAdmin);
