@@ -1,5 +1,5 @@
--runfw: org.apache.felix.framework;version='[6.0.3,6.0.3]'
--runee: JavaSE-11
+-runfw: org.apache.felix.framework;version='[7.0.5,7.0.5]'
+-runee: JavaSE-21
 -runsystemcapabilities: ${native_capability}
 
 -resolve.effective: active;skip:="osgi.service"

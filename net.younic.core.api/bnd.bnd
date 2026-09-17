@@ -1,9 +1,11 @@
--buildpath: osgi.annotation;version=latest
+-buildpath: \
+	osgi.annotation;version=latest,\
+	osgi.core;version=latest,\
+	osgi.cmpn;version=latest
 
-javac.source: 1.8
-javac.target: 1.8
+javac.source: 21
+javac.target: 21
 
-Bundle-Version: 1.0	osgi.core;version=6.0,\
-	osgi.cmpn;version=6.0,\.0.${tstamp}
+Bundle-Version: 1.0.0.${tstamp}
 Export-Package: net.younic.core.api
 

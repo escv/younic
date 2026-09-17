@@ -1,7 +1,7 @@
 # build it with: docker build -t e/younic .
 # run it with: docker run -p 127.0.0.1:8080:8080 -it escv/younic
 
-FROM openjdk:11-jre-slim
+FROM openjdk:21-jre-slim
 
 MAINTAINER Andre Albert <andre.albert82@googlemail.com>
 

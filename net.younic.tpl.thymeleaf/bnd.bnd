@@ -9,8 +9,8 @@
 -testpath: \
 	${junit}
 
-javac.source: 1.8
-javac.target: 1.8
+javac.source: 21
+javac.target: 21
 
 Bundle-Version: 0.0.0.${tstamp}
 Private-Package: net.younic.tpl.thymeleaf
