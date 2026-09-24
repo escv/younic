@@ -19,6 +19,8 @@ Thumbs.db
 cnf/release/*.zip
 cnf/release/index*
 cnf/run/bundle/net.younic.*
+cnf/run/bundle-adm/net.younic.*
+cnf/run/younic.pid
 !cnf/run/bin/
 
 bin_test/

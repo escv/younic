@@ -1,5 +1,5 @@
--runfw: org.apache.felix.framework;version=5
--runee: JavaSE-1.8
+-runfw: org.apache.felix.framework;version='[7.0.5,7.0.5]'
+-runee: JavaSE-21
 
 -runsystemcapabilities: ${native_capability}
 
@@ -12,7 +12,7 @@
 	org.apache.felix.gogo.command;version='[1.0.2,1.0.3)',\
 	org.apache.felix.gogo.runtime;version='[1.1.0,1.1.1)',\
 	org.apache.felix.gogo.shell;version='[1.1.0,1.1.1)',\
-	org.apache.felix.scr;version='[2.1.6,2.1.7)'
+	org.apache.felix.scr;version='[2.1.14,2.1.15)'
 
 -runrequires:\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\

@@ -76,11 +76,11 @@ public class YounicHttpContext implements HttpContext {
 			return "text/html";
 		} else if (file.endsWith(".txt")) {
 			return "text/plain";
-		} else if (file.endsWith(".jpg") || name.endsWith(".jpeg")) {
+		} else if (file.endsWith(".jpg") || file.endsWith(".jpeg")) {
 			return "image/jpeg";
 		} else if (file.endsWith(".png")) {
 			return "image/png";
-		} else if (file.endsWith(".giv")) {
+		} else if (file.endsWith(".gif")) {
 			return "image/gif";
 		}
 		

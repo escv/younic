@@ -50,7 +50,7 @@ import net.younic.core.api.YounicEventsConstants;
 @ServiceRanking(100)
 public class ResourceContentProviderCache implements IResourceContentProvider, EventHandler {
 
-	private static final int MAX_CACHE_ENTRY_SIZE = 50000000; // 50K
+	private static final int MAX_CACHE_ENTRY_SIZE = 50000000; // 50MB
 	transient private Map<String, String> cache;
 
 	@Reference(target="(type=impl)")
@@ -69,17 +69,17 @@ public class ResourceContentProviderCache implements IResourceContentProvider, E
 	 */
 	@Override
 	public String readContent(Resource resource) throws IOException {
-		String content = null;
-		if (!resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
-			String fqn = resource.qualifiedName();
-			String hit = cache.get(fqn);
-
-			if (hit != null) {
-				return hit;
-			} else {
-				content = target.readContent(resource);
-				this.cache.put(fqn, content);
-			}
+		if (resource.isContainer() || resource.getSize() >= MAX_CACHE_ENTRY_SIZE) {
+			return target.readContent(resource);
+		}
+		String fqn = resource.qualifiedName();
+		String hit = cache.get(fqn);
+		if (hit != null) {
+			return hit;
+		}
+		String content = target.readContent(resource);
+		if (content != null) {
+			cache.put(fqn, content);
 		}
 		return content;
 	}
@@ -98,18 +98,15 @@ public class ResourceContentProviderCache implements IResourceContentProvider, E
 	 */
 	@Override
 	public InputStream fetchContentStream(Resource resource) throws IOException {
-		InputStream result = null;
-		if (!resource.isContainer() && resource.getSize()<MAX_CACHE_ENTRY_SIZE) {
-			String fqn = resource.qualifiedName();
-			String hit = cache.get(fqn);
-			
-			if (hit != null) {
-				result = new ByteArrayInputStream(hit.getBytes("UTF-8"));
-			} else {
-				result = target.fetchContentStream(resource);
-			}
+		if (resource.isContainer() || resource.getSize() >= MAX_CACHE_ENTRY_SIZE) {
+			return target.fetchContentStream(resource);
 		}
-		return result;
+		String fqn = resource.qualifiedName();
+		String hit = cache.get(fqn);
+		if (hit != null) {
+			return new ByteArrayInputStream(hit.getBytes("UTF-8"));
+		}
+		return target.fetchContentStream(resource);
 	}
 
 	/* (non-Javadoc)

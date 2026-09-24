@@ -60,30 +60,34 @@ public class DirectoryRestService {
 	@Path("{path:.*}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Resource> list(@PathParam("path") String path) {
-		if (path.indexOf(0) != '/') {
-			path = "/"+path;
-		}
+		path = normalizePath(path);
 		return resourceProvider.list(path);
 	}
 
 	@DELETE
 	@Path("{path:.*}")
-	public void delete(String path) throws IOException {
-		if (path.indexOf(0) != '/') {
-			path = "/"+path;
-		}
+	public void delete(@PathParam("path") String path) throws IOException {
+		path = normalizePath(path);
 		Resource resource = resourceProvider.fetchResource(path);
 		resourcePersistence.delete(resource);
 		
 	}
 
 	public void write(String path, InputStream in, OutputStream out) throws IOException {
-		if (path.indexOf(0) != '/') {
-			path = "/"+path;
-		}
+		path = normalizePath(path);
 		Resource resource = resourceProvider.fetchResource(path);
 		resource.setContainer(true);
 		resourcePersistence.persist(resource, in);
+	}
+
+	private static String normalizePath(String path) {
+		if (path == null) {
+			return "/";
+		}
+		if (path.isEmpty() || path.charAt(0) != '/') {
+			return "/" + path;
+		}
+		return path;
 	}
 
 }

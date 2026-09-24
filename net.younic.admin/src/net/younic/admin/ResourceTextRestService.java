@@ -63,9 +63,7 @@ public class ResourceTextRestService {
 	@Path("{path:.*}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String read(@PathParam("path") String path) throws IOException {
-		if (path.indexOf(0) != '/') {
-			path = "/"+path;
-		}
+		path = normalizePath(path);
 		return resourceContentProvider.readContent(path);
 	}
 
@@ -73,18 +71,26 @@ public class ResourceTextRestService {
 	 * @see net.younic.core.dispatcher.api.IWriteAPIService#dispatchWriteService(java.lang.String, java.io.InputStream, java.io.OutputStream)
 	 */
 	public void write(String path, InputStream in, OutputStream out) throws IOException {
-		Resource resource = resourceProvider.fetchResource(path);
+		Resource resource = resourceProvider.fetchResource(normalizePath(path));
 		resourcePersistence.persist(resource, in);
 	}
 
 	@DELETE
 	@Path("{path:.*}")
 	public void delete(@PathParam("path") String path) throws IOException {
-		if (path.indexOf(0) != '/') {
-			path = "/"+path;
-		}
+		path = normalizePath(path);
 		Resource resource = resourceProvider.fetchResource(path);
 		resourcePersistence.delete(resource);
+	}
+
+	private static String normalizePath(String path) {
+		if (path == null) {
+			return "/";
+		}
+		if (path.isEmpty() || path.charAt(0) != '/') {
+			return "/" + path;
+		}
+		return path;
 	}
 	
 }

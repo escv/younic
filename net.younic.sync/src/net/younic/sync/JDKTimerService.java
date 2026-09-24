@@ -47,6 +47,9 @@ public class JDKTimerService implements ISyncTimerService, IPostResourceModified
 	
 	@Deactivate
 	void deactivate() {
+		if (timer != null) {
+			timer.cancel();
+		}
 		timer = null;
 	}
 

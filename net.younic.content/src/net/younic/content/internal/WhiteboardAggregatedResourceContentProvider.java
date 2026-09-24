@@ -42,6 +42,7 @@ import net.younic.content.IContextPostProcessor;
 import net.younic.content.IResourceConverter;
 import net.younic.core.api.IRankable;
 import net.younic.core.api.IResourceProvider;
+import net.younic.core.api.RankableDescendingComparator;
 import net.younic.core.api.Resource;
 import net.younic.core.api.WhiteboardUtil;
 
@@ -57,7 +58,7 @@ public class WhiteboardAggregatedResourceContentProvider implements IAggregatedR
 	@Reference(policy=ReferencePolicy.DYNAMIC)
 	final List<IContextPostProcessor> processors = new CopyOnWriteArrayList<>();
 	
-	private Comparator<IRankable> rankComparator;
+	private Comparator<IRankable> rankComparator = new RankableDescendingComparator();
 
 	@Override
 	public Map<String, Object> provideContents(Resource resource) throws IOException {

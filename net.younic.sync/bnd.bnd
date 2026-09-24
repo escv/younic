@@ -4,10 +4,10 @@
 	net.younic.core.api;version=latest,\
 	slf4j.api;version=latest
 
--baseline: *]
+-baseline: *
 
-javac.source: 1.8
-javac.target: 1.8
+javac.source: 21
+javac.target: 21
 
 Bundle-Version: 1.0.0.${tstamp}
 Export-Package: net.younic.sync

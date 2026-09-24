@@ -47,11 +47,12 @@ public class FileSystemResourceProvider implements IResourceProvider {
 	
 	@Activate
 	public void activate(ComponentContext context) throws BundleException {
-		this.docroot = new File(context.getBundleContext().getProperty("net.younic.cms.root"));
-		this.fileFilter = new NonTechnicalFilter();
-		if (this.docroot == null) {
+		String cmsRoot = context.getBundleContext().getProperty("net.younic.cms.root");
+		if (cmsRoot == null) {
 			throw new BundleException("Missing Property \"net.younic.cms.root\"");
 		}
+		this.docroot = new File(cmsRoot);
+		this.fileFilter = new NonTechnicalFilter();
 	}
 	
 	@Override

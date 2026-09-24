@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'com.palantir.docker' version '0.20.1'
-	id 'com.palantir.docker-run' version '0.20.1'
+	id 'com.palantir.docker' version '0.36.0'
+	id 'com.palantir.docker-run' version '0.36.0'
 }
 
 repositories {
@@ -31,8 +31,8 @@ task dist {
 }
 
 task packageZip(type: Zip) {
-    archiveName = "younic.zip"
-    destinationDir = file("cnf/release")
+    archiveFileName = "younic.zip"
+    destinationDirectory = file("cnf/release")
     from "cnf/run"
 }
 
