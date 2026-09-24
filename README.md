@@ -38,7 +38,7 @@ Younic offers ready to use images and script for Docker and Kubernetes environme
 
 If you prefer to launch younic as a container, please use the grade build target:
 ```
-gradle clean compileJava dist docker dockerRun
+./gradlew clean compileJava dist docker dockerRun
 ```
 
 Or from Docker Hub:
