@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 rm -rf felix-cache
 java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=y -Djdk.util.zip.disableZip64ExtraFieldValidation=true -Dlog4j.configuration="file:///opt/younic/conf/log4j.properties" -jar bin/felix.jar

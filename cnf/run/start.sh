@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # fallback if ENV Variable for git cms root was not set
 if [ -z "$YOUNIC_CMS_ROOT_GIT" ]; then

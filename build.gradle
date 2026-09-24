@@ -34,6 +34,8 @@ task packageZip(type: Zip) {
     archiveFileName = "younic.zip"
     destinationDirectory = file("cnf/release")
     from "cnf/run"
+    exclude "felix-cache/**", "cms-root/**", "younic.pid", "info/**"
+    exclude "bundle/generated/**", "bundle/reports/**", "bundle/test-reports/**", "bundle/tmp/**", "bundle/distributions/**"
 }
 
 docker (){
